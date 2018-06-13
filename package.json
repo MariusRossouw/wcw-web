@@ -1,0 +1,27 @@
+{
+  "name": "westernCapeWines",
+  "version": "1.0.0",
+  "description": "Wine sales management",
+  "author": "Marius Rossouw",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "build": "nuxt build",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.0.0",
+    "ajv": "^6.5.0",
+    "express": "^4.15.3",
+    "nuxt": "^1.0.0"
+  },
+  "devDependencies": {
+    "ag-grid": "^17.1.1",
+    "ag-grid-enterprise": "^17.1.1",
+    "ag-grid-vue": "^17.1.0",
+    "cross-env": "^5.0.1",
+    "nodemon": "^1.11.0",
+    "uikit": "^3.0.0-beta.30"
+  }
+}
