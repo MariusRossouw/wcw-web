@@ -1,36 +1,34 @@
 <template>
-    <div class="container">
-        <!-- <form @submit.prevent > -->
-            <center>
-                <span uk-icon="icon: user; ratio: 3.5"></span>
-                <div class="uk-margin">
-                    <div class="uk-inline">
-                        <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                        <input class="uk-input" type="text" placeholder="Email" v-model="email">
-                    </div>
+    <div class="loginContainer">
+        <center>
+            <span uk-icon="icon: user; ratio: 3.5"></span>
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon" uk-icon="icon: mail"></span>
+                    <input class="uk-input" type="text" placeholder="Email" v-model="email">
                 </div>
+            </div>
 
-                <div class="uk-margin">
-                    <div class="uk-inline">
-                        <span class="uk-form-icon" uk-icon="icon: phone"></span>
-                        <input class="uk-input" type="number" placeholder="Mobile Number" v-model="mobile_number">
-                    </div>
+            <!-- <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon" uk-icon="icon: phone"></span>
+                    <input class="uk-input" type="number" placeholder="Mobile Number" v-model="mobile_number">
                 </div>
+            </div> -->
 
-                <div class="uk-margin">
-                    <div class="uk-inline">
-                        <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                        <input class="uk-input" type="password" placeholder="Password" v-model="password">
-                    </div>
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                    <input class="uk-input" type="password" placeholder="Password" v-model="password">
                 </div>
+            </div>
 
-                <div class="uk-margin">
-                    <div class="uk-inline">
-                        <button class="uk-button uk-button-default" @click="loginButton()">Login</button>
-                    </div>
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" @click="loginButton()">Login</button>
                 </div>
-            </center>
-        <!-- </form> -->
+            </div>
+        </center>
     </div>        
 </template>
 
@@ -48,7 +46,7 @@
             };  
         },
         methods: {
-            loginButton: function(){
+            loginButton() {
                 let request = {
                     email: this.email,
                     mobile_number: this.mobile_number,
@@ -59,29 +57,32 @@
                     .then(response => {
                         // Add entity to session in vuex
                         console.log('Response: ', response);
-                        this.$store.state.entity = response.data.data;
+                        this.$store.state.session.entity = response.data.data;
                         localStorage.setItem("State", JSON.stringify(this.$store.state));
                         this.$router.push("/dashboard");
                     })
                     .catch(error => {
                         console.log(error.response);
-                        if(error.response.data.http_code == 400){
+                        if(error.response.status == 400){
                             console.log(error.response);
                         }
-                        if(error.response.data.http_code == 401){
+                        if(error.response.status == 401){
                             console.log(error.response);
+                            // login / session expired
                         }
-                        if(error.response.data.http_code == 402){
+                        if(error.response.status == 403){
                             console.log(error.response);
+                            // broke a rule
+                            new Error();
+                            // this.$router.push("/error");
                         }
-                        if(error.response.data.http_code == 403){
+                        if(error.response.status == 404){
                             console.log(error.response);
+                            // page not found / not there
                         }
-                        if(error.response.data.http_code == 404){
+                        if(error.response.status == 500){
                             console.log(error.response);
-                        }
-                        if(error.response.data.http_code == 500){
-                            console.log(error.response);
+                            // server error / db error
                         }
                     });
             }
@@ -100,7 +101,7 @@
 </script>
 
 <style>
-.container {
+.loginContainer {
     margin-top: 10%;
 }
 </style>

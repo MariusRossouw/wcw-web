@@ -1,15 +1,15 @@
 <template>
   <div>
-    <TheTopNav />
+    <TheSideNav />
     <nuxt/>
   </div>
 </template>
 
 <script>
-import TheTopNav from '@/components/Navigation/TheTopNav'
+import TheSideNav from '@/components/Navigation/TheSideNav'
 export default {
   components: {
-    TheTopNav
+    TheSideNav
   }
 }
 </script>
