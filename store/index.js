@@ -4,7 +4,7 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
         // api_url: 'http://localhost:31014',
-        api_url: 'https://neighbiz-api.stratech.co.za',
+        api_url: 'http://wcwines-api-stage.strathost.co.za/',
         session: {
             navbar: [
                 {to:"/", description:"Home"},
