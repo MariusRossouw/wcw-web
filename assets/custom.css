@@ -1,8 +1,13 @@
 .uk-navbar-container {
-    height: 120px;
+    /* height: 120px; */
 }
 
 .logo-image {
     margin-left: 20px;
     height: 80px;
+}
+
+.gridSize {
+    width: 100%; 
+    height: 400px;
 }

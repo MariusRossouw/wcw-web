@@ -29,13 +29,22 @@
             }
         },
         methods: {
+            checkAuthState() {
+                let ls = JSON.parse(localStorage.getItem("State"));
+                console.log(ls);
+                if(!ls){
+                    this.$router.push("/login");
+                } else {
+                    this.$store.replaceState(ls);
+                }
+            },
             onFileChanged (event) {
                 this.selectedFile = event.target.files[0]
             },
             onUpload() {
                 const formData = new FormData();
-                formData.append('myFile', this.selectedFile, this.selectedFile.name);
-                axios.post(this.$store.state.api_url + '/upload', formData, {
+                formData.append('file', this.selectedFile, this.selectedFile.name);
+                axios.post(this.$store.state.api_url + '/uploads/wine_list', formData, {
                     onUploadProgress: progressEvent => {
                     console.log(progressEvent.loaded / progressEvent.total)
                     }
@@ -74,6 +83,9 @@
                         }
                     });
             }
+        },
+        beforeMount() {
+            this.checkAuthState();
         }
     }
 </script>

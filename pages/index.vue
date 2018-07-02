@@ -1,10 +1,8 @@
 <template>
   <section class="container">
     <div>
-      <logo/>
-      <h1 class="title">
-        Western Cape Wines
-      </h1>
+      <!-- <logo/> -->
+      <img src="@/static/WCW.png" @click="goHome()" />
     </div>
   </section>
 </template>

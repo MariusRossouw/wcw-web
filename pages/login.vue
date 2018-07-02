@@ -58,6 +58,16 @@
                         // Add entity to session in vuex
                         console.log('Response: ', response);
                         this.$store.state.session.entity = response.data.data;
+                        this.$store.state.session.authed = true;
+                        this.$store.state.session.navbar = [
+                            {to:"/", description:"Home"},
+                            {to:"/dashboard", description:"Dashboard"},
+                            {to:"/distributor/list", description:"Distributors"},
+                            {to:"/farm/list", description:"Wine Farms"},
+                            {to:"/merchant/list", description:"Merchants"},
+                            {to:"/user/list", description:"Users"},
+                            {to:"/upload", description:"Upload"},
+                        ];
                         localStorage.setItem("State", JSON.stringify(this.$store.state));
                         this.$router.push("/dashboard");
                     })
