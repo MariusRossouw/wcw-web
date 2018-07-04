@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 style="margin-left: 40px;">{{ distributor.name }}</h1>
+        <h1 style="margin-left: 40px;">{{ product.name }}</h1>
         <div class="uk-card-body" style="width: 100%; height: 400px">
         </div>
     </div>
@@ -16,12 +16,12 @@
         },
         head() {
             return {
-                title: this.distributor.name
+                title: this.product.name
             };
         },
         data() {
             return {
-                distributor: {
+                product: {
                     name: ""
                 }
             };  
@@ -39,13 +39,13 @@
             loadWineFarm() {
                 var _this = this;
                 let request = {
-                    distributor_id: _this.$route.params.id
+                    product_id: _this.$route.params.id
                 };
                 console.log(request);
-                axios.post(this.$store.state.api_url + '/distributor', request)
+                axios.post(this.$store.state.api_url + '/product', request)
                 .then(response => {
                     console.log(response);
-                    _this.distributor = response.data.data;
+                    _this.product = response.data.data;
                 })
                 .catch(error => {
                     console.log(error.response);

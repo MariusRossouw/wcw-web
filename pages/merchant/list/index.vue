@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>List of Users</h1>
+        <h1>List of Merchants</h1>
         <div class="uk-card-body" style="width: 100%; height: 400px">
             <button @click="onBtNormal()">1 - Grouping Active</button>
             <button @click="onBtPivotMode()">2 - Grouping Active with Pivot Mode</button>
@@ -65,15 +65,16 @@
             },
             onBtExport() {
                 var params = {
-                    fileName: "Users list",
-                    sheetName: 'List of users'
+                    fileName: "Merchant list",
+                    sheetName: 'List of merchant'
                 };
 
                 this.gridOptions.api.exportDataAsExcel(params);
             },
-            loadUserList() {
+            loadMerchantList() {
                 var _this = this;
-                axios.get(this.$store.state.api_url + '/user_profiles')
+                let request = {};
+                axios.post(this.$store.state.api_url + '/merchant_group_list', request)
                 .then(response => {
                     console.log(response);
                     _this.gridOptions.api.setColumnDefs(_this.columnDefs);
@@ -103,7 +104,7 @@
         //     }
         // },
         mounted() {
-            this.loadUserList();
+            this.loadMerchantList();
         }
     };
 </script>

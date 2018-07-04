@@ -113,7 +113,7 @@
             },
             openGroup(params){
                 console.log(params);
-                this.$router.push("/group/" + params.data.group_id);
+                this.$router.push("/group/" + params.data.merchant_group_id);
             },
             openMerchant(params){
                 console.log(params);
@@ -125,7 +125,7 @@
             },
             openFarm(params){
                 console.log(params);
-                this.$router.push("/farm/" + params.data.farm_id);
+                this.$router.push("/farm/" + params.data.wine_farm_id);
             },
             getData1() {
                 var _this = this;
@@ -156,7 +156,7 @@
             onBtNormal() {
                 this.gridOptions.columnApi.setPivotMode(false);
                 this.gridOptions.columnApi.setPivotColumns([]);
-                this.gridOptions.columnApi.setRowGroupColumns(['province_name','transaction_year']);
+                this.gridOptions.columnApi.setRowGroupColumns(['province_name','transaction_year', 'transaction_month']);
             },
             onBtPivotMode() {
                 this.gridOptions.columnApi.setPivotMode(true);
@@ -165,7 +165,7 @@
             },
             onBtFullPivot() {
                 this.gridOptions.columnApi.setPivotMode(true);
-                this.gridOptions.columnApi.setPivotColumns(['transaction_year']);
+                this.gridOptions.columnApi.setPivotColumns(['transaction_year', 'transaction_month']);
                 this.gridOptions.columnApi.setRowGroupColumns(['province_name', 'region_name', 'group_name', 'merchant_name']);
             },
             onBtExport() {
