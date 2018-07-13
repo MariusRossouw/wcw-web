@@ -11,3 +11,12 @@
     width: 100%; 
     height: 400px;
 }
+
+.gold_font {
+    color: #bea668;
+}
+
+code {
+    display: inline-block;
+    float: left;
+}

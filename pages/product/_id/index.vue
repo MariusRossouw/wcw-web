@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 style="margin-left: 40px;">{{ product.name }}</h1>
+        <h1 style="margin-left: 40px;">{{ product.product_name }}</h1>
         <div class="uk-card-body" style="width: 100%; height: 400px">
         </div>
     </div>
@@ -16,13 +16,13 @@
         },
         head() {
             return {
-                title: this.product.name
+                title: this.product.product_name
             };
         },
         data() {
             return {
                 product: {
-                    name: ""
+                    product_name: ""
                 }
             };  
         },

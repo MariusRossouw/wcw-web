@@ -53,7 +53,7 @@
                     password: this.password
                 };
                 console.log("Request: ", request);
-                axios.post(this.$store.state.api_url + '/login', request)
+                axios.post(this.$store.state.api_url + 'login', request)
                     .then(response => {
                         // Add entity to session in vuex
                         console.log('Response: ', response);

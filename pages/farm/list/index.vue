@@ -21,14 +21,19 @@
         },
         head() {
             return {
-                title: "WCW Users List"
+                title: "WCW Wine Farm List"
             };
         },
         data() {
             return {
                 columnDefs: [
-                    {headerName: "Farm Name", field: "farm_name", minWidth: 90, headerClass: 'resizable-header'},
-                    // {headerName: "Farm Name", field: "farm_name", minWidth: 90, headerClass: 'resizable-header'} add contact person / sales on farm
+                    {headerName: "Farm Name", field: "farm_name", minWidth: 90, headerClass: 'resizable-header', onCellDoubleClicked: this.openWineFarm},
+                    {headerName: "Address 1", field: "address_line_1", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Address 2", field: "address_line_2", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Address 3", field: "address_line_3", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Address 4", field: "address_line_4", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Mobile Number", field: "mobile_number", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Email", field: "email", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'}
                 ],
                 rowData:[],
                 show_results_filter_selected: 0,
@@ -61,7 +66,7 @@
                     return 'No mobile number';
                 }
             },
-            openFarm(params){
+            openWineFarm(params){
                 console.log(params);
                 this.$router.push("/farm/" + params.data.wine_farm_id);
             },
@@ -72,7 +77,7 @@
                 };
                 this.gridOptions.api.exportDataAsExcel(params);
             },
-            loadUserList() {
+            loadWineFarmList() {
                 var _this = this;
                 let request = {};
                 axios.post(this.$store.state.api_url + '/wine_farm_list', request)
@@ -100,7 +105,7 @@
             this.checkAuthState();
         },
         mounted() {
-            this.loadUserList();
+            this.loadWineFarmList();
         }
     };
 </script>

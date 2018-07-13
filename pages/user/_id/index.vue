@@ -3,14 +3,27 @@
         <h1 style="margin-left: 40px;">{{ user.first_name + ' ' + user.last_name}}</h1>
         <div class="uk-card-body" style="width: 100%; height: 400px">
         </div>
+        <address-form v-for="(address, index) in addresses"
+                :itemdata="itemList"
+                :address="address"  
+                :count="index+1"                
+                v-on:removeAddressItem="removeAddress(index)" :key="index">
+        </address-form>
+        <!-- {{addresses}} -->
+        <div>
+            <button @click="addAddress"> Add Address </button>
+        </div>
     </div>
 </template>
 
 <script>
+    import AddressForm from '@/components/Forms/AddressForm'
     import { AgGridVue } from "ag-grid-vue";
     import axios from 'axios';
+    // import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete'
     export default {
         components: {
+            "address-form": AddressForm,
             "ag-grid-vue": AgGridVue,
             "axios": axios
         },
@@ -24,10 +37,24 @@
                 user: {
                     first_name: "",
                     last_name: ""
-                }
+                },
+                addresses: [{city: '', street: '' , address_type_id: ''}],
+                itemList: [
+                    { id: '', description: 'Select an Address Type'},
+                    { id: 1, description: 'One'},
+                    { id: 2, description: 'Two'},
+                    { id: 3, description: 'Three'}
+                ],
+                address: ''
             };  
         },
         methods: {
+            addAddress(){
+                this.addresses.push({city: '', street: '' , address_type_id: ''});
+            },
+            removeAddress(index){
+                this.addresses.splice(index,1);
+            },
             checkAuthState() {
                 let ls = JSON.parse(localStorage.getItem("State"));
                 console.log(ls);

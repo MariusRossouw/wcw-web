@@ -67,7 +67,7 @@ module.exports = {
     cssSourceMap: false,
     vendor: [
       '~/plugins/agGrid.js',
-      '~/plugins/uikit.js'
+      '~/plugins/uikit.js' 
     ],
     extend(config, ctx) {
       config.resolve.alias['vue'] = 'vue/dist/vue.common'

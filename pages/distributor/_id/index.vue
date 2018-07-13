@@ -56,6 +56,7 @@
             this.checkAuthState();
         },
         mounted() {
+            
             this.loadWineFarm();
         }
     };

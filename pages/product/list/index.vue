@@ -27,8 +27,17 @@
         data() {
             return {
                 columnDefs: [
-                    {headerName: "Farm Name", field: "farm_name", minWidth: 90, headerClass: 'resizable-header'},
-                    // {headerName: "Farm Name", field: "farm_name", minWidth: 90, headerClass: 'resizable-header'} add contact person / sales on farm
+                    {headerName: "Product Name", field: "product_name", minWidth: 90, headerClass: 'resizable-header',onCellDoubleClicked: this.openProduct},
+                    {headerName: "Product Type", field: "product_type", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Wine Farm", field: "wine_farm", minWidth: 110, rowGroup: true, headerClass: 'resizable-header',onCellDoubleClicked: this.openWineFarm},
+                    {headerName: "Description", field: "description", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Vintage", field: "vintage", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Blend", field: "blend", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Color", field: "color", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Item Code", field: "item_code", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Size", field: "size", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Volume", field: "volume", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Status", field: "status", minWidth: 90, headerClass: 'resizable-header'}
                 ],
                 rowData:[],
                 show_results_filter_selected: 0,
@@ -61,9 +70,13 @@
                     return 'No mobile number';
                 }
             },
-            openFarm(params){
+            openProduct(params){
                 console.log(params);
-                this.$router.push("/farm/" + params.data.product_id);
+                this.$router.push("/product/" + params.data.product_id);
+            },
+            openWineFarm(params){
+                console.log(params);
+                this.$router.push("/farm/" + params.data.wine_farm_id);
             },
             onBtExport() {
                 var params = {

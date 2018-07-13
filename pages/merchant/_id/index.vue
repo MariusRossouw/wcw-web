@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 style="margin-left: 40px;">{{ merchant.name }}</h1>
+        <h1 style="margin-left: 40px;">{{ merchant.merchant_name }}</h1>
         <div class="uk-card-body" style="width: 100%; height: 400px">
         </div>
     </div>
@@ -16,7 +16,7 @@
         },
         head() {
             return {
-                title: this.merchant.name
+                title: this.merchant.merchant_name
             };
         },
         data() {
@@ -36,7 +36,7 @@
                     this.$store.replaceState(ls);
                 }
             },
-            loadWineFarm() {
+            loadMerchant() {
                 var _this = this;
                 let request = {
                     merchant_id: _this.$route.params.id
@@ -56,7 +56,7 @@
             this.checkAuthState();
         },
         mounted() {
-            this.loadWineFarm();
+            this.loadMerchant();
         }
     };
 </script>

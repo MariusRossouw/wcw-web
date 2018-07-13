@@ -30,13 +30,17 @@
         data() {
             return {
                 columnDefs: [
-                    {headerName: "ID", field: "id", width: 120},
-                    {headerName: "Full Name", field: "full_name", width: 90},
-                    {headerName: "Display Name", field: "display_name", width: 110},
-                    {headerName: "Email", field: "email", width: 110},
-                    {headerName: "Mobile", field: "mobile_no", width: 100},
-                    {headerName: "Entity Number", field: "entity_number", width: 100},
-                    {headerName: "Gender", field: "gender", width: 100}
+                    {headerName: "Merchant Name", field: "merchant_name", minWidth: 90, headerClass: 'resizable-header', onCellDoubleClicked: this.openMerchant},
+                    {headerName: "Address 1", field: "address_line_1", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Address 2", field: "address_line_2", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Address 3", field: "address_line_3", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Address 4", field: "address_line_4", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Mobile Number", field: "mobile_number", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Email", field: "email", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Region", field: "region", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Division", field: "division", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Province", field: "province", minWidth: 110, rowGroup: true, headerClass: 'resizable-header'},
+                    {headerName: "Merchant Group", field: "merchant_group", minWidth: 110, rowGroup: true, headerClass: 'resizable-header', onCellDoubleClicked: this.openMerchantGroup},
                 ],
                 rowData:[],
                 show_results_filter_selected: 0,
@@ -83,7 +87,15 @@
                 .catch(error => {
                     console.log(error.response);
                 });
-            }
+            },
+            openMerchant(params){
+                console.log(params);
+                this.$router.push("/merchant/" + params.data.merchant_id);
+            },
+            openMerchantGroup(params){
+                console.log(params);
+                this.$router.push("/merchantGroup/" + params.data.merchant_group_id);
+            },
         },
         // beforeMount() {
         //     let ls = JSON.parse(localStorage.getItem("State"));
