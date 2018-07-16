@@ -78,7 +78,7 @@
             loadMerchantList() {
                 var _this = this;
                 let request = {};
-                axios.post(this.$store.state.api_url + '/merchant_group_list', request)
+                axios.post(this.$store.state.api_url + '/merchant_list', request)
                 .then(response => {
                     console.log(response);
                     _this.gridOptions.api.setColumnDefs(_this.columnDefs);
