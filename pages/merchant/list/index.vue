@@ -82,7 +82,7 @@
                 .then(response => {
                     console.log(response);
                     _this.gridOptions.api.setColumnDefs(_this.columnDefs);
-                    _this.gridOptions.api.setRowData(response.data.data);
+                    _this.gridOptions.api.setRowData(response.data.data.records);
                 })
                 .catch(error => {
                     console.log(error.response);

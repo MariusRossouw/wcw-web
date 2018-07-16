@@ -169,6 +169,7 @@ export default {
                                 endpoint: "/login",
                                 description: "This is to login to wcwines-api",
                                 requestBodyRequired: true,
+                                comments:"",
                                 requestBody: [
                                     {
 
