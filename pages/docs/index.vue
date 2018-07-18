@@ -1,146 +1,74 @@
 <template>
-    <div class="uk-container">
-        <div>
-            <h1>WCWines-API</h1>
-            <!-- <p>Choose the envirnoment</p> -->
-            <p>API URL: http://wcwines-api-stage.strathost.co.za</p>
+    <div>
+         <div class="uk-container-full">
+        <div uk-grid>
+            <div class="uk-width-1-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
+                <div v-for="(section, index) in sections" :key="index">
+                    <div style="margin-left:50px">
+                        <ul uk-accordion="multiple: true">
+                            <li>
+                                <a class="uk-accordion-title" href="#">{{section.sectionname}}</a>
+                                <div class="uk-accordion-content">
+                                    <li v-for="(subSection, index) in section.subSections" :key="index" style="margin-left:30px;">
+                                        <a @click="subSectionButton(subSection, index)" href="#">{{subSection.subsectionname}}</a>
+                                    </li>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-width-2-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
+                <div v-if="theSubSection.subsectionname">
+                    <h3>{{theSubSection.subsectionname}}</h3>
+                    <h4>Endpoint: {{theSubSection.endpoint}}</h4>
+                    <p>Description: {{theSubSection.description}}</p>
+                    <p>Requirements: {{theSubSection.requirements}}</p>
+                    <h4>Method: {{theSubSection.method}}</h4>
+                    <p>Required Fields</p>
+                    <li v-for="(rf, index) in theSubSection.requiredFields" :key="'rf'+index">{{rf.name}} - format: {{rf.format}}</li>
+                    <div v-for="(reqres,index) in theSubSection.reqres" :key="index">
+                        <ul uk-accordion="multiple: true">
+                            <li>
+                                <a class="uk-accordion-title" href="#">{{reqres.rescode}}</a>
+                                <div class="uk-accordion-content">
+                                    <h5>Request Body</h5>
+                                    <p style="text-align: right; display: inline-block; width: 100%; cursor: pointer" @click="openInstance(reqres, index)"> Try me -> </p>
+                                    <pre>
+                                        <code>{{reqres.requestbody}}</code>
+                                    </pre>
+                                    <h5>Response</h5>
+                                    <pre>
+                                        <code>{{reqres.responsebody}}</code>
+                                    </pre>
+                                    <h5>Headers</h5>
+                                    <pre>
+                                        <code>{{reqres.headers}}</code>
+                                    </pre>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-width-2-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
+                <div v-if="theSubSection.subsectionname">
+                    <h5>Try it</h5>
+                    <h5>Request</h5>
+                    <textarea v-model="requestTest" cols="100" rows="10">
+                    </textarea>
+                    <button @click="testRequest()">Submit</button>
+                    <h5>Response</h5>
+                    <pre>
+                        <code>{{responseTest}}</code>
+                    </pre>
+
+                    <button @click="saveReqres(requestTest,responseTest)" v-if="requestTest && responseTest">Save</button>
+                    <button @click="updateReqres()" v-if="requestTest && responseTest">Upldate</button>
+                </div>
+            </div>
         </div>
-        <ul uk-accordion="multiple: true">
-            <li>
-                <a class="uk-accordion-title" href="#">Authentication / Sessions</a>
-                <div class="uk-accordion-content">
-                    <div style="margin-left:50px">
-                        <ul uk-accordion="multiple: true">
-                            <li>
-                                <a class="uk-accordion-title" href="#">POST /login</a>
-                                <div class="uk-accordion-content">
-                                    <div>
-                                        <h3>Login</h3>
-                                        <h4>/login</h4>
-                                        <p>This is to login to wcwines-api</p>
-                                        <h4>Method POST</h4>
-                                        <div style="margin-left:50px">
-                                            <ul uk-accordion="multiple: true">
-                                                <li>
-                                                    <a class="uk-accordion-title" href="#">Request</a>
-                                                    <div class="uk-accordion-content">
-                                                        <h5>Request Body *Required</h5>
-                                                        <pre>
-                                                            <code>{{loginRequest}}</code>
-                                                        </pre>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div style="margin-left:50px">
-                                            <ul uk-accordion="multiple: true">
-                                                <li>
-                                                    <a class="uk-accordion-title" href="#">Response Success</a>
-                                                    <div class="uk-accordion-content">
-                                                        <h5>Response JSON Success</h5>
-                                                        <pre>
-                                                            <code>{{loginResponse}}</code>
-                                                        </pre>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div style="margin-left:50px">
-                                            <ul uk-accordion="multiple: true">
-                                                <li>
-                                                    <a class="uk-accordion-title" href="#">Response Error</a>
-                                                    <div class="uk-accordion-content">
-                                                        <h5>Response JSON Error</h5>
-                                                        <pre>
-                                                            <code>{{loginResponseError}}</code>
-                                                        </pre>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div style="margin-left:50px">
-                                            <ul uk-accordion="multiple: true">
-                                                <li>
-                                                    <a class="uk-accordion-title" href="#">Try it yourself</a>
-                                                    <div class="uk-accordion-content">
-                                                        <h5>Try it</h5>
-                                                        <h5>Request</h5>
-                                                        <textarea v-model="loginRequestTest" cols="100" rows="10">
-                                                        </textarea>
-                                                        <button @click="testLogin()">Submit</button>
-                                                        <h5>Response</h5>
-                                                        <pre>
-                                                            <code>{{loginResponseTest}}</code>
-                                                        </pre>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <ul uk-accordion="multiple: true">
-            <li>
-                <a class="uk-accordion-title" href="#">Distributors</a>
-                <div class="uk-accordion-content">
-                    <div style="margin-left:50px">
-                        <ul uk-accordion="multiple: true">
-                            <li>
-                                <a class="uk-accordion-title" href="#">POST /distributors_list</a>
-                                <div class="uk-accordion-content">
-                                    <div>
-                                        <h3>Distributors List</h3>
-                                        <h4>/distributors_list</h4>
-                                        <p>Get a list of all the Distributors</p>
-                                        <h4>Method POST</h4>
-                                        <h5>Request Body</h5>
-                                        <pre>
-                                            <code>{{  }}</code>
-                                        </pre>
-                                        <h5>Response JSON Success</h5>
-                                        <pre>
-                                            <code>{{  }}</code>
-                                        </pre>
-                                        <h5>Response JSON Error</h5>
-                                        <pre>
-                                            <code>{{  }}</code>
-                                        </pre>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <a class="uk-accordion-title" href="#">POST /distributor</a>
-                                <div class="uk-accordion-content">
-                                    <div>
-                                        <h3>Distributor</h3>
-                                        <h4>/distributor</h4>
-                                        <p>Get a single Distributor</p>
-                                        <h4>Method POST</h4>
-                                        <h5>Request Body * Required</h5>
-                                        <pre>
-                                            <code>{{  }}</code>
-                                        </pre>
-                                        <h5>Response JSON Success</h5>
-                                        <pre>
-                                            <code>{{  }}</code>
-                                        </pre>
-                                        <h5>Response JSON Error</h5>
-                                        <pre>
-                                            <code>{{  }}</code>
-                                        </pre>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
-        </ul>
+        </div>
     </div>
 </template>
 
@@ -159,166 +87,114 @@ export default {
         },
         data() {
             return {
-                sections: [
-                    {
-                        sectionsName: "Authentication / Sessions",
-                        subSections: [
-                            {
-                                subSectionsName: "Login",
-                                method: "POST",
-                                endpoint: "/login",
-                                description: "This is to login to wcwines-api",
-                                requestBodyRequired: true,
-                                comments:"",
-                                requestBody: [
-                                    {
-
-                                    }
-                                ],
-                                requestBodyTest: {
-
-                                },
-                                responseBodyTest: {
-
-                                },
-                                responseBodySuccess: [
-                                    {
-
-                                    }
-                                ],
-                                responseBodyError: [
-                                    {
-                                        
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        sectionsName: "Distributors",
-                        subSections: [
-                            {}
-                        ]
-                    },
-                    {
-                        sectionsName: "Farms",
-                        subSections: [
-                            {}
-                        ]
-                    },
-                    {
-                        sectionsName: "Merchants",
-                        subSections: [
-                            {}
-                        ]
-                    },
-                    {
-                        sectionsName: "Products",
-                        subSections: [
-                            {}
-                        ]
-                    },
-                    {
-                        sectionsName: "Permissions",
-                        subSections: [
-                            {}
-                        ]
-                    },
-                    {
-                        sectionsName: "Transactions",
-                        subSections: [
-                            {}
-                        ]
-                    },
-                ],
-                loginRequest: {
-                    email: 'marius@stratech.co.za',
-                    password: 'admin1234'
-                },
-                loginRequestTest: {
-                    email: 'marius@stratech.co.za',
-                    password: 'admin1234'
-                },
-                loginResponseTest: {},
-                loginResponse: {
-                    "http_code":200,
-                    "message":"",
-                    "data":{
-                        "province_id":null,
-                        "gender":null,
-                        "race":null,
-                        "dob":null,
-                        "first_name":"Marius",
-                        "last_name":"Rossouw",
-                        "title":null,
-                        "business_name":null,
-                        "name":"Marius Rossouw",
-                        "password":"admin1234",
-                        "password_unhashed":null,
-                        "email":"marius@stratech.co.za",
-                        "mobile_no_exl":"793327238",
-                        "mobile_country_code":"27",
-                        "id_number":null,
-                        "address_line_1":null,
-                        "address_line_2":null,
-                        "address_line_3":null,
-                        "address_line_4":null,
-                        "jdata":null,
-                        "status":null,
-                        "rep_code":null,
-                        "rep_name":null,
-                        "create_time":"2018-07-09T08:10:51.395Z",
-                        "update_time":"2018-07-09T08:10:51.395Z",
-                        "verified":true,
-                        "verified_time":null,
-                        "address":{
-                            "address_line_1":"",
-                            "address_line_2":"",
-                            "address_line_3":"",
-                            "address_line_4":"",
-                            "physical_province_id":0,
-                            "province":""
-                        }
-                    },
-                    "error_code":"",
-                    "errors":[]
-                },
-                loginResponseError: {
-                    "http_code":403,
-                    "message":"Invalid Email/ Mobile Number or Password",
-                    "data":{},
-                    "error_code":"",
-                    "errors":[]
-                },
+                theSubSection: {},
+                requestTest: "",
+                responseTest: "",
+                sections: [],
+                api_doc_endpoint_id: "",
+                requestBody: "",
+                responseBody: "",
+                resCode: ""
             }
         },
         methods: {
-            testLogin() {
-                let request = JSON.parse(this.loginRequestTest);
+            docsList() {
+                let request = {
+                    projectName: "StratProp"
+                };
                 console.log("Request: ", request);
-                axios.post(this.$store.state.api_url + 'login', request)
+                axios.post(this.$store.state.api_url + "/api_doc_req_res_list", request)
                     .then(response => {
                         console.log('Response: ', response);
                         if(response.data.http_code == 200){
-                            this.loginResponseTest = response.data.data;
+                            this.sections = response.data.data.records;
+                            for(var i = 0; i < this.sections.length; i++){
+                                for(var j = 0; j < this.sections[i].subSections.length; j++){
+                                    this.api_doc_endpoint_id = this.sections[i].subSections[j].api_doc_endpoint_id;
+                                    console.log("this.api_doc_endpoint_id",this.api_doc_endpoint_id);
+                                    for(var k = 0; k < this.sections[i].subSections[j].reqres.length; k++){
+                                        console.log(this.sections[i].subSections[j].reqres);
+                                        this.sections[i].subSections[j].reqres[k].resCode = this.sections[i].subSections[j].reqres[k].responseBody.http_code;
+                                        console.log(this.sections[i].subSections[j].reqres[k].resCode);
+                                        this.sections[i].subSections[j].reqres[k].headers = JSON.stringify(this.sections[i].subSections[j].reqres[k].headers, null, 4);
+                                        this.sections[i].subSections[j].reqres[k].requestbody = JSON.stringify(this.sections[i].subSections[j].reqres[k].requestbody, null, 4);
+                                        this.sections[i].subSections[j].reqres[k].responsebody = JSON.stringify(this.sections[i].subSections[j].reqres[k].responsebody, null, 4);
+                                    }
+                                }
+                            }
                         } else {
-                            this.loginResponseTest = response.data.data;
+                            this.sections = response.data.data.records;
+                            for(var i = 0; i < this.sections.length; i++){
+                                for(var j = 0; j < this.sections[i].subSections.length; j++){
+                                    for(var k = 0; k < this.sections[i].subSections[j].reqres.length; k++){
+                                        this.sections[i].subSections[j].reqres[k].headers = JSON.stringify(this.sections[i].subSections[j].reqres[k].headers, null, 4);
+                                        this.sections[i].subSections[j].reqres[k].requestbody = JSON.stringify(this.sections[i].subSections[j].reqres[k].requestbody, null, 4);
+                                        this.sections[i].subSections[j].reqres[k].responsebody = JSON.stringify(this.sections[i].subSections[j].reqres[k].responsebody, null, 4);
+                                    }
+                                }
+                            }
                         }
                     })
                     .catch(error => {
                         console.log(error.response);
-                        this.loginResponseTest = error.response.data;
+                        this.docs = error;
                     });
             },
-            prepLoginRequestTest(){
-                this.loginRequestTest = JSON.stringify(this.loginRequestTest, null, 4);
+            testRequest() {
+                let request = JSON.parse(this.requestTest);
+                console.log("Request: ", request);
+                axios.post(this.$store.state.api_url + this.theSubSection.endpoint, request)
+                    .then(response => {
+                        console.log('Response: ', response);
+                        if(response.data.http_code == 200){
+                            this.responseTest = JSON.stringify(response.data, null, 4);
+                        } else {
+                            this.responseTest = JSON.stringify(response.data, null, 4);
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                        this.responseTest = JSON.stringify(error.response.data, null, 4);
+                    });
+            },
+            openInstance(reqres, index){
+                this.requestTest = JSON.stringify(reqres.requestbody, null, 4);
+            },
+            subSectionButton(subSection, index){
+                console.log(subSection);
+                this.theSubSection = subSection;
+                this.requestTest = JSON.stringify(subSection.reqres[0].requestbody, null, 4);
+            },
+            saveReqres(requestTest,responseTest){
+                    this.requestBody = JSON.parse(requestTest);
+                    this.responseBody = JSON.parse(responseTest);
+                    this.resCode = this.responseBody.http_code;
+                
+                let request = {
+                    api_doc_endpoint_id: this.api_doc_endpoint_id,
+                    requestBody: this.requestBody,
+                    responseBody: this.responseBody,
+                    resCode: this.resCode
+                };
+                
+                
+                console.log("Request: ", request);
+                axios.post(this.$store.state.api_url + 'api_doc_req_res_add', request)
+                    .then(response => {
+                        console.log('Response: ', response);
+                        this.docsList();
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                        this.reqRes[index].responseBody = JSON.stringify(error.response.data, null, 4);
+                    });
             }
         },
         beforeMount() {
 
         },
         mounted() {
-            this.prepLoginRequestTest();
+            this.docsList();
         }
 }
 </script>

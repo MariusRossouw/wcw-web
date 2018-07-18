@@ -20,3 +20,11 @@ code {
     display: inline-block;
     float: left;
 }
+
+#__layout > div {
+    height: 100vh;
+    display: block;
+    float: left;
+    overflow: hidden;
+    width: 100%;
+}
