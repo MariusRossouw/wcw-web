@@ -17,7 +17,6 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-
   /*
   ** Customize the progress-bar color
   */
@@ -67,7 +66,7 @@ module.exports = {
     cssSourceMap: false,
     vendor: [
       '~/plugins/agGrid.js',
-      '~/plugins/uikit.js' 
+      '~/plugins/uikit.js'
     ],
     extend(config, ctx) {
       config.resolve.alias['vue'] = 'vue/dist/vue.common'

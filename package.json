@@ -14,8 +14,7 @@
     "@nuxtjs/axios": "^5.0.0",
     "ajv": "^6.5.0",
     "express": "^4.15.3",
-    "nuxt": "^1.0.0",
-    "vuetify-google-autocomplete": "^2.0.0-beta.4"
+    "nuxt": "^1.0.0"
   },
   "devDependencies": {
     "ag-grid": "^17.1.1",
@@ -23,6 +22,7 @@
     "ag-grid-vue": "^17.1.0",
     "cross-env": "^5.0.1",
     "nodemon": "^1.11.0",
-    "uikit": "^3.0.0-beta.30"
+    "uikit": "^3.0.0-beta.30",
+    "vue-echarts": "^3.0.9"
   }
 }
