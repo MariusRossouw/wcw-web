@@ -157,7 +157,8 @@ export default {
             },
             addSection(){
                 let request = {
-                    sectionName: this.sectionName
+                    sectionName: this.sectionName,
+                    projectName: "StratProp",
                 };
                 console.log("Request: ", request);
                 axios.post(this.$store.state.api_url + "/api_doc_section_add", request)
