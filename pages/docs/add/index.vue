@@ -1,78 +1,78 @@
 <template>
     <div>
-         <div class="uk-container-full">
-        <div uk-grid>
-            <div class="uk-width-1-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
-            </div>
-            <div class="uk-width-3-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
-                <div>
-                    <div class="uk-margin">
-                        <input class="uk-input" type="text" placeholder="Add Section" v-model="sectionName">
-                    </div>
-                    <button @click="addSection()">Add Section</button>
-                    <div class="uk-margin">
-                        <select class="uk-select" v-model="api_doc_section_id">
-                            <option v-for="(section, index) in doc_section_list" :key="index" :value="section.api_doc_section_id">{{section.sectionname}}</option>
-                        </select>
-                    </div>
-                    <div class="uk-margin">
-                        <input class="uk-input" type="text" placeholder="Endpoint Name" v-model="subSectionName">
-                    </div>
-                    <div class="uk-margin">
-                        <input class="uk-input" type="text" placeholder="Endpoint" v-model="endpoint">
-                    </div>
-                    <div class="uk-margin">
-                        <input class="uk-input" type="text" placeholder="Description" v-model="description">
-                    </div>
-                    <div class="uk-margin">
-                        <input class="uk-input" type="text" placeholder="Requirements" v-model="requirements">
-                    </div>
-                    <div class="uk-margin">
-                        <select class="uk-select" v-model="method">
-                            <option value="POST">POST</option>
-                            <!-- <option value="GET">GET</option>
-                            <option value="PUT">PUT</option>
-                            <option value="DELETE">DELETE</option> -->
-                        </select>
-                    </div>
-                    <li v-for="(rf, index) in requiredFields" :key="rf.name">{{rf.name}} - format: {{rf.format}}<button @click="deleteRequiredField(index)">Delete</button></li>
-                    <div class="uk-margin">
-                        <input class="uk-input" type="text" placeholder="Required Field Name" v-model="name">
-                    </div>
-                    <div class="uk-margin">
-                        <select class="uk-select" v-model="format">
-                            <option value="ARRAY">ARRAY</option>
-                            <option value="BOOLEAN">BOOLEAN</option>
-                            <option value="FILE">FILE</option>
-                            <option value="INTEGER">INTEGER</option>
-                            <option value="OBJECT">OBJECT</option>
-                            <option value="STRING">STRING</option>
-                        </select>
-                    </div>
-                    <button @click="addRequiredField()">Add Required Field</button>
-                    <div v-for="(rr, index) in reqRes" :key="rr.headers">
-                        <h5>Headers</h5>
-                        <textarea v-model="rr.headers" cols="100" rows="10">
-                        </textarea>
-                        <h5>Request</h5>
-                        <textarea v-model="rr.requestBody" cols="100" rows="10">
-                        </textarea>
-                        <button @click="testRequest(rr.requestBody, index)">Submit</button>
-                        <h5>Response</h5>
-                        <pre>
-                            <code>{{rr.responseBody}}</code>
-                        </pre>
-                        <button @click="removeReqResPair(index)">Remove</button>
-                    </div>
+        <div class="uk-container-full">
+            <div uk-grid>
+                <div class="uk-width-1-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
+                </div>
+                <div class="uk-width-3-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
+                    <div>
+                        <div class="uk-margin">
+                            <input class="uk-input" type="text" placeholder="Add Section" v-model="sectionName">
+                        </div>
+                        <button @click="addSection()">Add Section</button>
+                        <div class="uk-margin">
+                            <select class="uk-select" v-model="api_doc_section_id">
+                                <option v-for="(section, index) in doc_section_list" :key="index" :value="section.api_doc_section_id">{{section.sectionname}}</option>
+                            </select>
+                        </div>
+                        <div class="uk-margin">
+                            <input class="uk-input" type="text" placeholder="Endpoint Name" v-model="subSectionName">
+                        </div>
+                        <div class="uk-margin">
+                            <input class="uk-input" type="text" placeholder="Endpoint" v-model="endpoint">
+                        </div>
+                        <div class="uk-margin">
+                            <input class="uk-input" type="text" placeholder="Description" v-model="description">
+                        </div>
+                        <div class="uk-margin">
+                            <input class="uk-input" type="text" placeholder="Requirements" v-model="requirements">
+                        </div>
+                        <div class="uk-margin">
+                            <select class="uk-select" v-model="method">
+                                <option value="POST">POST</option>
+                                <!-- <option value="GET">GET</option>
+                                <option value="PUT">PUT</option>
+                                <option value="DELETE">DELETE</option> -->
+                            </select>
+                        </div>
+                        <li v-for="(rf, index) in requiredFields" :key="rf.name">{{rf.name}} - format: {{rf.format}}<button @click="deleteRequiredField(index)">Delete</button></li>
+                        <div class="uk-margin">
+                            <input class="uk-input" type="text" placeholder="Required Field Name" v-model="name">
+                        </div>
+                        <div class="uk-margin">
+                            <select class="uk-select" v-model="format">
+                                <option value="ARRAY">ARRAY</option>
+                                <option value="BOOLEAN">BOOLEAN</option>
+                                <option value="FILE">FILE</option>
+                                <option value="INTEGER">INTEGER</option>
+                                <option value="OBJECT">OBJECT</option>
+                                <option value="STRING">STRING</option>
+                            </select>
+                        </div>
+                        <button @click="addRequiredField()">Add Required Field</button>
+                        <div v-for="(rr, index) in reqRes" :key="rr.headers">
+                            <h5>Headers</h5>
+                            <textarea v-model="rr.headers" cols="100" rows="10">
+                            </textarea>
+                            <h5>Request</h5>
+                            <textarea v-model="rr.requestBody" cols="100" rows="10">
+                            </textarea>
+                            <button @click="testRequest(rr.requestBody, index)">Submit</button>
+                            <h5>Response</h5>
+                            <pre>
+                                <code>{{rr.responseBody}}</code>
+                            </pre>
+                            <button @click="removeReqResPair(index)">Remove</button>
+                        </div>
 
-                    <button @click="addReqResPair()">Add Another Req Res Pair</button>
+                        <button @click="addReqResPair()">Add Another Req Res Pair</button>
 
-                    <button @click="saveReqRes()">Save</button>
+                        <button @click="saveReqRes()">Save</button>
+                    </div>
+                </div>
+                <div class="uk-width-1-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
                 </div>
             </div>
-            <div class="uk-width-1-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
-            </div>
-        </div>
         </div>
     </div>
 </template>

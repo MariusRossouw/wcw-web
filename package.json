@@ -22,7 +22,19 @@
     "ag-grid-vue": "^17.1.0",
     "cross-env": "^5.0.1",
     "nodemon": "^1.11.0",
+    "nuxt-fontawesome": "^0.3.0",
     "uikit": "^3.0.0-beta.30",
-    "vue-echarts": "^3.0.9"
+    "vue-echarts": "^3.0.9",
+    "vue-echarts-v3": "^1.0.19",
+    "echarts": "^4.1.0",
+    "echarts-countries-js": "^1.0.4",
+    "@fortawesome/fontawesome-free-brands": "^5.0.13",
+    "@fortawesome/fontawesome-free-regular": "^5.0.13",
+    "@fortawesome/fontawesome-free-solid": "^5.0.13",
+    "@fortawesome/fontawesome-svg-core": "^1.2.2",
+    "@fortawesome/free-brands-svg-icons": "^5.2.0",
+    "@fortawesome/free-regular-svg-icons": "^5.2.0",
+    "@fortawesome/free-solid-svg-icons": "^5.2.0",
+    "@fortawesome/vue-fontawesome": "^0.1.1"
   }
 }

@@ -1,5 +1,175 @@
 <template>
     <div >
+        <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>
+            <div class="uk-width-1-6@m">
+                <div class="uk-grid-small" uk-grid>
+                    <div class="uk-card uk-card-primary uk-card-body">
+                        <h3 class="uk-card-title">Rep</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    </div>
+                    <div class="uk-card uk-card-primary uk-card-body">
+                        <h3 class="uk-card-title">Year</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    </div>
+                    <div class="uk-card uk-card-primary uk-card-body">
+                        <h3 class="uk-card-title">Quarter</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    </div>
+                    <div class="uk-card uk-card-primary uk-card-body">
+                        <h3 class="uk-card-title">Month</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-width-2-3@m">
+                <div class="uk-grid-small" style="padding-right: 15px;" uk-grid>
+                    <div class="uk-width-1-4@m">
+                        <div class="uk-card uk-card-primary uk-card-body">
+                            <h3 class="uk-card-title">Code</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-4@m">
+                        <div class="uk-card uk-card-primary uk-card-body">
+                            <h3 class="uk-card-title">Province</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-4@m">
+                        <div class="uk-card uk-card-primary uk-card-body">
+                            <h3 class="uk-card-title">Merchant Group</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-4@m">
+                        <div class="uk-card uk-card-primary uk-card-body">
+                            <h3 class="uk-card-title">Merchant</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-1@m">
+                        <div class="uk-card uk-card-default uk-card-body echarts">
+                            <h3 class="uk-card-title">Merchant</h3>
+                            <chart
+                                :option="option"
+                                :loading="loading"
+                                @ready="onReady"
+                                @click="onClick"
+                            />
+                        </div>
+                    </div>
+                    <div class="uk-width-1-4@m">
+                        <div class="uk-card uk-card-default uk-card-body">
+                            <h3 class="uk-card-title">Top 5 A</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-4@m">
+                        <div class="uk-card uk-card-default uk-card-body">
+                            <h3 class="uk-card-title">Bottom 5 A</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-4@m">
+                        <div class="uk-card uk-card-default uk-card-body">
+                            <h3 class="uk-card-title">Top 5 B</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-4@m">
+                        <div class="uk-card uk-card-default uk-card-body">
+                            <h3 class="uk-card-title">Bottom 5 B</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-width-1-6@m">
+                <div class="uk-grid-small" uk-grid>
+                    <div class="uk-card uk-card-primary uk-card-body">
+                        <h3 class="uk-card-title">Winefarm</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    </div>
+                    <div class="uk-card uk-card-primary uk-card-body">
+                        <h3 class="uk-card-title">Product</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    </div>
+                    <div class="uk-card uk-card-primary uk-card-body">
+                        <h3 class="uk-card-title">Vintage</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    </div>
+                    <div class="uk-card uk-card-primary uk-card-body">
+                        <h3 class="uk-card-title">Type</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- <div class="uk-child-width-1-6@m uk-grid-small uk-grid-match" uk-grid>
+            <div>
+                <div class="uk-card uk-card-primary uk-card-body">
+                    <h3 class="uk-card-title">Year</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-card uk-card-primary uk-card-body">
+                    <h3 class="uk-card-title">Month</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-card uk-card-primary uk-card-body">
+                    <h3 class="uk-card-title">Code</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-card uk-card-primary uk-card-body">
+                    <h3 class="uk-card-title">Winefarm</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-card uk-card-primary uk-card-body">
+                    <h3 class="uk-card-title">Merchant</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-card uk-card-primary uk-card-body">
+                    <h3 class="uk-card-title">Rep</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>
+            <div class="uk-width-1-6@m" style="height: 180px">
+                <div class="uk-card uk-card-primary uk-card-body">auto@m<br>visible@l</div>
+            </div>
+            <div class="uk-width-2-3@m" style="height: 400px">
+                <div class="uk-card uk-card-default uk-card-body echarts">
+                    <h3 class="uk-card-title">Merchant</h3>
+                    <chart
+                        :option="option"
+                        :loading="loading"
+                        @ready="onReady"
+                        @click="onClick"
+                    />
+                </div>
+            </div>
+            <div class="uk-width-1-6@m" style="height: 180px">
+                <div class="uk-card uk-card-default uk-card-body">expand@m</div>
+            </div>
+        </div> -->
+    
+
         <div class="uk-card-body uk-width-1-1">
             <button @click="onBtNormal()">1 - Grouping Active</button>
             <button @click="onBtPivotMode()">2 - Grouping Active with Pivot Mode</button>
@@ -59,15 +229,6 @@
                     
                     
                 ],
-                // columnDefs: [
-                //     {headerName: "Country", field: "country", width: 120, rowGroup: true},
-                //     {headerName: "Year", field: "year", width: 90, rowGroup: true},
-                //     {headerName: "Date", field: "date", width: 110},
-                //     {headerName: "Sport", field: "sport", width: 110, rowGroup: true},
-                //     {headerName: "Gold", field: "gold", width: 100, aggFunc: 'sum'},
-                //     {headerName: "Silver", field: "silver", width: 100, aggFunc: 'sum'},
-                //     {headerName: "Bronze", field: "bronze", width: 100, aggFunc: 'sum'}
-                // ],
                 rowData:[],
                 show_results_filter_selected: 0,
                 search_text: '',
@@ -79,15 +240,6 @@
                         params.api.sizeColumnsToFit();
                     }
                 },
-                // columnDefs2: [
-                //     {headerName: "Country", field: "country", width: 120, rowGroup: true},
-                //     {headerName: "Year", field: "year", width: 90, rowGroup: true},
-                //     {headerName: "Date", field: "date", width: 110},
-                //     {headerName: "Sport", field: "sport", width: 110},
-                //     {headerName: "Gold", field: "gold", width: 100, aggFunc: 'sum'},
-                //     {headerName: "Silver", field: "silver", width: 100, aggFunc: 'sum'},
-                //     {headerName: "Bronze", field: "bronze", width: 100, aggFunc: 'sum'}
-                // ],
                 rowData2:[],
                 show_results_filter_selected2: 0,
                 search_text2: '',
@@ -98,7 +250,87 @@
                     onGridReady: function(params) {
                         params.api.sizeColumnsToFit();
                     }
-                }
+                },
+                loading: false,
+                option : {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            crossStyle: {
+                                color: '#999'
+                            }
+                        }
+                    },
+                    toolbox: {
+                        feature: {
+                            dataView: {show: true, readOnly: false},
+                            magicType: {show: true, type: ['bar','line']},
+                            restore: {show: true},
+                            saveAsImage: {show: true}
+                        }
+                    },
+                    // legend: {
+                    //     data:['ONE','TWO','THREE']
+                    // },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: ['JAN','FEB','MRT','APR','MAY','JNE','JLY','AUG','SEP','OCT','NOV','DEC'],
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value',
+                            name: 'Budget',
+                            min: 0,
+                            max: 150000,
+                            interval: 50000,
+                            axisLabel: {
+                                formatter: '{value} R'
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#b34038'
+                                }
+                            },
+                        },
+                        {
+                            type: 'value',
+                            name: 'Sales',
+                            min: 0,
+                            max: 150000,
+                            interval: 50000,
+                            axisLabel: {
+                                formatter: '{value} R'
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#5197d5'
+                                }
+                            },
+                        }
+                    ],
+                    series: [
+                        {
+                            name:'Budget',
+                            type:'line',
+                            yAxisIndex: 1,
+                            data:[30000, 29000, 23442, 67645, 78678, 23423, 56756, 54645, 56756, 87664, 78445, 45343]
+                        },
+                        {
+                            name:'Sales',
+                            type:'bar',
+                            itemStyle: {
+                                normal: {color: '#3398DB'}
+                            },
+                            data:[25000, 39760, 29880, 31440, 21000, 69006, 56879, 45546, 12323, 89678, 45435, 84656]
+                        }
+                    ]
+                },
             };  
         },
         methods: {
@@ -233,6 +465,26 @@
                 // }
 
                 this.gridOptions.api.exportDataAsExcel(params);
+            },
+            doRandom() {
+                const that = this;
+                that.loading = !that.loading;
+            },
+            onReady(instance, ECharts) {
+                console.log(instance, ECharts);
+            },
+            onClick(event, instance, ECharts) {
+                console.log(arguments);
+            },
+            onClick2(event){
+                console.log('Mouse',event.data); 
+                var xAxisInfo = event.data;
+                var dimension = xAxisInfo[0];
+                // console.log(this.option4.series.length-1);
+                this.option4.series[this.option4.series.length-1].label.formatter = '{b}: {@[' + dimension + ']} ({d}%)';
+                this.option4.series[this.option4.series.length-1].encode.value = dimension;
+                this.option4.series[this.option4.series.length-1].encode.tooltip = dimension;
+                // console.log(this.option4);
             }
         },
         beforeMount() {
@@ -245,6 +497,12 @@
     };
 </script>
 <style>
-
+.echarts {
+        width: 100%;
+        height: 400px;
+    }
+.uk-card-primary {
+    height: 190px;
+}
 </style>
 

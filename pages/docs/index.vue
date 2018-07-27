@@ -1,73 +1,73 @@
 <template>
     <div>
-         <div class="uk-container-full">
-        <div uk-grid>
-            <div class="uk-width-1-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
-                <div v-for="(section, index) in sections" :key="index">
-                    <div style="margin-left:50px">
-                        <ul uk-accordion="multiple: true">
-                            <li>
-                                <a class="uk-accordion-title" href="#">{{section.sectionname}}</a>
-                                <div class="uk-accordion-content">
-                                    <li v-for="(subSection, index) in section.subSections" :key="index" style="margin-left:30px;">
-                                        <a @click="subSectionButton(subSection, index)" href="#">{{subSection.subsectionname}}</a>
-                                    </li>
-                                </div>
-                            </li>
-                        </ul>
+        <div class="uk-container-full">
+            <div uk-grid>
+                <div class="uk-width-1-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
+                    <div v-for="(section, index) in sections" :key="index">
+                        <div style="margin-left:50px">
+                            <ul uk-accordion="multiple: true">
+                                <li>
+                                    <a class="uk-accordion-title" href="#">{{section.sectionname}}</a>
+                                    <div class="uk-accordion-content">
+                                        <li v-for="(subSection, index) in section.subSections" :key="index" style="margin-left:30px;">
+                                            <a @click="subSectionButton(subSection, index)" href="#">{{subSection.subsectionname}}</a>
+                                        </li>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="uk-width-2-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
-                <div v-if="theSubSection.subsectionname">
-                    <h3>{{theSubSection.subsectionname}}</h3>
-                    <h4>Endpoint: {{theSubSection.endpoint}}</h4>
-                    <p>Description: {{theSubSection.description}}</p>
-                    <p>Requirements: {{theSubSection.requirements}}</p>
-                    <h4>Method: {{theSubSection.method}}</h4>
-                    <p>Required Fields</p>
-                    <li v-for="(rf, index) in theSubSection.requiredFields" :key="'rf'+index">{{rf.name}} - format: {{rf.format}}</li>
-                    <div v-for="(reqres,index) in theSubSection.reqres" :key="index">
-                        <ul uk-accordion="multiple: true">
-                            <li>
-                                <a class="uk-accordion-title" href="#">{{reqres.rescode}}</a>
-                                <div class="uk-accordion-content">
-                                    <h5>Request Body</h5>
-                                    <p style="text-align: right; display: inline-block; width: 100%; cursor: pointer" @click="openInstance(reqres, index)"> Try me -> </p>
-                                    <pre>
-                                        <code>{{reqres.requestbody}}</code>
-                                    </pre>
-                                    <h5>Response</h5>
-                                    <pre>
-                                        <code>{{reqres.responsebody}}</code>
-                                    </pre>
-                                    <h5>Headers</h5>
-                                    <pre>
-                                        <code>{{reqres.headers}}</code>
-                                    </pre>
-                                </div>
-                            </li>
-                        </ul>
+                <div class="uk-width-2-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
+                    <div v-if="theSubSection.subsectionname">
+                        <h3>{{theSubSection.subsectionname}}</h3>
+                        <h4>Endpoint: {{theSubSection.endpoint}}</h4>
+                        <p>Description: {{theSubSection.description}}</p>
+                        <p>Requirements: {{theSubSection.requirements}}</p>
+                        <h4>Method: {{theSubSection.method}}</h4>
+                        <p>Required Fields</p>
+                        <li v-for="(rf, index) in theSubSection.requiredFields" :key="'rf'+index">{{rf.name}} - format: {{rf.format}}</li>
+                        <div v-for="(reqres,index) in theSubSection.reqres" :key="index">
+                            <ul uk-accordion="multiple: true">
+                                <li>
+                                    <a class="uk-accordion-title" href="#">{{reqres.rescode}}</a>
+                                    <div class="uk-accordion-content">
+                                        <h5>Request Body</h5>
+                                        <p style="text-align: right; display: inline-block; width: 100%; cursor: pointer" @click="openInstance(reqres, index)"> Try me -> </p>
+                                        <pre>
+                                            <code>{{reqres.requestbody}}</code>
+                                        </pre>
+                                        <h5>Response</h5>
+                                        <pre>
+                                            <code>{{reqres.responsebody}}</code>
+                                        </pre>
+                                        <h5>Headers</h5>
+                                        <pre>
+                                            <code>{{reqres.headers}}</code>
+                                        </pre>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="uk-width-2-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
-                <div v-if="theSubSection.subsectionname">
-                    <h5>Try it</h5>
-                    <h5>Request</h5>
-                    <textarea v-model="requestTest" cols="100" rows="10">
-                    </textarea>
-                    <button @click="testRequest()">Submit</button>
-                    <h5>Response</h5>
-                    <pre>
-                        <code>{{responseTest}}</code>
-                    </pre>
+                <div class="uk-width-2-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">
+                    <div v-if="theSubSection.subsectionname">
+                        <h5>Try it</h5>
+                        <h5>Request</h5>
+                        <textarea v-model="requestTest" cols="100" rows="10">
+                        </textarea>
+                        <button @click="testRequest()">Submit</button>
+                        <h5>Response</h5>
+                        <pre>
+                            <code>{{responseTest}}</code>
+                        </pre>
 
-                    <button @click="saveReqres(requestTest,responseTest)" v-if="requestTest && responseTest">Save</button>
-                    <button @click="updateReqres()" v-if="requestTest && responseTest">Upldate</button>
+                        <button @click="saveReqres(requestTest,responseTest)" v-if="requestTest && responseTest">Save</button>
+                        <button @click="updateReqres()" v-if="requestTest && responseTest">Upldate</button>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 </template>
