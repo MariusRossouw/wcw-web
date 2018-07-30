@@ -1,7 +1,23 @@
 <template>
     <div>
-        <h1 style="margin-left: 40px;">{{ wine_farm.farm_name }}</h1>
-        <div class="uk-card-body" style="width: 100%; height: 400px">
+        <div class="content-background">
+            <div class="uk-container uk-container-large uk-padding-remove">
+                <div class="uk-card uk-card-default card_create" >
+                    <div class="uk-card-body">
+                        <div uk-grid>
+                            <h5>Winefarm Name: {{wine_farm.wine_farm_name}}</h5>
+                            <h5>Address line 1: {{wine_farm.address_line_1}}</h5>
+                            <h5>Address line 2: {{wine_farm.address_line_2}}</h5>
+                            <h5>Address line 3: {{wine_farm.address_line_3}}</h5>
+                            <h5>Address line 4: {{wine_farm.address_line_4}}</h5>
+                            <h5>Email: {{wine_farm.email}}</h5>
+                            <h5>Mobile Number: {{wine_farm.mobile_number}}</h5>
+                            <h5>Status: {{wine_farm.status}}</h5>
+                            <button class="uk-button uk-button-default" @click="updateWinefarm()">Update Product</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -50,6 +66,9 @@
                 .catch(error => {
                     console.log(error.response);
                 });
+            },
+            updateWinefarm(){
+                this.$router.push("/farm/" + this.$route.params.id + "/update");
             }
         },
         beforeMount() {

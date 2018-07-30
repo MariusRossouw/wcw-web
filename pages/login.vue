@@ -62,7 +62,6 @@
                         this.$store.state.session.navbar = [
                             {to:"/", description:"Home"},
                             {to:"/dashboard", description:"Dashboard"},
-                            {to:"/distributor/list", description:"Distributors"},
                             {to:"/farm/list", description:"Wine Farms"},
                             {to:"/merchant/list", description:"Merchants"},
                             {to:"/user/list", description:"Users"},

@@ -36,6 +36,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
  plugins: [
+  { src: '~/plugins/currency.js', ssr: false},
   { src: '~/plugins/agGrid.js', ssr: false},
   { src: '~/plugins/uikit.js', ssr: false },
   { src: '~/plugins/echart.js', ssr: false },
@@ -67,6 +68,7 @@ module.exports = {
     extractCSS: true,
     cssSourceMap: false,
     vendor: [
+      '~/plugins/currency.js',
       '~/plugins/agGrid.js',
       '~/plugins/uikit.js',
       '~/plugins/echart.js',

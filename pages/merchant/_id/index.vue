@@ -1,7 +1,26 @@
 <template>
     <div>
-        <h1 style="margin-left: 40px;">{{ merchant.merchant_name }}</h1>
-        <div class="uk-card-body" style="width: 100%; height: 400px">
+        <div class="content-background">
+            <div class="uk-container uk-container-large uk-padding-remove">
+                <div class="uk-card uk-card-default card_create" >
+                    <div class="uk-card-body">
+                        <div uk-grid>
+                            <h5>Code: {{merchant.code}}</h5>
+                            <h5>Account: {{merchant.account}}</h5>
+                            <h5>Abrv: {{merchant.abrv}}</h5>
+                            <h5>Merchant Name: {{merchant.merchant_name}}</h5>
+                            <h5>Address line 1: {{merchant.address_line_1}}</h5>
+                            <h5>Address line 2: {{merchant.address_line_2}}</h5>
+                            <h5>Address line 3: {{merchant.address_line_3}}</h5>
+                            <h5>Address line 4: {{merchant.address_line_4}}</h5>
+                            <h5>Email: {{merchant.email}}</h5>
+                            <h5>Mobile Number: {{merchant.mobile_number}}</h5>
+                            <h5>Status: {{merchant.status}}</h5>
+                            <button class="uk-button uk-button-default" @click="updateMerchant()">Update Product</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -50,6 +69,9 @@
                 .catch(error => {
                     console.log(error.response);
                 });
+            },
+            updateMerchant(){
+                this.$router.push("/merchant/" + this.$route.params.id + "/update");
             }
         },
         beforeMount() {

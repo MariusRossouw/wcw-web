@@ -1,7 +1,31 @@
 <template>
     <div>
-        <h1 style="margin-left: 40px;">{{ product.product_name }}</h1>
-        <div class="uk-card-body" style="width: 100%; height: 400px">
+        <div class="content-background">
+            <div class="uk-container uk-container-large uk-padding-remove">
+                <div class="uk-card uk-card-default card_create" >
+                    <div class="uk-card-body">
+                        <div uk-grid>
+                            <h5>Abrv: {{product.abrv}}</h5>
+                            <h5>Product Name: {{product.product_name}}</h5>
+                            <h5>Cultivar: {{product.cultivar}}</h5>
+                            <h5>Special: {{product.special}}</h5>
+                            <h5>Description: {{product.description}}</h5>
+                            <h5>Product Classification: {{product.product_classification}}</h5>
+                            <h5>Vintage: {{product.vintage}}</h5>
+                            <h5>Blend: {{product.blend}}</h5>
+                            <h5>Color: {{product.color}}</h5>
+                            <h5>Item Code: {{product.item_code}}</h5>
+                            <h5>Size: {{product.size}}</h5>
+                            <h5>Volume: {{product.volume}}</h5>
+                            <h5>Measurement: {{product.measurement}}</h5>
+                            <h5>Case Size: {{product.case_size}}</h5>
+                            <h5>Status: {{product.status}}</h5>
+                            <h5>Create Time{{product.create_time}}</h5>
+                            <button class="uk-button uk-button-default" @click="updateProduct()">Update Product</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -50,6 +74,9 @@
                 .catch(error => {
                     console.log(error.response);
                 });
+            },
+            updateProduct(){
+                this.$router.push("/product/" + this.$route.params.id + "/update");
             }
         },
         beforeMount() {

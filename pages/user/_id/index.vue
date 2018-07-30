@@ -1,29 +1,30 @@
 <template>
     <div>
-        <h1 style="margin-left: 40px;">{{ user.first_name + ' ' + user.last_name}}</h1>
-        <div class="uk-card-body" style="width: 100%; height: 400px">
-        </div>
-        <address-form v-for="(address, index) in addresses"
-                :itemdata="itemList"
-                :address="address"  
-                :count="index+1"                
-                v-on:removeAddressItem="removeAddress(index)" :key="index">
-        </address-form>
-        <!-- {{addresses}} -->
-        <div>
-            <button @click="addAddress"> Add Address </button>
+        <div class="content-background">
+            <div class="uk-container uk-container-large uk-padding-remove">
+                <div class="uk-card uk-card-default card_create" >
+                    <div class="uk-card-body">
+                        <div uk-grid>
+                            <h1 style="margin-left: 40px;">{{ user.first_name + ' ' + user.last_name}}</h1>
+                            <h5>{{user.email}}</h5>
+                            <h5>{{user.mobile_country_code}}{{user.mobile_no_exl}}</h5>
+                            <button class="uk-button uk-button-default" @click="updateProfile()">Update Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import AddressForm from '@/components/Forms/AddressForm'
+    // import AddressForm from '@/components/Forms/AddressForm'
     import { AgGridVue } from "ag-grid-vue";
     import axios from 'axios';
     // import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete'
     export default {
         components: {
-            "address-form": AddressForm,
+            // "address-form": AddressForm,
             "ag-grid-vue": AgGridVue,
             "axios": axios
         },
@@ -64,7 +65,7 @@
                     this.$store.replaceState(ls);
                 }
             },
-            loadWineFarm() {
+            loadUserProfile() {
                 var _this = this;
                 let request = {
                     profile_id: _this.$route.params.id
@@ -78,13 +79,16 @@
                 .catch(error => {
                     console.log(error.response);
                 });
+            },
+            updateProfile(){
+                this.$router.push("/user/" + this.$route.params.id + "/update");
             }
         },
         beforeMount() {
             this.checkAuthState();
         },
         mounted() {
-            this.loadWineFarm();
+            this.loadUserProfile();
         }
     };
 </script>

@@ -1,12 +1,22 @@
 <template>
     <div>
-        <h1 style="margin-left: 40px;">List of Users</h1>
-        <div class="uk-card-body" style="width: 100%; height: 400px">
-            <div style="width: 100%; height: 60vh;">
-                <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptions" :columnDefs="columnDefs" :rowData="rowData">
-                </ag-grid-vue>
+        <div class="content-background">
+            <div class="uk-container uk-container-large uk-padding-remove">
+                <div class="uk-card uk-card-default card_create" >
+                    <div class="uk-card-body">
+                        <div uk-grid>
+                            <h1>List of Users</h1>
+                            <div class="uk-card-body" style="width: 100%; height: 75vh;">
+                                <div style="width: 100%; height: 70vh;">
+                                    <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptions" :columnDefs="columnDefs" :rowData="rowData">
+                                    </ag-grid-vue>
+                                </div>
+                                <button @click="onBtExport()">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button @click="onBtExport()">Export</button>
         </div>
     </div>
 </template>
