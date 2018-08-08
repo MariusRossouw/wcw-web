@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div class="container">
         <div class="content-background">
             <div class="uk-container uk-container-large uk-padding-remove">
                 <div class="uk-card uk-card-default card_create" >
                     <div class="uk-card-body">
-                        <div uk-grid>
+                        <!-- <div uk-grid> -->
                             <h5>Winefarm Name: {{wine_farm.wine_farm_name}}</h5>
                             <h5>Address line 1: {{wine_farm.address_line_1}}</h5>
                             <h5>Address line 2: {{wine_farm.address_line_2}}</h5>
@@ -14,7 +14,7 @@
                             <h5>Mobile Number: {{wine_farm.mobile_number}}</h5>
                             <h5>Status: {{wine_farm.status}}</h5>
                             <button class="uk-button uk-button-default" @click="updateWinefarm()">Update Product</button>
-                        </div>
+                        <!-- </div> -->
                     </div>
                 </div>
             </div>

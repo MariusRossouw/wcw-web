@@ -1,5 +1,5 @@
 <template>
-     <div class="content-background">
+     <div class="container">
       <div class="uk-container uk-container-large uk-padding-remove">
         <div class="uk-card uk-card-default card_create" >
           <div class="uk-card-body">

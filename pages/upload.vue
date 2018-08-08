@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <center>
             <!-- <input type="file" @change="onFileChanged"> -->
             <div>Click the upload icon below to select a file to be uploaded.</div>

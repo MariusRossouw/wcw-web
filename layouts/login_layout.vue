@@ -1,18 +1,12 @@
 <template>
   <div>
-    <aside>
-      <TheSideNav />
-    </aside>
     <nuxt/>
   </div>
 </template>
 
 <script>
-import TheSideNav from '@/components/Navigation/TheSideNav'
 export default {
-  components: {
-    TheSideNav
-  }
+  components: {}
 }
 </script>
 

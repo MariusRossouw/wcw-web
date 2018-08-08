@@ -27,6 +27,8 @@
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" @click="loginButton()">Login</button>
                 </div>
+                <br/>
+                <button class="uk-button uk-button-text" @click="$router.go(-1)">Home</button>
             </div>
         </center>
     </div>        
@@ -35,6 +37,7 @@
 <script>
     import axios from 'axios';
     export default {
+        layout: 'login_layout',
         components: {
             "axios": axios
         },
@@ -63,6 +66,7 @@
                             {to:"/", description:"Home"},
                             {to:"/dashboard", description:"Dashboard"},
                             {to:"/farm/list", description:"Wine Farms"},
+                            {to:"/product/list", description:"Products"},
                             {to:"/merchant/list", description:"Merchants"},
                             {to:"/user/list", description:"Users"},
                             {to:"/upload", description:"Upload"},

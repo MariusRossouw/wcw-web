@@ -27,9 +27,9 @@ module.exports = {
   */
  css:[
   '@/node_modules/uikit/dist/css/uikit.min.css',
-  '@/assets/custom.css',
   '@/node_modules/ag-grid/dist/styles/ag-grid.css',
-  '@/node_modules/ag-grid/dist/styles/ag-theme-balham.css'
+  '@/node_modules/ag-grid/dist/styles/ag-theme-balham.css',
+  '@/assets/custom.css',
 ],
 
   /*

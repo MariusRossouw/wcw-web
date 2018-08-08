@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <div class="content-background">
             <div class="uk-container uk-container-large uk-padding-remove">
                 <div class="uk-card uk-card-default card_create" >
@@ -11,7 +11,7 @@
                                     <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptions" :columnDefs="columnDefs" :rowData="rowData">
                                     </ag-grid-vue>
                                 </div>
-                                <button @click="onBtExport()">Export</button>
+                                <button class="uk-button uk-button-default" @click="onBtExport()">Export</button>
                             </div>
                         </div>
                     </div>

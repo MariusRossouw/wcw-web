@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div class="container">
         <div class="content-background">
             <div class="uk-container uk-container-large uk-padding-remove">
                 <div class="uk-card uk-card-default card_create" >
                     <div class="uk-card-body">
-                        <div uk-grid>
+                        <!-- <div uk-grid> -->
                             <h5>Abrv: {{product.abrv}}</h5>
                             <h5>Product Name: {{product.product_name}}</h5>
                             <h5>Cultivar: {{product.cultivar}}</h5>
@@ -22,7 +22,7 @@
                             <h5>Status: {{product.status}}</h5>
                             <h5>Create Time{{product.create_time}}</h5>
                             <button class="uk-button uk-button-default" @click="updateProduct()">Update Product</button>
-                        </div>
+                        <!-- </div> -->
                     </div>
                 </div>
             </div>

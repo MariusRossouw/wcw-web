@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <div class="uk-container-full">
             <div uk-grid>
                 <div class="uk-width-1-5" style="overflow-y:scroll; height: 100vh; padding-bottom: 200px;">

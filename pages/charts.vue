@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <center>
             <div class="echarts">
                 <chart

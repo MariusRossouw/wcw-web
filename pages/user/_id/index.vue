@@ -1,15 +1,15 @@
 <template>
-    <div>
+    <div class="container">
         <div class="content-background">
             <div class="uk-container uk-container-large uk-padding-remove">
                 <div class="uk-card uk-card-default card_create" >
                     <div class="uk-card-body">
-                        <div uk-grid>
+                        <!-- <div uk-grid> -->
                             <h1 style="margin-left: 40px;">{{ user.first_name + ' ' + user.last_name}}</h1>
                             <h5>{{user.email}}</h5>
                             <h5>{{user.mobile_country_code}}{{user.mobile_no_exl}}</h5>
                             <button class="uk-button uk-button-default" @click="updateProfile()">Update Profile</button>
-                        </div>
+                        <!-- </div> -->
                     </div>
                 </div>
             </div>

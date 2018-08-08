@@ -22,15 +22,119 @@ code {
 }
 
 .uk-card-primary {
-    height: 190px;
+    height: 200px;
+    /* overflow-y: scroll; */
+    width: 100%;
+    background-color: #5197d5;
+}
+
+.uk-card-title {
+    margin-left: 30px;
+}
+
+.cardBody {
+    height: 132px;
     overflow-y: scroll;
     width: 100%;
 }
 
-/* #__layout > div {
-    height: 100vh;
-    display: block;
-    float: left;
-    overflow: hidden;
+.cardBody::-webkit-scrollbar{
+    width: 2px;
+    background-color:transparent;
+}
+
+.cardBody::-webkit-scrollbar-thumb{
+    background-color: white;
+}
+
+.uk-offcanvas-bar {
+    left: auto;
+    right: 0;
+    top: 80px;
     width: 100%;
-} */
+    /* transform: translateX(100%); */
+    height: 495px;
+    position: fixed;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: 0.8s;
+    background: rgb(131, 128, 128);
+}
+
+.uk-open>.uk-offcanvas-bar {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    height: 495px;
+    width: 100% !important;
+    top: 80px;
+    position: fixed;
+    opacity: 1;
+    transition: 0.8s;
+    background: rgb(131, 128, 128);
+}
+
+aside {
+    width: 250px;
+    position: fixed;
+    background: #5197d5;
+    height: 100%;
+}
+
+.container {
+    background: #ececec;
+    width: calc(100% - 250px);
+    float: left;
+    margin-left: 250px;
+    min-height: 100vh;
+}
+
+.sideNav{
+    /* margin-left: 10px; */
+}
+
+.sideNav .uk-nav-default{
+    font-size: 20px;
+}
+
+.uk-nav-default>li>a {
+    color: #fff;
+    font-size: 20px;
+    margin-left: 25px;
+}
+
+.uk-nav-default>li {
+    border-bottom: 1px solid #5197d5
+}
+
+
+.uk-nav-default>li:hover {
+    background: #30618b;
+}
+
+.uk-nav-default>li>a:hover {
+    color: white;
+    font-weight: 600;
+}
+
+.nuxt-link-exact-active {
+    background: #30618b;
+    color: white !important;
+    font-weight: 600;
+}
+
+.ag-theme-balham .ag-header-cell, .ag-theme-balham .ag-header-group-cell {
+    background-color: #5197d5;
+}
+
+.ag-theme-balham .ag-header-cell-label {
+    background-color: #5197d5;
+}
+
+.ag-theme-balham .ag-header-cell-label .ag-header-cell-text {
+    color: white;
+}
+
+.uk-button-default {
+    background-color: #5197d5;
+    color: white;
+}

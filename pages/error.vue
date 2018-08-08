@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <center>
             <h1>403</h1>
             <h3>ACCESS DENIED</h3>

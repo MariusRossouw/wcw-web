@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div class="container">
         <div class="content-background">
             <div class="uk-container uk-container-large uk-padding-remove">
                 <div class="uk-card uk-card-default card_create" >
                     <div class="uk-card-body">
-                        <div uk-grid>
+                        <!-- <div uk-grid> -->
                             <h5>Code: {{merchant.code}}</h5>
                             <h5>Account: {{merchant.account}}</h5>
                             <h5>Abrv: {{merchant.abrv}}</h5>
@@ -17,7 +17,7 @@
                             <h5>Mobile Number: {{merchant.mobile_number}}</h5>
                             <h5>Status: {{merchant.status}}</h5>
                             <button class="uk-button uk-button-default" @click="updateMerchant()">Update Product</button>
-                        </div>
+                        <!-- </div> -->
                     </div>
                 </div>
             </div>

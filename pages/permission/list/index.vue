@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <div class="container">
         <h1 style="margin-left: 40px;">List of Permissions</h1>
         <div class="uk-card-body" style="width: 100%; height: 400px">
             <div style="width: 100%; height: 60vh;">
                 <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptions" :columnDefs="columnDefs" :rowData="rowData">
                 </ag-grid-vue>
             </div>
-            <button @click="onBtExport()">Export</button>
+            <button class="uk-button uk-button-default" @click="onBtExport()">Export</button>
         </div>
     </div>
 </template>
