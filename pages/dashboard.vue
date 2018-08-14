@@ -11,17 +11,17 @@
                         color:white; font-size:20px;">Filter
                 <p v-if="filters.years.length == 0 && filters.quarters.length == 0 && filters.months.length == 0 && filters.codes.length == 0 && filters.reps.length == 0 && filters.provinces.length == 0 && filters.merchant_groups.length == 0 && filters.merchants.length == 0 && filters.wine_farms.length == 0 && filters.products.length == 0 && filters.types.length == 0">Showing (All)</p>
                 <p v-if="filters.years.length > 0 || filters.quarters.length > 0 || filters.months.length > 0 || filters.codes.length > 0 || filters.reps.length > 0 || filters.provinces.length > 0 || filters.merchant_groups.length > 0 || filters.merchants.length > 0 || filters.wine_farms.length > 0 || filters.products.length > 0 || filters.types.length > 0"> Showing (
-                    <span v-if="filters.years.length > 0" v-for="(fy, index) in filters.years" :key="fy+index"> {{ fy }} <b v-if="filters.years.length > 1">|</b> </span>
-                    <span v-if="filters.quarters.length > 0" v-for="(fq, index) in filters.quarters" :key="fq+index"> {{ fq }} <b v-if="filters.quarters.length > 1">|</b> </span>
-                    <span v-if="filters.months.length > 0" v-for="(fm, index) in filters.months" :key="fm+index"> {{ fm }} <b v-if="filters.months.length > 1">|</b> </span>
-                    <span v-if="filters.codes.length > 0" v-for="(fc, index) in filters.codes" :key="fc+index"> {{ fc }} <b v-if="filters.codes.length > 1">|</b> </span>
-                    <span v-if="filters.reps.length > 0" v-for="(fr, index) in filters.reps" :key="fr.rep_name+index"> {{ fr.rep_name }} <b v-if="filters.reps.length > 1">|</b> </span>
-                    <span v-if="filters.provinces.length > 0" v-for="(fpr, index) in filters.provinces" :key="fpr.province_name+index"> {{ fpr.province_name }} <b v-if="filters.provinces.length > 1">|</b> </span>
-                    <span v-if="filters.merchant_groups.length > 0" v-for="(fmg, index) in filters.merchant_groups" :key="fmg.group_name+index"> {{ fmg.group_name }} <b v-if="filters.merchant_groups.length > 1">|</b> </span>
-                    <span v-if="filters.merchants.length > 0" v-for="(fm, index) in filters.merchants" :key="fm.merchant_name+index"> {{ fm.merchant_name }} <b v-if="filters.merchants.length > 1">|</b> </span>
-                    <span v-if="filters.wine_farms.length > 0" v-for="(fw, index) in filters.wine_farms" :key="fw.farm_name+index"> {{ fw.farm_name }} <b v-if="filters.wine_farms.length > 1">|</b> </span>
-                    <span v-if="filters.products.length > 0" v-for="(fp, index) in filters.products" :key="fp.product_name+index"> {{ fp.product_name }} <b v-if="filters.products.length > 1">|</b> </span>
-                    <span v-if="filters.types.length > 0" v-for="(ft, index) in filters.types" :key="ft.product_type+index"> {{ ft.product_type }} <b v-if="filters.types.length > 1">|</b> </span> )
+                    <span v-if="filters.years.length > 0" v-for="(fy, index) in filters.years" :key="fy+index"> {{ fy }} <b>|</b> </span>
+                    <span v-if="filters.quarters.length > 0" v-for="(fq, index) in filters.quarters" :key="fq+index"> {{ fq }} <b>|</b> </span>
+                    <span v-if="filters.months.length > 0" v-for="(fm, index) in filters.months" :key="fm+index"> {{ fm }} <b>|</b> </span>
+                    <span v-if="filters.codes.length > 0" v-for="(fc, index) in filters.codes" :key="fc+index"> {{ fc }} <b>|</b> </span>
+                    <span v-if="filters.reps.length > 0" v-for="(fr, index) in filters.reps" :key="fr.rep_name+index"> {{ fr.rep_name }} <b>|</b> </span>
+                    <span v-if="filters.provinces.length > 0" v-for="(fpr, index) in filters.provinces" :key="fpr.province_name+index"> {{ fpr.province_name }} <b>|</b> </span>
+                    <span v-if="filters.merchant_groups.length > 0" v-for="(fmg, index) in filters.merchant_groups" :key="fmg.group_name+index"> {{ fmg.group_name }} <b>|</b> </span>
+                    <span v-if="filters.merchants.length > 0" v-for="(fm, index) in filters.merchants" :key="fm.merchant_name+index"> {{ fm.merchant_name }} <b>|</b> </span>
+                    <span v-if="filters.wine_farms.length > 0" v-for="(fw, index) in filters.wine_farms" :key="fw.farm_name+index"> {{ fw.farm_name }} <b>|</b> </span>
+                    <span v-if="filters.products.length > 0" v-for="(fp, index) in filters.products" :key="fp.product_name+index"> {{ fp.product_name }} <b>|</b> </span>
+                    <span v-if="filters.types.length > 0" v-for="(ft, index) in filters.types" :key="ft.product_type+index"> {{ ft.product_type }} <b>|</b> </span> )
                 </p>
             </div>
             <div id="offcanvas-usage" uk-offcanvas>
@@ -982,7 +982,8 @@
             updateYears(index, year) {
                 this.years[index].selected = !this.years[index].selected;
                 if (this.years[index].selected) {
-                    this.filters.years.push(year);
+                    this.filters.years.indexOf(year) === -1 ? this.filters.years.push(year) : console.log("This item already exists");
+                    // this.filters.years.push(year);
                 } else {
                     for (var i = 0; i < this.filters.years.length; i++) {
                         if (this.filters.years[i] === year) {
@@ -1174,6 +1175,13 @@
                 if(request.filters.years.length == 0){
                     request.filters.years.push(currentyear);
                     this.year = currentyear;
+                    for(var i = 0; i < this.years.length; i++){
+                        // console.log('Response1: ', this.years[i].transaction_year);
+                        if(this.years[i].transaction_year == this.year){
+                            // console.log('Match: ', this.years[i].transaction_year);
+                            this.updateYears(i, this.years[i].transaction_year);
+                        }
+                    }
                 }
                 console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_filtered', request) //transactions_filtered
