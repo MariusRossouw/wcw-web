@@ -151,12 +151,12 @@
         <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>
             <div class="uk-width-1-1@m">
                 <div class="uk-grid-small" uk-grid>
-                    <div class="uk-width-2-3@m">
+                    <div class="uk-width-5-6@m">
                         <div class="uk-card uk-card-default uk-card-small echarts">
-                            <chart :option="option" :loading="loading" @ready="onReady" @click="onClick" />
+                            <chart :option="option" :loading="loading" @ready="onReady" @click="onClick" id="chart1"/>
                         </div>
                     </div>
-                    <div class="uk-width-1-3@m">
+                    <div class="uk-width-1-6@m">
                         <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>
                             <div class="uk-width-1-1@m">
                                 <div>
@@ -164,48 +164,30 @@
                                     <button class="uk-button uk-button-default" @click="clearFilters()">Clear</button>
                                 </div>
                             </div>
-                            <div class="uk-width-1-1@m">
-                                STUFF
-                            </div>
-                            <div class="uk-width-1-1@m">
-                                STUFF
-                            </div>
-                            <div class="uk-width-1-1@m">
-                                STUFF
-                            </div>
-                            <div class="uk-width-1-1@m">
-                                STUFF
-                            </div>
-                            <div class="uk-width-1-1@m">
-                                STUFF
-                            </div>
-                            <div class="uk-width-1-1@m">
-                                STUFF
-                            </div>
-                            <div class="uk-width-1-1@m">
-                                STUFF
-                            </div>
-                            <div class="uk-width-1-1@m">
-                                STUFF
-                            </div>
                         </div>
                     </div>
-                    <div class="uk-width-1-3@m">
+                    <div class="uk-width-1-4@m">
                         <div class="uk-card uk-card-default uk-card-small">
-                            <h3 class="uk-card-title">Top 5 A</h3>
-                            <li v-for="(rD, index) in top5Products" :key="index">{{rD.product_name}} {{rD.total_vulue | toCurrency}}</li>
+                            <h3 class="uk-card-title">Bottom 5 Merchants</h3>
+                            <li v-for="(bM, index) in bottom5_merchants" :key="index">{{bM.name}} {{bM.value | toCurrency}}</li>
                         </div>
                     </div>
-                    <div class="uk-width-1-3@m">
+                    <div class="uk-width-1-4@m">
                         <div class="uk-card uk-card-default uk-card-small">
-                            <h3 class="uk-card-title">Bottom 5 A</h3>
-                            <li v-for="(rD, index) in top5Products" :key="index">{{rD.product_name}} {{rD.total_vulue | toCurrency}}</li>
+                            <h3 class="uk-card-title">Top 5 Merchants</h3>
+                            <li v-for="(tM, index) in top5_merchants" :key="index">{{tM.name}} {{tM.value | toCurrency}}</li>
                         </div>
                     </div>
-                    <div class="uk-width-1-3@m">
+                    <div class="uk-width-1-4@m">
                         <div class="uk-card uk-card-default uk-card-small">
-                            <h3 class="uk-card-title">Bottom 5 A</h3>
-                            <li v-for="(rD, index) in top5Products" :key="index">{{rD.product_name}} {{rD.total_vulue | toCurrency}}</li>
+                            <h3 class="uk-card-title">Bottom 5 Products</h3>
+                            <li v-for="(bP, index) in bottom5_products" :key="index">{{bP.name}} {{bP.value | toCurrency}}</li>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-4@m">
+                        <div class="uk-card uk-card-default uk-card-small">
+                            <h3 class="uk-card-title">Top 5 Products</h3>
+                            <li v-for="(tP, index) in top5_products" :key="index">{{tP.name}} {{tP.value | toCurrency}}</li>
                         </div>
                     </div>
                 </div>
@@ -215,13 +197,13 @@
     
         <div class="uk-grid-small" uk-grid>
             <div class="uk-width-1-3@m">
-                <chart style="height: 400px; width: 100%;" :option="option2" :loading="loading" @ready="onReady" @click="onClick" />
+                <chart style="height: 400px; width: 100%;" :option="option2" :loading="loading" @ready="onReady" @click="onClick" id="chart2"/>
             </div>
             <div class="uk-width-1-3@m">
-                <chart style="height: 400px; width: 100%;" :option="option3" :loading="loading" @ready="onReady" @click="onClick" />
+                <chart style="height: 400px; width: 100%;" :option="option3" :loading="loading" @ready="onReady" @click="onClick" id="chart3"/>
             </div>
             <div class="uk-width-1-3@m">
-                <chart style="height: 400px; width: 100%;" :option="option4" :loading="loading" @ready="onReady" @click="onClick" />
+                <chart style="height: 400px; width: 100%;" :option="option4" :loading="loading" @ready="onReady" @click="onClick" id="chart4"/>
             </div>
         </div>
     
@@ -246,6 +228,8 @@
         AgGridVue
     } from "ag-grid-vue";
     import axios from 'axios';
+    import echarts from 'echarts'
+    import IEcharts from 'vue-echarts-v3/src/full.js';
     export default {
         components: {
             "ag-grid-vue": AgGridVue,
@@ -258,6 +242,8 @@
         },
         data() {
             return {
+                chart: null,
+                chart5: null,
                 filters: {
                     years: [],
                     quarters: [],
@@ -272,27 +258,15 @@
                     reps: []
                 },
                 year:"",
-                years: [{
-                        year: "2014",
-                        selected: false
-                    },
-                    {
-                        year: "2015",
-                        selected: false
-                    },
-                    {
-                        year: "2016",
-                        selected: false
-                    },
-                    {
-                        year: "2017",
-                        selected: false
-                    },
-                    {
-                        year: "2018",
-                        selected: false
-                    }
-                ],
+                bottom5_merchants: [],
+                bottom5_products: [],
+                top5_merchants: [],
+                top5_products: [],
+                type_names: [],
+                provinces_names: [],
+                code_names: [],
+                max1:0,
+                years: [],
                 quarters: [{
                         quarter: "Q1",
                         selected: false
@@ -361,194 +335,15 @@
                 ],
                 graph_months: [],
                 legend: [],
-                codes: [{
-                        code: "C1",
-                        selected: false
-                    },
-                    {
-                        code: "C2",
-                        selected: false
-                    },
-                    {
-                        code: "C3",
-                        selected: false
-                    },
-                    {
-                        code: "C4",
-                        selected: false
-                    }
-                ],
-                merchant_groups: [{
-                        merchant_group_id: "",
-                        group_name: "MG1",
-                        selected: false
-                    },
-                    {
-                        group_name: "MG2",
-                        selected: false
-                    },
-                    {
-                        group_name: "MG3",
-                        selected: false
-                    },
-                    {
-                        group_name: "MG4",
-                        selected: false
-                    }
-                ],
-                merchants: [{
-                        merchant: "M1",
-                        selected: false
-                    },
-                    {
-                        merchant: "M2",
-                        selected: false
-                    },
-                    {
-                        merchant: "M3",
-                        selected: false
-                    },
-                    {
-                        merchant: "M4",
-                        selected: false
-                    }
-                ],
-                wine_farms: [{
-                        wine_farm: "WF1",
-                        selected: false
-                    },
-                    {
-                        wine_farm: "WF2",
-                        selected: false
-                    },
-                    {
-                        wine_farm: "WF3",
-                        selected: false
-                    },
-                    {
-                        wine_farm: "WF4",
-                        selected: false
-                    }
-                ],
-                products: [{
-                        product: "PR1",
-                        selected: false
-                    },
-                    {
-                        product: "PR2",
-                        selected: false
-                    },
-                    {
-                        product: "PR3",
-                        selected: false
-                    },
-                    {
-                        product: "PR4",
-                        selected: false
-                    }
-                ],
-                types: [{
-                        type: "T1",
-                        selected: false
-                    },
-                    {
-                        type: "T2",
-                        selected: false
-                    },
-                    {
-                        type: "T3",
-                        selected: false
-                    },
-                    {
-                        type: "T4",
-                        selected: false
-                    }
-                ],
-                reps: [{
-                        rep: "R1",
-                        selected: false
-                    },
-                    {
-                        rep: "R2",
-                        selected: false
-                    },
-                    {
-                        rep: "R3",
-                        selected: false
-                    },
-                    {
-                        rep: "R4",
-                        selected: false
-                    }
-                ],
-                provinces: [{
-                        province: "P1",
-                        selected: false
-                    },
-                    {
-                        province: "P2",
-                        selected: false
-                    },
-                    {
-                        province: "P3",
-                        selected: false
-                    },
-                    {
-                        province: "P4",
-                        selected: false
-                    },
-                    {
-                        province: "P5",
-                        selected: false
-                    },
-                    {
-                        province: "P6",
-                        selected: false
-                    },
-                    {
-                        province: "P7",
-                        selected: false
-                    },
-                    {
-                        province: "P8",
-                        selected: false
-                    },
-                    {
-                        province: "P9",
-                        selected: false
-                    }
-                ],
-                top5Products: [{
-                        id: "1",
-                        product_name: "BB Merlot NV 750 ml",
-                        total_vulue: 98765.43,
-                        total_volume: "8765"
-                    },
-                    {
-                        id: "2",
-                        product_name: "BB Merlot NV 750 ml",
-                        total_vulue: 98765.43,
-                        total_volume: "8765"
-                    },
-                    {
-                        id: "3",
-                        product_name: "BB Merlot NV 750 ml",
-                        total_vulue: 98765.43,
-                        total_volume: "8765"
-                    },
-                    {
-                        id: "4",
-                        product_name: "BB Merlot NV 750 ml",
-                        total_vulue: 98765.43,
-                        total_volume: "8765"
-                    },
-                    {
-                        id: "5",
-                        product_name: "BB Merlot NV 750 ml",
-                        total_vulue: 98765.43,
-                        total_volume: "8765"
-                    }
-                ],
+                codes: [],
+                merchant_groups: [],
+                merchants: [],
+                wine_farms: [],
+                products: [],
+                types: [],
+                reps: [],
+                provinces: [],
+                top5Products: [],
                 columnDefs: [{
                         headerName: "Province",
                         field: "province_name",
@@ -578,6 +373,217 @@
                             },
                             debounceMs:2000
                         }
+                    },
+                    {
+                        headerName: "Account",
+                        field: "account",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "Blend",
+                        field: "blend",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "Bottles",
+                        field: "bottles",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "business_name",
+                        field: "business_name",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "case_size",
+                        field: "case_size",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "cases",
+                        field: "cases",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "code",
+                        field: "code",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "color",
+                        field: "color",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "cultivar",
+                        field: "cultivar",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "description",
+                        field: "description",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "first_name",
+                        field: "first_name",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "last_name",
+                        field: "last_name",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "item_code",
+                        field: "item_code",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "litres",
+                        field: "litres",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "measurement",
+                        field: "measurement",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "merchant_name",
+                        field: "merchant_name",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "period",
+                        field: "period",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "product_classification",
+                        field: "product_classification",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "product_id",
+                        field: "product_id",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "product_name",
+                        field: "product_name",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "product_type",
+                        field: "product_type",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "province_name",
+                        field: "province_name",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "rep_code",
+                        field: "rep_code",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "rep_name",
+                        field: "rep_name",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "sale",
+                        field: "sale",
+                        minWidth: 90,
+                        headerClass: 'resizable-header',
+                        valueParser: this.numberValueParser
+                    },
+                    {
+                        headerName: "size",
+                        field: "size",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "special",
+                        field: "special",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "transaction_code",
+                        field: "transaction_code",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "transaction_day",
+                        field: "transaction_day",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "transaction_id",
+                        field: "transaction_id",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "transaction_month",
+                        field: "transaction_month",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "transaction_type",
+                        field: "transaction_type",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "transaction_year",
+                        field: "transaction_year",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "vintage",
+                        field: "vintage",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "volume",
+                        field: "volume",
+                        minWidth: 90,
+                        headerClass: 'resizable-header'
                     },
                     {
                         headerName: "Region",
@@ -648,21 +654,24 @@
                         field: "sale",
                         minWidth: 100,
                         aggFunc: 'sum',
-                        headerClass: 'resizable-header'
+                        headerClass: 'resizable-header',
+                        valueParser: this.numberValueParser
                     },
                     {
                         headerName: "Volume",
                         field: "litres",
                         minWidth: 100,
                         aggFunc: 'sum',
-                        headerClass: 'resizable-header'
+                        headerClass: 'resizable-header',
+                        valueParser: this.numberValueParser
                     },
                     {
                         headerName: "Percentage",
                         field: "percentage",
                         minWidth: 100,
                         aggFunc: 'sum',
-                        headerClass: 'resizable-header'
+                        headerClass: 'resizable-header',
+                        valueParser: this.numberValueParser
                     } // of budget
                 ],
                 rowData: [],
@@ -675,7 +684,10 @@
                         // allow every column to be grouped
                         enableRowGroup: true,
                         // allow every column to be pivoted
-                        enablePivot: true
+                        enablePivot: true,
+                        // valueFormatter: function (params) {
+                        //     return this.formatNumber(params.value);
+                        // },
                     },
                     // onRowDoubleClicked: this.openProfile,
                     suppressPropertyNamesCheck: true,
@@ -686,157 +698,14 @@
                     }
                 },
                 loading: false,
+                // o: {},
+                o2: {},
+                o3: {},
+                o4: {},
                 option: {},
-                option2: {
-                    title: {
-                        text: 'Types',
-                        x: 'center'
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    legend: {
-                        orient: 'vertical',
-                        bottom: 150,
-                        left: 100,
-                        data: ['A', 'B', 'C', 'D', 'E']  // types [{name:"",value:""}] from backend else use own types array that include all the types 
-                    },
-                    series: [{
-                        name: 'Something', // name of type
-                        type: 'pie',
-                        radius: '55%',
-                        center: ['50%', '60%'],
-                        data: [{
-                                value: 335,
-                                name: 'A'
-                            },
-                            {
-                                value: 310,
-                                name: 'B'
-                            },
-                            {
-                                value: 234,
-                                name: 'C'
-                            },
-                            {
-                                value: 135,
-                                name: 'D'
-                            },
-                            {
-                                value: 1548,
-                                name: 'E'
-                            }
-                        ],
-                        itemStyle: {
-                            emphasis: {
-                                shadowBlur: 10,
-                                shadowOffsetX: 0,
-                                shadowColor: 'rgba(0, 0, 0, 0.5)'
-                            }
-                        }
-                    }]
-                },
-                option3: {
-                    title: {
-                        text: 'Province',
-                        x: 'center'
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    legend: {
-                        orient: 'vertical',
-                        bottom: 150,
-                        left: 100,
-                        data: ['A', 'B', 'C', 'D', 'E'] // provinces [{name:"",value:""}] from backend else use own provinces array that include all the provinces 
-                    },
-                    series: [{
-                        name: 'Something',
-                        type: 'pie',
-                        radius: '55%',
-                        center: ['50%', '60%'],
-                        data: [{
-                                value: 335,
-                                name: 'A'
-                            },
-                            {
-                                value: 310,
-                                name: 'B'
-                            },
-                            {
-                                value: 234,
-                                name: 'C'
-                            },
-                            {
-                                value: 135,
-                                name: 'D'
-                            },
-                            {
-                                value: 1548,
-                                name: 'E'
-                            }
-                        ],
-                        itemStyle: {
-                            emphasis: {
-                                shadowBlur: 10,
-                                shadowOffsetX: 0,
-                                shadowColor: 'rgba(0, 0, 0, 0.5)'
-                            }
-                        }
-                    }]
-                },
-                option4: {
-                    title: {
-                        text: 'Code',
-                        x: 'center'
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    legend: {
-                        orient: 'vertical',
-                        bottom: 150,
-                        left: 100,
-                        data: ['A', 'B', 'C', 'D', 'E'] // codes [{name:"",value:""}] from backend else use own codes array that include all the codes 
-                    },
-                    series: [{
-                        name: 'Something',
-                        type: 'pie',
-                        radius: '55%',
-                        center: ['50%', '60%'],
-                        data: [{
-                                value: 335,
-                                name: 'A'
-                            },
-                            {
-                                value: 310,
-                                name: 'B'
-                            },
-                            {
-                                value: 234,
-                                name: 'C'
-                            },
-                            {
-                                value: 135,
-                                name: 'D'
-                            },
-                            {
-                                value: 1548,
-                                name: 'E'
-                            }
-                        ],
-                        itemStyle: {
-                            emphasis: {
-                                shadowBlur: 10,
-                                shadowOffsetX: 0,
-                                shadowColor: 'rgba(0, 0, 0, 0.5)'
-                            }
-                        }
-                    }]
-                },
+                option2: {},
+                option3: {},
+                option4: {},
             };
         },
         methods: {
@@ -865,23 +734,10 @@
                 console.log(params);
                 this.$router.push("/farm/" + params.data.wine_farm_id);
             },
-            getData1() {
-                var _this = this;
-                let request = {};
-                axios.post(this.$store.state.api_url + '/transactions_province', request)
-                    .then(response => {
-                        console.log(response);
-                        _this.gridOptions.api.setColumnDefs(_this.columnDefs);
-                        _this.gridOptions.api.setRowData(response.data.data.records);
-                    })
-                    .catch(error => {
-                        console.log(error.response);
-                    });
-            },
             onBtNormal() {
                 this.gridOptions.columnApi.setPivotMode(false);
                 this.gridOptions.columnApi.setPivotColumns([]);
-                this.gridOptions.columnApi.setRowGroupColumns(['province_name', 'transaction_year', 'transaction_month']);
+                this.gridOptions.columnApi.setRowGroupColumns(['province_name', 'rep_name']);
             },
             onBtPivotMode() {
                 this.gridOptions.columnApi.setPivotMode(true);
@@ -891,7 +747,15 @@
             onBtFullPivot() {
                 this.gridOptions.columnApi.setPivotMode(true);
                 this.gridOptions.columnApi.setPivotColumns(['transaction_year', 'transaction_month']);
-                this.gridOptions.columnApi.setRowGroupColumns(['province_name', 'region_name', 'group_name', 'merchant_name']);
+                this.gridOptions.columnApi.setRowGroupColumns(['province_name', 'rep_name', 'merchant_name']);
+            },
+            numberValueParser(params) {
+                return Number(params.newValue);
+            },
+            formatNumber(number) {
+                // this puts commas into the number eg 1000 goes to 1,000,
+                // i pulled this from stack overflow, i have no idea how it works
+                return Math.floor(number).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
             },
             onBtExport() {
                 var params = {
@@ -969,16 +833,6 @@
             onClick(event, instance, ECharts) {
                 console.log(arguments);
             },
-            // onClick2(event){
-            //     console.log('Mouse',event.data);
-            //     var xAxisInfo = event.data;
-            //     var dimension = xAxisInfo[0];
-            //     // console.log(this.option4.series.length-1);
-            //     this.option4.series[this.option4.series.length-1].label.formatter = '{b}: {@[' + dimension + ']} ({d}%)';
-            //     this.option4.series[this.option4.series.length-1].encode.value = dimension;
-            //     this.option4.series[this.option4.series.length-1].encode.tooltip = dimension;
-            //     // console.log(this.option4);
-            // },
             updateYears(index, year) {
                 this.years[index].selected = !this.years[index].selected;
                 if (this.years[index].selected) {
@@ -1146,25 +1000,19 @@
                     })
                     .catch(error => {
                         console.log("Error: ", error.response);
-                        // if (error.response.status == 400) {
-                        //     console.log(error.response);
-                        // }
-                        // if (error.response.status == 401) {
-                        //     console.log(error.response);
-                        // }
-                        // if (error.response.status == 403) {
-                        //     console.log(error.response);
-                        //     new Error();
-                        // }
-                        // if (error.response.status == 404) {
-                        //     console.log(error.response);
-                        // }
-                        // if (error.response.status == 500) {
-                        //     console.log(error.response);
-                        // }
                     });
             },
             getGraphData() {
+                // this.o = {};
+                this.chart.clear();
+                this.chart.setOption({}, true);
+                this.chart2.clear();
+                this.chart2.setOption({}, true);
+                this.chart3.clear();
+                this.chart3.setOption({}, true);
+                this.chart4.clear();
+                this.chart4.setOption({}, true);
+                // console.log("O: ", this.o)
                 // allways start with the current year as default
                 var currentyear = new Date().getFullYear();
                 currentyear = currentyear.toString();
@@ -1188,8 +1036,16 @@
                     .then(response => {
                         console.log('Response: ', response);
                         this.graph_months = response.data.data.graph_months;
+                        this.gridOptions.api.setColumnDefs(this.columnDefs);
+                        this.gridOptions.api.setRowData(response.data.data.records);
+                        this.bottom5_merchants = response.data.data.bottom5_merchants;
+                        this.bottom5_products = response.data.data.bottom5_products;
+                        this.top5_merchants = response.data.data.top5_merchants;
+                        this.top5_products = response.data.data.top5_products;
                         this.legend = response.data.data.legend;
-                        this.option= {
+                        // this.max1 = Math.max(response.data.data.years[0].sale);
+                        
+                        var o= {
                             tooltip: {
                                 trigger: 'axis',
                                 axisPointer: {
@@ -1236,8 +1092,8 @@
                                     type: 'value',
                                     name: 'Sales/Budget',
                                     min: 0,
-                                    max: 150000,
-                                    interval: 50000,
+                                    max: 1500000,
+                                    interval: 250000,
                                     axisLabel: {
                                         formatter: '{value} R'
                                     },
@@ -1251,8 +1107,8 @@
                                     type: 'value',
                                     name: 'Accum',
                                     min: 0,
-                                    max: 1000000,
-                                    interval: 250000,
+                                    max: 10000000,
+                                    interval: 2500000,
                                     axisLabel: {
                                         formatter: '{value} R'
                                     },
@@ -1263,59 +1119,96 @@
                                     },
                                 }
                             ],
-                            series: [
-                                // {
-                            //         name: 'Budget',
-                            //         type: 'line',
-                            //         yAxisIndex: 0,
-                            //         data: [30000, 29000, 23442, 67645, 78678, 23423, 56756, 54645, 56756, 87664, 78445, 45343] // budget [] -> for the year and months selected
-                            //     },
-                            //     {
-                            //         name: 'Sales 2017',
-                            //         type: 'bar',
-                            //         yAxisIndex: 0,
-                            //         itemStyle: {
-                            //             normal: {
-                            //                 color: '#3c3c3c'
-                            //             }
-                            //         },
-                            //         data: [22000, 32760, 22880, 32440, 22000, 62006, 52879, 42546, 13323, 82678, 42435, 82656] // sales [] -> for the year and months selected // and do forloop for each year selected
-                            //     },
-                            //     {
-                            //         name: 'Sales 2018',
-                            //         type: 'bar',
-                            //         yAxisIndex: 0,
-                            //         itemStyle: {
-                            //             normal: {
-                            //                 color: '#3398DB'
-                            //             }
-                            //         },
-                            //         data: [25000, 39760, 29880, 31440, 21000, 69006, 56879, 45546, 12323, 89678, 45435, 84656] // replaced by above
-                            //     },
-                            //     {
-                            //         name: '2017 Accum',
-                            //         type: 'line',
-                            //         yAxisIndex: 1,
-                            //         data: [22000, 52760, 72880, 102440, 122000, 182006, 232879, 272546, 283323, 362678, 402435, 482656] // accum [] -> for the year and months selected // and do forloop for each year selected
-                            //     },
-                            //     {
-                            //         name: '2018 Accum',
-                            //         type: 'line',
-                            //         yAxisIndex: 1,
-                            //         data: [30000, 59000, 73442, 137645, 208678, 223423, 276756, 324645, 376756, 457664, 528445, 565343] // replaced by above
-                            //     },
-                            //     {
-                            //         name: 'Budget Accum',
-                            //         type: 'line',
-                            //         yAxisIndex: 1,
-                            //         data: [26000, 49000, 63442, 117645, 188678, 203423, 256756, 294645, 336756, 407664, 488445, 505343]  // buget_accum [] -> for the year and months selected // and do forloop for each year selected
-                            //     }
-                            ]
+                            series: []
                         }
+                        for(var i = 0; i < response.data.data.types.length; i++){
+                            this.type_names.push(response.data.data.types[i].name);
+                        }
+                        var o2 = {
+                            title: {
+                                text: 'Types',
+                                x: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            series: [{
+                                name: 'Types', // name of type
+                                type: 'pie',
+                                radius: '55%',
+                                center: ['50%', '60%'],
+                                data: response.data.data.types,
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }]
+                        }
+                        this.chart2.setOption(o2, true);
+                        for(var i = 0; i < response.data.data.provinces.length; i++){
+                            this.provinces_names.push(response.data.data.provinces[i].name);
+                        }
+                        var o3 = {
+                            title: {
+                                text: 'Province',
+                                x: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            series: [{
+                                name: 'Province',
+                                type: 'pie',
+                                radius: '55%',
+                                center: ['50%', '60%'],
+                                data: response.data.data.provinces,
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }]
+                        }
+                        this.chart3.setOption(o3, true);
+                        for(var i = 0; i < response.data.data.code.length; i++){
+                            this.code_names.push(response.data.data.code[i].name);
+                        }
+                        var o4 = {
+                            title: {
+                                text: 'Code',
+                                x: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            series: [{
+                                name: 'Code',
+                                type: 'pie',
+                                radius: '55%',
+                                center: ['50%', '60%'],
+                                data: response.data.data.code,
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }]
+                        }
+                        this.chart4.setOption(o4, true);
                         var j = 0;
                         for(var i = 0; i < response.data.data.years.length; i++){
-                            console.log(this.option.series.length);
-                            this.option.series.push({
+                            console.log(o.series.length);
+                            o.series.push({
                                     name: this.legend[i],
                                     type: 'bar',
                                     yAxisIndex: 0,
@@ -1325,8 +1218,8 @@
                             j++;
                         }
                         for(var i = 0; i < response.data.data.years.length; i++){
-                            console.log(this.option.series.length);
-                            this.option.series.push({
+                            console.log(o.series.length);
+                            o.series.push({
                                     name: this.legend[j],
                                     type: 'bar',
                                     yAxisIndex: 0,
@@ -1336,8 +1229,8 @@
                             j++;
                         }
                         for(var i = 0; i < response.data.data.years.length; i++){
-                            console.log(this.option.series.length);
-                            this.option.series.push({
+                            console.log(o.series.length);
+                            o.series.push({
                                     name: this.legend[j],
                                     type: 'line',
                                     yAxisIndex: 1,
@@ -1347,8 +1240,8 @@
                             j++;
                         }
                         for(var i = 0; i < response.data.data.years.length; i++){
-                            console.log(this.option.series.length);
-                            this.option.series.push({
+                            console.log(o.series.length);
+                            o.series.push({
                                     name: this.legend[j],
                                     type: 'line',
                                     yAxisIndex: 1,
@@ -1357,7 +1250,8 @@
                             )
                             j++;
                         }
-                        
+                        console.log("O: ", o)
+                        this.chart.setOption(o, true);
                     })
                     .catch(error => {
                         console.log(error.response);
@@ -1449,7 +1343,11 @@
             this.checkAuthState();
         },
         mounted() {
-            this.getData1();
+            // this.getData1();
+            this.chart = echarts.init(document.getElementById('chart1'));
+            this.chart2 = echarts.init(document.getElementById('chart2'));
+            this.chart3 = echarts.init(document.getElementById('chart3'));
+            this.chart4 = echarts.init(document.getElementById('chart4'));
             this.getFilterData();
             var currentyear = new Date().getFullYear();
             this.year = currentyear.toString();
