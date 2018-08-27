@@ -101,11 +101,23 @@
             }
         },
         beforeMount() {
-            let ls = JSON.parse(localStorage.getItem("State"));
-            console.log(ls);
-            if(ls && ls.entity && ls.entity.id > 0){
-                this.$router.push("/dashboard");
+            var a = {
+                // api_url: 'http://localhost:31001',
+                api_url: 'http://wcwines-api-stage.strathost.co.za/',
+                session: {
+                    navbar: [
+                        {to:"/", description:"Home"},
+                    ],
+                    authed: false,
+                    entity: {}
+                },
             }
+            this.$store.replaceState(a);
+            // let ls = JSON.parse(localStorage.getItem("State"));
+            // console.log(ls);
+            // if(ls && ls.entity && ls.entity.id > 0){
+            //     this.$router.push("/dashboard");
+            // }
         },
         mounted() {
 

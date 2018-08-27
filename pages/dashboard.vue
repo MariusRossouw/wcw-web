@@ -258,6 +258,8 @@
                     reps: []
                 },
                 year:"",
+                month:"",
+                monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
                 bottom5_merchants: [],
                 bottom5_products: [],
                 top5_merchants: [],
@@ -861,7 +863,8 @@
             updateMonths(index, month) {
                 this.months[index].selected = !this.months[index].selected;
                 if (this.months[index].selected) {
-                    this.filters.months.push(month);
+                    this.filters.months.indexOf(month) === -1 ? this.filters.months.push(month) : console.log("This item already exists");
+                    // this.filters.months.push(month);
                 } else {
                     for (var i = 0; i < this.filters.months.length; i++) {
                         if (this.filters.months[i] === month) {
@@ -995,6 +998,19 @@
                                 }
                             }
                         }
+                        console.log(this.month);
+                        if(this.month != ""){
+                            console.log("this.month");
+                            console.log(this.months);
+                            for(var i = 0; i < this.months.length; i++){
+                                // console.log('Response1: ', this.months[i].month);
+                                if(this.months[i].month == this.month){
+                                    console.log("this.month");
+                                    // console.log('Match: ', this.months[i].month);
+                                    this.updateMonths(i, this.months[i].month);
+                                }
+                            }
+                        }
                         this.getGraphData();
                         
                     })
@@ -1016,6 +1032,8 @@
                 // allways start with the current year as default
                 var currentyear = new Date().getFullYear();
                 currentyear = currentyear.toString();
+                var cm = new Date();
+                this.month = this.monthNames[cm.getMonth()];
                 // console.log(currentyear);
                 let request = {
                     filters: this.filters
@@ -1028,6 +1046,17 @@
                         if(this.years[i].transaction_year == this.year){
                             // console.log('Match: ', this.years[i].transaction_year);
                             this.updateYears(i, this.years[i].transaction_year);
+                        }
+                    }
+                }
+                if(request.filters.months.length == 0){
+                    request.filters.months.push(currentmonth);
+                    this.month = currentmonth;
+                    for(var i = 0; i < this.months.length; i++){
+                        // console.log('Response1: ', this.months[i].month);
+                        if(this.months[i].month == this.month){
+                            // console.log('Match: ', this.months[i].month);
+                            this.updateMonths(i, this.months[i].month);
                         }
                     }
                 }
@@ -1350,8 +1379,11 @@
             this.chart4 = echarts.init(document.getElementById('chart4'));
             this.getFilterData();
             var currentyear = new Date().getFullYear();
+            var cm = new Date();
+            this.month = this.monthNames[cm.getMonth()];
             this.year = currentyear.toString();
-            // console.log(this.year);
+            // this.month = currentmonth.toString();
+            // console.log(this.month);
         }
     };
 </script>
