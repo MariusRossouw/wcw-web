@@ -1366,6 +1366,12 @@
                     this.reps[j].selected = false;
                 }
     
+            },
+            resize(){
+                this.chart.resize();
+                this.chart2.resize();
+                this.chart3.resize();
+                this.chart4.resize();
             }
         },
         beforeMount() {
@@ -1382,6 +1388,11 @@
             var cm = new Date();
             this.month = this.monthNames[cm.getMonth()];
             this.year = currentyear.toString();
+            window.addEventListener('resize', this.resize, {
+                once: false,
+                passive: true,
+                capture: false,
+            });
             // this.month = currentmonth.toString();
             // console.log(this.month);
         }
