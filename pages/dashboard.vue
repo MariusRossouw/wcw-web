@@ -136,7 +136,7 @@
                                                                             </p> -->
                                         <!-- <div class="uk-margin" uk-margin> -->
                                         <center>
-                                            <button class="uk-button uk-button-default" @click="getGraphData()">Apply</button>
+                                            <button class="uk-button uk-button-default" @click="getStuff()">Apply</button>
                                             <button class="uk-button uk-button-default" @click="clearFilters()">Clear</button>
                                         </center>
                                         <!-- </div> -->
@@ -991,50 +991,46 @@
                         this.reps = response.data.data.reps;
                         if(this.year != ""){
                             for(var i = 0; i < this.years.length; i++){
-                                // console.log('Response1: ', this.years[i].transaction_year);
                                 if(this.years[i].transaction_year == this.year){
-                                    // console.log('Match: ', this.years[i].transaction_year);
                                     this.updateYears(i, this.years[i].transaction_year);
                                 }
                             }
                         }
-                        console.log(this.month);
-                        if(this.month != ""){
-                            console.log("this.month");
-                            console.log(this.months);
-                            for(var i = 0; i < this.months.length; i++){
-                                // console.log('Response1: ', this.months[i].month);
-                                if(this.months[i].month == this.month){
-                                    console.log("this.month");
-                                    // console.log('Match: ', this.months[i].month);
-                                    this.updateMonths(i, this.months[i].month);
-                                }
-                            }
-                        }
-                        this.getGraphData();
+                        // console.log(this.month);
+                        // if(this.month != ""){
+                        //     console.log("this.month");
+                        //     console.log(this.months);
+                        //     for(var i = 0; i < this.months.length; i++){
+                        //         if(this.months[i].month == this.month){
+                        //             console.log("this.month");
+                        //             this.updateMonths(i, this.months[i].month);
+                        //         }
+                        //     }
+                        // }
+
+                        // this.getBudgetAndSales();
+                        // this.getTypes();
+                        // this.getProvinces();
+                        // this.getCodes();
+                        this.getTop5Products();
+                        // this.getBottom5Merchants();
+                        // this.getTop5Merchants();
+                        // this.getBottom5Products();
+                        // this.getGraphData();
                         
                     })
                     .catch(error => {
                         console.log("Error: ", error.response);
                     });
             },
-            getGraphData() {
-                // this.o = {};
+            getBudgetAndSales(){
                 this.chart.clear();
                 this.chart.setOption({}, true);
-                this.chart2.clear();
-                this.chart2.setOption({}, true);
-                this.chart3.clear();
-                this.chart3.setOption({}, true);
-                this.chart4.clear();
-                this.chart4.setOption({}, true);
-                // console.log("O: ", this.o)
                 // allways start with the current year as default
                 var currentyear = new Date().getFullYear();
                 currentyear = currentyear.toString();
                 var cm = new Date();
-                this.month = this.monthNames[cm.getMonth()];
-                // console.log(currentyear);
+                // this.month = this.monthNames[cm.getMonth()];
                 let request = {
                     filters: this.filters
                 };
@@ -1042,38 +1038,17 @@
                     request.filters.years.push(currentyear);
                     this.year = currentyear;
                     for(var i = 0; i < this.years.length; i++){
-                        // console.log('Response1: ', this.years[i].transaction_year);
                         if(this.years[i].transaction_year == this.year){
-                            // console.log('Match: ', this.years[i].transaction_year);
                             this.updateYears(i, this.years[i].transaction_year);
                         }
                     }
                 }
-                if(request.filters.months.length == 0){
-                    request.filters.months.push(currentmonth);
-                    this.month = currentmonth;
-                    for(var i = 0; i < this.months.length; i++){
-                        // console.log('Response1: ', this.months[i].month);
-                        if(this.months[i].month == this.month){
-                            // console.log('Match: ', this.months[i].month);
-                            this.updateMonths(i, this.months[i].month);
-                        }
-                    }
-                }
                 console.log("Request: " + JSON.stringify(request));
-                axios.post(this.$store.state.api_url + 'transactions_filtered', request) //transactions_filtered
+                axios.post(this.$store.state.api_url + 'transactions_budget', request) //transactions_filtered
                     .then(response => {
                         console.log('Response: ', response);
                         this.graph_months = response.data.data.graph_months;
-                        this.gridOptions.api.setColumnDefs(this.columnDefs);
-                        this.gridOptions.api.setRowData(response.data.data.records);
-                        this.bottom5_merchants = response.data.data.bottom5_merchants;
-                        this.bottom5_products = response.data.data.bottom5_products;
-                        this.top5_merchants = response.data.data.top5_merchants;
-                        this.top5_products = response.data.data.top5_products;
                         this.legend = response.data.data.legend;
-                        // this.max1 = Math.max(response.data.data.years[0].sale);
-                        
                         var o= {
                             tooltip: {
                                 trigger: 'axis',
@@ -1150,90 +1125,6 @@
                             ],
                             series: []
                         }
-                        for(var i = 0; i < response.data.data.types.length; i++){
-                            this.type_names.push(response.data.data.types[i].name);
-                        }
-                        var o2 = {
-                            title: {
-                                text: 'Types',
-                                x: 'center'
-                            },
-                            tooltip: {
-                                trigger: 'item',
-                                formatter: "{a} <br/>{b} : {c} ({d}%)"
-                            },
-                            series: [{
-                                name: 'Types', // name of type
-                                type: 'pie',
-                                radius: '55%',
-                                center: ['50%', '60%'],
-                                data: response.data.data.types,
-                                itemStyle: {
-                                    emphasis: {
-                                        shadowBlur: 10,
-                                        shadowOffsetX: 0,
-                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                                    }
-                                }
-                            }]
-                        }
-                        this.chart2.setOption(o2, true);
-                        for(var i = 0; i < response.data.data.provinces.length; i++){
-                            this.provinces_names.push(response.data.data.provinces[i].name);
-                        }
-                        var o3 = {
-                            title: {
-                                text: 'Province',
-                                x: 'center'
-                            },
-                            tooltip: {
-                                trigger: 'item',
-                                formatter: "{a} <br/>{b} : {c} ({d}%)"
-                            },
-                            series: [{
-                                name: 'Province',
-                                type: 'pie',
-                                radius: '55%',
-                                center: ['50%', '60%'],
-                                data: response.data.data.provinces,
-                                itemStyle: {
-                                    emphasis: {
-                                        shadowBlur: 10,
-                                        shadowOffsetX: 0,
-                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                                    }
-                                }
-                            }]
-                        }
-                        this.chart3.setOption(o3, true);
-                        for(var i = 0; i < response.data.data.code.length; i++){
-                            this.code_names.push(response.data.data.code[i].name);
-                        }
-                        var o4 = {
-                            title: {
-                                text: 'Code',
-                                x: 'center'
-                            },
-                            tooltip: {
-                                trigger: 'item',
-                                formatter: "{a} <br/>{b} : {c} ({d}%)"
-                            },
-                            series: [{
-                                name: 'Code',
-                                type: 'pie',
-                                radius: '55%',
-                                center: ['50%', '60%'],
-                                data: response.data.data.code,
-                                itemStyle: {
-                                    emphasis: {
-                                        shadowBlur: 10,
-                                        shadowOffsetX: 0,
-                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                                    }
-                                }
-                            }]
-                        }
-                        this.chart4.setOption(o4, true);
                         var j = 0;
                         for(var i = 0; i < response.data.data.years.length; i++){
                             console.log(o.series.length);
@@ -1282,24 +1173,365 @@
                         console.log("O: ", o)
                         this.chart.setOption(o, true);
                     })
+            },
+            getTypes(){
+                this.chart2.clear();
+                this.chart2.setOption({}, true);
+                var currentyear = new Date().getFullYear();
+                currentyear = currentyear.toString();
+                var cm = new Date();
+                // this.month = this.monthNames[cm.getMonth()];
+                let request = {
+                    filters: this.filters
+                };
+                if(request.filters.years.length == 0){
+                    request.filters.years.push(currentyear);
+                    this.year = currentyear;
+                    for(var i = 0; i < this.years.length; i++){
+                        if(this.years[i].transaction_year == this.year){
+                            this.updateYears(i, this.years[i].transaction_year);
+                        }
+                    }
+                }
+                console.log("Request: " + JSON.stringify(request));
+                axios.post(this.$store.state.api_url + 'transactions_types', request) //transactions_filtered
+                    .then(response => {
+                        console.log('Response: ', response);
+                        // this.max1 = Math.max(response.data.data.years[0].sale);
+                        for(var i = 0; i < response.data.data.types.length; i++){
+                            this.type_names.push(response.data.data.types[i].name);
+                        }
+                        var o2 = {
+                            title: {
+                                text: 'Types',
+                                x: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            series: [{
+                                name: 'Types', // name of type
+                                type: 'pie',
+                                radius: '55%',
+                                center: ['50%', '60%'],
+                                data: response.data.data.types,
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }]
+                        }
+                        this.chart2.setOption(o2, true);
+                    })
                     .catch(error => {
                         console.log(error.response);
-                        if (error.response.status == 400) {
-                            console.log(error.response);
+                    });
+            },
+            getProvinces(){
+                this.chart3.clear();
+                this.chart3.setOption({}, true);
+                var currentyear = new Date().getFullYear();
+                currentyear = currentyear.toString();
+                var cm = new Date();
+                // this.month = this.monthNames[cm.getMonth()];
+                let request = {
+                    filters: this.filters
+                };
+                if(request.filters.years.length == 0){
+                    request.filters.years.push(currentyear);
+                    this.year = currentyear;
+                    for(var i = 0; i < this.years.length; i++){
+                        if(this.years[i].transaction_year == this.year){
+                            this.updateYears(i, this.years[i].transaction_year);
                         }
-                        if (error.response.status == 401) {
-                            console.log(error.response);
+                    }
+                }
+                console.log("Request: " + JSON.stringify(request));
+                axios.post(this.$store.state.api_url + 'transactions_provinces', request) //transactions_filtered
+                    .then(response => {
+                        console.log('Response: ', response);
+                        for(var i = 0; i < response.data.data.provinces.length; i++){
+                            this.provinces_names.push(response.data.data.provinces[i].name);
                         }
-                        if (error.response.status == 403) {
-                            console.log(error.response);
-                            new Error();
+                        var o3 = {
+                            title: {
+                                text: 'Province',
+                                x: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            series: [{
+                                name: 'Province',
+                                type: 'pie',
+                                radius: '55%',
+                                center: ['50%', '60%'],
+                                data: response.data.data.provinces,
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }]
                         }
-                        if (error.response.status == 404) {
-                            console.log(error.response);
+                        this.chart3.setOption(o3, true);
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                    });
+            },
+            getCodes(){
+                this.chart4.clear();
+                this.chart4.setOption({}, true);
+                var currentyear = new Date().getFullYear();
+                currentyear = currentyear.toString();
+                var cm = new Date();
+                // this.month = this.monthNames[cm.getMonth()];
+                let request = {
+                    filters: this.filters
+                };
+                if(request.filters.years.length == 0){
+                    request.filters.years.push(currentyear);
+                    this.year = currentyear;
+                    for(var i = 0; i < this.years.length; i++){
+                        if(this.years[i].transaction_year == this.year){
+                            this.updateYears(i, this.years[i].transaction_year);
                         }
-                        if (error.response.status == 500) {
-                            console.log(error.response);
+                    }
+                }
+                console.log("Request: " + JSON.stringify(request));
+                axios.post(this.$store.state.api_url + 'transactions_codes', request) //transactions_filtered
+                    .then(response => {
+                        console.log('Response: ', response);
+                        for(var i = 0; i < response.data.data.code.length; i++){
+                            this.code_names.push(response.data.data.code[i].name);
                         }
+                        var o4 = {
+                            title: {
+                                text: 'Code',
+                                x: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            series: [{
+                                name: 'Code',
+                                type: 'pie',
+                                radius: '55%',
+                                center: ['50%', '60%'],
+                                data: response.data.data.code,
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }]
+                        }
+                        this.chart4.setOption(o4, true);
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                    });
+            },
+            getTop5Products(){
+                // this.o = {};
+                // allways start with the current year as default
+                var currentyear = new Date().getFullYear();
+                currentyear = currentyear.toString();
+                var cm = new Date();
+                // this.month = this.monthNames[cm.getMonth()];
+                let request = {
+                    filters: this.filters
+                };
+                if(request.filters.years.length == 0){
+                    request.filters.years.push(currentyear);
+                    this.year = currentyear;
+                    for(var i = 0; i < this.years.length; i++){
+                        if(this.years[i].transaction_year == this.year){
+                            this.updateYears(i, this.years[i].transaction_year);
+                        }
+                    }
+                }
+                // if(request.filters.months.length == 0){
+                //     request.filters.months.push(currentmonth);
+                //     this.month = currentmonth;
+                //     for(var i = 0; i < this.months.length; i++){
+                //         if(this.months[i].month == this.month){
+                //             this.updateMonths(i, this.months[i].month);
+                //         }
+                //     }
+                // }
+                console.log("Request: " + JSON.stringify(request));
+                axios.post(this.$store.state.api_url + 'transactions_top5_products', request) //transactions_filtered
+                    .then(response => {
+                        console.log('Response: ', response);
+                        this.top5_products = response.data.data.top5_products;
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                    });
+            },
+            getBottom5Merchants(){
+                // this.o = {};
+                // allways start with the current year as default
+                var currentyear = new Date().getFullYear();
+                currentyear = currentyear.toString();
+                var cm = new Date();
+                // this.month = this.monthNames[cm.getMonth()];
+                let request = {
+                    filters: this.filters
+                };
+                if(request.filters.years.length == 0){
+                    request.filters.years.push(currentyear);
+                    this.year = currentyear;
+                    for(var i = 0; i < this.years.length; i++){
+                        if(this.years[i].transaction_year == this.year){
+                            this.updateYears(i, this.years[i].transaction_year);
+                        }
+                    }
+                }
+                // if(request.filters.months.length == 0){
+                //     request.filters.months.push(currentmonth);
+                //     this.month = currentmonth;
+                //     for(var i = 0; i < this.months.length; i++){
+                //         if(this.months[i].month == this.month){
+                //             this.updateMonths(i, this.months[i].month);
+                //         }
+                //     }
+                // }
+                console.log("Request: " + JSON.stringify(request));
+                axios.post(this.$store.state.api_url + 'transactions_bottom5_merchants', request) //transactions_filtered
+                    .then(response => {
+                        console.log('Response: ', response);
+                        this.bottom5_merchants = response.data.data.bottom5_merchants;
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                    });
+            },
+            getTop5Merchants(){
+                // this.o = {};
+                // allways start with the current year as default
+                var currentyear = new Date().getFullYear();
+                currentyear = currentyear.toString();
+                var cm = new Date();
+                // this.month = this.monthNames[cm.getMonth()];
+                let request = {
+                    filters: this.filters
+                };
+                if(request.filters.years.length == 0){
+                    request.filters.years.push(currentyear);
+                    this.year = currentyear;
+                    for(var i = 0; i < this.years.length; i++){
+                        if(this.years[i].transaction_year == this.year){
+                            this.updateYears(i, this.years[i].transaction_year);
+                        }
+                    }
+                }
+                // if(request.filters.months.length == 0){
+                //     request.filters.months.push(currentmonth);
+                //     this.month = currentmonth;
+                //     for(var i = 0; i < this.months.length; i++){
+                //         if(this.months[i].month == this.month){
+                //             this.updateMonths(i, this.months[i].month);
+                //         }
+                //     }
+                // }
+                console.log("Request: " + JSON.stringify(request));
+                axios.post(this.$store.state.api_url + 'transactions_top5_merchants', request) //transactions_filtered
+                    .then(response => {
+                        console.log('Response: ', response);
+                        this.top5_merchants = response.data.data.top5_merchants;
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                    });
+            },
+            getBottom5Products(){
+                // this.o = {};
+                // allways start with the current year as default
+                var currentyear = new Date().getFullYear();
+                currentyear = currentyear.toString();
+                var cm = new Date();
+                // this.month = this.monthNames[cm.getMonth()];
+                let request = {
+                    filters: this.filters
+                };
+                if(request.filters.years.length == 0){
+                    request.filters.years.push(currentyear);
+                    this.year = currentyear;
+                    for(var i = 0; i < this.years.length; i++){
+                        if(this.years[i].transaction_year == this.year){
+                            this.updateYears(i, this.years[i].transaction_year);
+                        }
+                    }
+                }
+                // if(request.filters.months.length == 0){
+                //     request.filters.months.push(currentmonth);
+                //     this.month = currentmonth;
+                //     for(var i = 0; i < this.months.length; i++){
+                //         if(this.months[i].month == this.month){
+                //             this.updateMonths(i, this.months[i].month);
+                //         }
+                //     }
+                // }
+                console.log("Request: " + JSON.stringify(request));
+                axios.post(this.$store.state.api_url + 'transactions_bottom5_products', request) //transactions_filtered
+                    .then(response => {
+                        console.log('Response: ', response);
+                        this.bottom5_products = response.data.data.bottom5_products;
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                    });
+            },
+            getGraphData(){
+                // this.o = {};
+                // allways start with the current year as default
+                var currentyear = new Date().getFullYear();
+                currentyear = currentyear.toString();
+                var cm = new Date();
+                // this.month = this.monthNames[cm.getMonth()];
+                let request = {
+                    filters: this.filters
+                };
+                if(request.filters.years.length == 0){
+                    request.filters.years.push(currentyear);
+                    this.year = currentyear;
+                    for(var i = 0; i < this.years.length; i++){
+                        if(this.years[i].transaction_year == this.year){
+                            this.updateYears(i, this.years[i].transaction_year);
+                        }
+                    }
+                }
+                // if(request.filters.months.length == 0){
+                //     request.filters.months.push(currentmonth);
+                //     this.month = currentmonth;
+                //     for(var i = 0; i < this.months.length; i++){
+                //         if(this.months[i].month == this.month){
+                //             this.updateMonths(i, this.months[i].month);
+                //         }
+                //     }
+                // }
+                console.log("Request: " + JSON.stringify(request));
+                axios.post(this.$store.state.api_url + 'transactions_grid', request) //transactions_filtered
+                    .then(response => {
+                        console.log('Response: ', response);
+                        this.gridOptions.api.setColumnDefs(this.columnDefs);
+                        this.gridOptions.api.setRowData(response.data.data.records);
+                    })
+                    .catch(error => {
+                        console.log(error.response);
                     });
             },
             clearFilters() {
@@ -1372,6 +1604,17 @@
                 this.chart2.resize();
                 this.chart3.resize();
                 this.chart4.resize();
+            },
+            getStuff(){
+                this.getBudgetAndSales();
+                this.getTypes();
+                this.getProvinces();
+                this.getCodes();
+                this.getTop5Products();
+                this.getBottom5Merchants();
+                this.getTop5Merchants();
+                this.getBottom5Products();
+                this.getGraphData();
             }
         },
         beforeMount() {
@@ -1386,7 +1629,7 @@
             this.getFilterData();
             var currentyear = new Date().getFullYear();
             var cm = new Date();
-            this.month = this.monthNames[cm.getMonth()];
+            // this.month = this.monthNames[cm.getMonth()];
             this.year = currentyear.toString();
             window.addEventListener('resize', this.resize, {
                 once: false,

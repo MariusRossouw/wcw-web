@@ -68,34 +68,12 @@
                         // Add entity to session in vuex
                         console.log('Response: ', response);
                         this.selectedFile = null;
+                        if(response.data.http_code == "403"){
+                            alert(JSON.stringify(response.data.data, null,2));
+                        }
                     })
                     .catch(error => {
                         console.log(error.response);
-                        if(error.response.status == 400){
-                            console.log(error.response);
-                            this.selectedFile = null;
-                        }
-                        if(error.response.status == 401){
-                            console.log(error.response);
-                            // login / session expired
-                            this.selectedFile = null;
-                        }
-                        if(error.response.status == 403){
-                            console.log(error.response);
-                            // broke a rule
-                            this.selectedFile = null;
-                            
-                        }
-                        if(error.response.status == 404){
-                            console.log(error.response);
-                            // page not found / not there
-                            this.selectedFile = null;
-                        }
-                        if(error.response.status == 500){
-                            console.log(error.response);
-                            // server error / db error
-                            this.selectedFile = null;
-                        }
                     });
             },
             onUploadB() {
@@ -113,31 +91,6 @@
                     })
                     .catch(error => {
                         console.log(error.response);
-                        if(error.response.status == 400){
-                            console.log(error.response);
-                            this.selectedFile = null;
-                        }
-                        if(error.response.status == 401){
-                            console.log(error.response);
-                            // login / session expired
-                            this.selectedFile = null;
-                        }
-                        if(error.response.status == 403){
-                            console.log(error.response);
-                            // broke a rule
-                            this.selectedFile = null;
-                            
-                        }
-                        if(error.response.status == 404){
-                            console.log(error.response);
-                            // page not found / not there
-                            this.selectedFile = null;
-                        }
-                        if(error.response.status == 500){
-                            console.log(error.response);
-                            // server error / db error
-                            this.selectedFile = null;
-                        }
                     });
             }
         },
