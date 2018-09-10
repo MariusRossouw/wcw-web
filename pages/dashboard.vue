@@ -1002,7 +1002,7 @@
                         console.log('Response Graph: ', response);
                         this.graph_months = response.data.data.graph_months;
                         this.legend = response.data.data.legend;
-                        this.loading1 = !this.loading1;
+                        this.loading1 = false;
                         this.topSaleAmount = 0;
                         for(var i = 0; i < response.data.data.years.length; i++){
                             for(var j = 0; j < response.data.data.years[i].sale.length; j++){
@@ -1166,7 +1166,7 @@
                 axios.post(this.$store.state.api_url + 'transactions_types', request) //transactions_filtered
                     .then(response => {
                         console.log('Response: ', response);
-                        this.loading2 = !this.loading2;
+                        this.loading2 = false;
                         // this.max1 = Math.max(response.data.data.years[0].sale);
                         for(var i = 0; i < response.data.data.types.length; i++){
                             this.type_names.push(response.data.data.types[i].name);
@@ -1224,7 +1224,7 @@
                 axios.post(this.$store.state.api_url + 'transactions_provinces', request) //transactions_filtered
                     .then(response => {
                         console.log('Response: ', response);
-                        this.loading3 = !this.loading3;
+                        this.loading3 = false;
                         for(var i = 0; i < response.data.data.provinces.length; i++){
                             this.provinces_names.push(response.data.data.provinces[i].name);
                         }
@@ -1281,7 +1281,7 @@
                 axios.post(this.$store.state.api_url + 'transactions_codes', request) //transactions_filtered
                     .then(response => {
                         console.log('Response: ', response);
-                        this.loading4 = !this.loading4;
+                        this.loading4 = false;
                         console.log("this.loading4: ",this.loading4);
                         for(var i = 0; i < response.data.data.code.length; i++){
                             this.code_names.push(response.data.data.code[i].name);
