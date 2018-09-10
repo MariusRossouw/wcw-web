@@ -160,7 +160,7 @@
                         <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>
                             <div class="uk-width-1-1@m">
                                 <div>
-                                    <button class="uk-button uk-button-default" @click="getGraphData()">Apply</button>
+                                    <button class="uk-button uk-button-default" @click="getStuff()">Apply</button>
                                     <button class="uk-button uk-button-default" @click="clearFilters()">Clear</button>
                                 </div>
                             </div>
@@ -1008,15 +1008,15 @@
                         //     }
                         // }
 
-                        // this.getBudgetAndSales();
-                        // this.getTypes();
-                        // this.getProvinces();
-                        // this.getCodes();
+                        this.getBudgetAndSales();
+                        this.getTypes();
+                        this.getProvinces();
+                        this.getCodes();
                         this.getTop5Products();
-                        // this.getBottom5Merchants();
-                        // this.getTop5Merchants();
-                        // this.getBottom5Products();
-                        // this.getGraphData();
+                        this.getBottom5Merchants();
+                        this.getTop5Merchants();
+                        this.getBottom5Products();
+                        this.getGraphData();
                         
                     })
                     .catch(error => {
