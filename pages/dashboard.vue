@@ -3,7 +3,7 @@
         <div class="content-background">
             <div class="uk-container uk-container-large uk-padding-remove">
         <div class="uk-offcanvas-content">
-            <div class="uk-button uk-button-default uk-margin-small-right" 
+            <!-- <div class="uk-button uk-button-default uk-margin-small-right" 
                 type="button" 
                 uk-toggle="target: #offcanvas-usage" 
                 style="width:100%; 
@@ -23,6 +23,49 @@
                     <span v-if="filters.products.length > 0" v-for="(fp, index) in filters.products" :key="fp.product_name+index"> {{ fp.product_name }} <b>|</b> </span>
                     <span v-if="filters.types.length > 0" v-for="(ft, index) in filters.types" :key="ft.product_type+index"> {{ ft.product_type }} <b>|</b> </span> )
                 </p>
+            </div> -->
+            <div class="uk-width-1-1@m">
+                <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>
+                    <div class="uk-width-5-6@m">
+                        <div class="uk-button uk-button-default uk-margin-small-right" 
+                            type="button" 
+                            uk-toggle="target: #offcanvas-usage" 
+                            style="width:100%; 
+                                    background-color:#a5cb4f; 
+                                    color:white; font-size:20px;">Filter
+                            <p v-if="filters.years.length == 0 && filters.quarters.length == 0 && filters.months.length == 0 && filters.codes.length == 0 && filters.reps.length == 0 && filters.provinces.length == 0 && filters.merchant_groups.length == 0 && filters.merchants.length == 0 && filters.wine_farms.length == 0 && filters.products.length == 0 && filters.types.length == 0">Showing (All)</p>
+                            <p v-if="filters.years.length > 0 || filters.quarters.length > 0 || filters.months.length > 0 || filters.codes.length > 0 || filters.reps.length > 0 || filters.provinces.length > 0 || filters.merchant_groups.length > 0 || filters.merchants.length > 0 || filters.wine_farms.length > 0 || filters.products.length > 0 || filters.types.length > 0"> Showing (
+                                <span v-if="filters.years.length > 0" v-for="(fy, index) in filters.years" :key="fy+index"> {{ fy }} <b>|</b> </span>
+                                <span v-if="filters.quarters.length > 0" v-for="(fq, index) in filters.quarters" :key="fq+index"> {{ fq }} <b>|</b> </span>
+                                <span v-if="filters.months.length > 0" v-for="(fm, index) in filters.months" :key="fm+index"> {{ fm }} <b>|</b> </span>
+                                <span v-if="filters.codes.length > 0" v-for="(fc, index) in filters.codes" :key="fc+index"> {{ fc }} <b>|</b> </span>
+                                <span v-if="filters.reps.length > 0" v-for="(fr, index) in filters.reps" :key="fr.rep_name+index"> {{ fr.rep_name }} <b>|</b> </span>
+                                <span v-if="filters.provinces.length > 0" v-for="(fpr, index) in filters.provinces" :key="fpr.province_name+index"> {{ fpr.province_name }} <b>|</b> </span>
+                                <span v-if="filters.merchant_groups.length > 0" v-for="(fmg, index) in filters.merchant_groups" :key="fmg.group_name+index"> {{ fmg.group_name }} <b>|</b> </span>
+                                <span v-if="filters.merchants.length > 0" v-for="(fm, index) in filters.merchants" :key="fm.merchant_name+index"> {{ fm.merchant_name }} <b>|</b> </span>
+                                <span v-if="filters.wine_farms.length > 0" v-for="(fw, index) in filters.wine_farms" :key="fw.farm_name+index"> {{ fw.farm_name }} <b>|</b> </span>
+                                <span v-if="filters.products.length > 0" v-for="(fp, index) in filters.products" :key="fp.product_name+index"> {{ fp.product_name }} <b>|</b> </span>
+                                <span v-if="filters.types.length > 0" v-for="(ft, index) in filters.types" :key="ft.product_type+index"> {{ ft.product_type }} <b>|</b> </span> )
+                            </p>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-6@m">
+                        <div>
+                            <button class="uk-button uk-button-default uk-margin-small-right" 
+                            type="button" 
+                            uk-toggle="target: #offcanvas-usage" 
+                            style="width:100%; 
+                                    background-color:#6296d0; 
+                                    color:white; font-size:20px; height:50px;" @click="getStuff()">Apply</button><br/>
+                            <button class="uk-button uk-button-default uk-margin-small-right" 
+                            type="button" 
+                            uk-toggle="target: #offcanvas-usage" 
+                            style="width:100%; 
+                                    background-color:#6296d0; 
+                                    color:white; font-size:20px; height:50px;" @click="clearFilters()">Clear</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="offcanvas-usage" uk-offcanvas>
                 <div class="uk-offcanvas-bar">
@@ -151,12 +194,12 @@
         <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>
             <div class="uk-width-1-1@m">
                 <div class="uk-grid-small" uk-grid>
-                    <div class="uk-width-5-6@m">
+                    <div class="uk-width-1-1@m">
                         <div class="uk-card uk-card-default uk-card-small echarts">
                             <chart :option="option" :loading="loading" @ready="onReady" @click="onClick" id="chart1"/>
                         </div>
                     </div>
-                    <div class="uk-width-1-6@m">
+                    <!-- <div class="uk-width-1-6@m">
                         <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>
                             <div class="uk-width-1-1@m">
                                 <div>
@@ -165,29 +208,29 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="uk-width-1-4@m">
                         <div class="uk-card uk-card-default uk-card-small">
                             <h3 class="uk-card-title">Bottom 5 Merchants</h3>
-                            <li v-for="(bM, index) in bottom5_merchants" :key="index">{{bM.name}} {{bM.value | toCurrency}}</li>
+                            <li v-for="(bM, index) in bottom5_merchants" :key="index"><span style="float:left; margin-left:5px;">{{bM.name}}</span> <span style="float:right; margin-right:5px;">{{bM.value | toCurrency}}</span><br/></li>
                         </div>
                     </div>
                     <div class="uk-width-1-4@m">
                         <div class="uk-card uk-card-default uk-card-small">
                             <h3 class="uk-card-title">Top 5 Merchants</h3>
-                            <li v-for="(tM, index) in top5_merchants" :key="index">{{tM.name}} {{tM.value | toCurrency}}</li>
+                            <li v-for="(tM, index) in top5_merchants" :key="index"><span style="float:left; margin-left:5px;">{{tM.name}}</span> <span style="float:right; margin-right:5px;"> {{tM.value | toCurrency}}</span><br/></li>
                         </div>
                     </div>
                     <div class="uk-width-1-4@m">
                         <div class="uk-card uk-card-default uk-card-small">
                             <h3 class="uk-card-title">Bottom 5 Products</h3>
-                            <li v-for="(bP, index) in bottom5_products" :key="index">{{bP.name}} {{bP.value | toCurrency}}</li>
+                            <li v-for="(bP, index) in bottom5_products" :key="index"><span style="float:left; margin-left:5px;">{{bP.name}}</span> <span style="float:right; margin-right:5px;"> {{bP.value | toCurrency}}</span><br/></li>
                         </div>
                     </div>
                     <div class="uk-width-1-4@m">
                         <div class="uk-card uk-card-default uk-card-small">
                             <h3 class="uk-card-title">Top 5 Products</h3>
-                            <li v-for="(tP, index) in top5_products" :key="index">{{tP.name}} {{tP.value | toCurrency}}</li>
+                            <li v-for="(tP, index) in top5_products" :key="index"><span style="float:left; margin-left:5px;">{{tP.name}}</span> <span style="float:right; margin-right:5px;"> {{tP.value | toCurrency}}</span><br/></li>
                         </div>
                     </div>
                 </div>
