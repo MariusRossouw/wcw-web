@@ -31,14 +31,12 @@
                     <div class="uk-width-1-6@m">
                         <div>
                             <button class="uk-button uk-button-default uk-margin-small-right" 
-                            type="button" 
-                            uk-toggle="target: #offcanvas-usage" 
+                            type="button"  
                             style="width:100%; 
                                     background-color:#6296d0; 
                                     color:white; font-size:20px; height:50px;" @click="getStuff()">Apply</button><br/>
                             <button class="uk-button uk-button-default uk-margin-small-right" 
                             type="button" 
-                            uk-toggle="target: #offcanvas-usage" 
                             style="width:100%; 
                                     background-color:#6296d0; 
                                     color:white; font-size:20px; height:50px;" @click="clearFilters()">Clear</button>
@@ -160,30 +158,34 @@
                 <div class="uk-grid-small" uk-grid>
                     <div class="uk-width-1-1@m">
                         <div class="uk-card uk-card-default uk-card-small echarts">
-                            <chart :option="option" :loading="loading" @ready="onReady" @click="onClick" id="chart1"/>
+                            <chart :option="option" :loading="loading1" @ready="onReady" @click="onClick" id="chart1"/>
                         </div>
                     </div>
                     <div class="uk-width-1-4@m">
                         <div class="uk-card uk-card-default uk-card-small">
                             <h3 class="uk-card-title">Bottom 5 Merchants</h3>
+                            <img v-if="bottom5_merchants.length == 0" src="@/assets/svg/spinner.svg" class="logo-image"/>
                             <li v-for="(bM, index) in bottom5_merchants" :key="index"><span style="float:left; margin-left:5px;">{{bM.name}}</span> <span style="float:right; margin-right:5px;">{{bM.value | toCurrency}}</span><br/></li>
                         </div>
                     </div>
                     <div class="uk-width-1-4@m">
                         <div class="uk-card uk-card-default uk-card-small">
                             <h3 class="uk-card-title">Top 5 Merchants</h3>
+                            <img v-if="top5_merchants.length == 0" src="@/assets/svg/spinner.svg" class="logo-image"/>
                             <li v-for="(tM, index) in top5_merchants" :key="index"><span style="float:left; margin-left:5px;">{{tM.name}}</span> <span style="float:right; margin-right:5px;"> {{tM.value | toCurrency}}</span><br/></li>
                         </div>
                     </div>
                     <div class="uk-width-1-4@m">
                         <div class="uk-card uk-card-default uk-card-small">
                             <h3 class="uk-card-title">Bottom 5 Products</h3>
+                            <img v-if="bottom5_products.length == 0" src="@/assets/svg/spinner.svg" class="logo-image"/>
                             <li v-for="(bP, index) in bottom5_products" :key="index"><span style="float:left; margin-left:5px;">{{bP.name}}</span> <span style="float:right; margin-right:5px;"> {{bP.value | toCurrency}}</span><br/></li>
                         </div>
                     </div>
                     <div class="uk-width-1-4@m">
                         <div class="uk-card uk-card-default uk-card-small">
                             <h3 class="uk-card-title">Top 5 Products</h3>
+                            <img v-if="top5_products.length == 0" src="@/assets/svg/spinner.svg" class="logo-image"/>
                             <li v-for="(tP, index) in top5_products" :key="index"><span style="float:left; margin-left:5px;">{{tP.name}}</span> <span style="float:right; margin-right:5px;"> {{tP.value | toCurrency}}</span><br/></li>
                         </div>
                     </div>
@@ -194,13 +196,13 @@
     
         <div class="uk-grid-small" uk-grid>
             <div class="uk-width-1-3@m">
-                <chart style="height: 400px; width: 100%;" :option="option2" :loading="loading" @ready="onReady" @click="onClick" id="chart2"/>
+                <chart style="height: 400px; width: 100%; background-color: white" :option="option2" :loading="loading2" @ready="onReady" @click="onClick" id="chart2"/>
             </div>
             <div class="uk-width-1-3@m">
-                <chart style="height: 400px; width: 100%;" :option="option3" :loading="loading" @ready="onReady" @click="onClick" id="chart3"/>
+                <chart style="height: 400px; width: 100%; background-color: white" :option="option3" :loading="loading3" @ready="onReady" @click="onClick" id="chart3"/>
             </div>
             <div class="uk-width-1-3@m">
-                <chart style="height: 400px; width: 100%;" :option="option4" :loading="loading" @ready="onReady" @click="onClick" id="chart4"/>
+                <chart style="height: 400px; width: 100%; background-color: white" :option="option4" :loading="loading4" @ready="onReady" @click="onClick" id="chart4"/>
             </div>
         </div>
     
@@ -217,6 +219,8 @@
         </div>
             </div>
         </div>
+        <!-- <img src="@/assets/wine.gif" class="logo-image"/> -->
+        
     </div>
 </template>
 
@@ -241,6 +245,10 @@
             return {
                 chart: null,
                 chart5: null,
+                loading1: true,
+                loading2: true,
+                loading3: true,
+                loading4: true,
                 topSaleAmount: 0,
                 topSaleSpace: 0,
                 topSaleAmountAccume: 0,
@@ -933,6 +941,26 @@
                             }
                         }
 
+                        this.bottom5_merchants= [];
+                        this.bottom5_products= [];
+                        this.top5_merchants= [];
+                        this.top5_products= [];
+
+                        if(this.loading4 != true){
+                            this.loading4 = !this.loading4;
+                        }
+                        if(this.loading1 != true){
+                            this.loading1 = !this.loading1;
+                        }
+                        if(this.loading2 != true){
+                            this.loading2 = !this.loading2;
+                        }
+                        if(this.loading3 != true){
+                            this.loading3 = !this.loading3;
+                        }
+                        
+                        this.gridOptions.api.setColumnDefs(this.columnDefs);
+                        this.gridOptions.api.setRowData([]);
                         this.getBudgetAndSales();
                         this.getTypes();
                         this.getProvinces();
@@ -974,7 +1002,7 @@
                         console.log('Response Graph: ', response);
                         this.graph_months = response.data.data.graph_months;
                         this.legend = response.data.data.legend;
-
+                        this.loading1 = !this.loading1;
                         this.topSaleAmount = 0;
                         for(var i = 0; i < response.data.data.years.length; i++){
                             for(var j = 0; j < response.data.data.years[i].sale.length; j++){
@@ -990,11 +1018,6 @@
                                 }
                             }
                         }
-
-
-                        
-
-
                         var o= {
                             tooltip: {
                                 trigger: 'axis',
@@ -1143,6 +1166,7 @@
                 axios.post(this.$store.state.api_url + 'transactions_types', request) //transactions_filtered
                     .then(response => {
                         console.log('Response: ', response);
+                        this.loading2 = !this.loading2;
                         // this.max1 = Math.max(response.data.data.years[0].sale);
                         for(var i = 0; i < response.data.data.types.length; i++){
                             this.type_names.push(response.data.data.types[i].name);
@@ -1200,6 +1224,7 @@
                 axios.post(this.$store.state.api_url + 'transactions_provinces', request) //transactions_filtered
                     .then(response => {
                         console.log('Response: ', response);
+                        this.loading3 = !this.loading3;
                         for(var i = 0; i < response.data.data.provinces.length; i++){
                             this.provinces_names.push(response.data.data.provinces[i].name);
                         }
@@ -1256,6 +1281,8 @@
                 axios.post(this.$store.state.api_url + 'transactions_codes', request) //transactions_filtered
                     .then(response => {
                         console.log('Response: ', response);
+                        this.loading4 = !this.loading4;
+                        console.log("this.loading4: ",this.loading4);
                         for(var i = 0; i < response.data.data.code.length; i++){
                             this.code_names.push(response.data.data.code[i].name);
                         }
@@ -1507,6 +1534,24 @@
                 this.chart4.resize();
             },
             getStuff(){
+                this.bottom5_merchants= [];
+                this.bottom5_products= [];
+                this.top5_merchants= [];
+                this.top5_products= [];
+                this.gridOptions.api.setColumnDefs(this.columnDefs);
+                this.gridOptions.api.setRowData([]);
+                if(this.loading4 != true){
+                    this.loading4 = !this.loading4;
+                }
+                if(this.loading1 != true){
+                    this.loading1 = !this.loading1;
+                }
+                if(this.loading2 != true){
+                    this.loading2 = !this.loading2;
+                }
+                if(this.loading3 != true){
+                    this.loading3 = !this.loading3;
+                }
                 this.getBudgetAndSales();
                 this.getTypes();
                 this.getProvinces();
