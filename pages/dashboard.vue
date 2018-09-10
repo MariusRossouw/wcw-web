@@ -3,27 +3,6 @@
         <div class="content-background">
             <div class="uk-container uk-container-large uk-padding-remove">
         <div class="uk-offcanvas-content">
-            <!-- <div class="uk-button uk-button-default uk-margin-small-right" 
-                type="button" 
-                uk-toggle="target: #offcanvas-usage" 
-                style="width:100%; 
-                        background-color:#a5cb4f; 
-                        color:white; font-size:20px;">Filter
-                <p v-if="filters.years.length == 0 && filters.quarters.length == 0 && filters.months.length == 0 && filters.codes.length == 0 && filters.reps.length == 0 && filters.provinces.length == 0 && filters.merchant_groups.length == 0 && filters.merchants.length == 0 && filters.wine_farms.length == 0 && filters.products.length == 0 && filters.types.length == 0">Showing (All)</p>
-                <p v-if="filters.years.length > 0 || filters.quarters.length > 0 || filters.months.length > 0 || filters.codes.length > 0 || filters.reps.length > 0 || filters.provinces.length > 0 || filters.merchant_groups.length > 0 || filters.merchants.length > 0 || filters.wine_farms.length > 0 || filters.products.length > 0 || filters.types.length > 0"> Showing (
-                    <span v-if="filters.years.length > 0" v-for="(fy, index) in filters.years" :key="fy+index"> {{ fy }} <b>|</b> </span>
-                    <span v-if="filters.quarters.length > 0" v-for="(fq, index) in filters.quarters" :key="fq+index"> {{ fq }} <b>|</b> </span>
-                    <span v-if="filters.months.length > 0" v-for="(fm, index) in filters.months" :key="fm+index"> {{ fm }} <b>|</b> </span>
-                    <span v-if="filters.codes.length > 0" v-for="(fc, index) in filters.codes" :key="fc+index"> {{ fc }} <b>|</b> </span>
-                    <span v-if="filters.reps.length > 0" v-for="(fr, index) in filters.reps" :key="fr.rep_name+index"> {{ fr.rep_name }} <b>|</b> </span>
-                    <span v-if="filters.provinces.length > 0" v-for="(fpr, index) in filters.provinces" :key="fpr.province_name+index"> {{ fpr.province_name }} <b>|</b> </span>
-                    <span v-if="filters.merchant_groups.length > 0" v-for="(fmg, index) in filters.merchant_groups" :key="fmg.group_name+index"> {{ fmg.group_name }} <b>|</b> </span>
-                    <span v-if="filters.merchants.length > 0" v-for="(fm, index) in filters.merchants" :key="fm.merchant_name+index"> {{ fm.merchant_name }} <b>|</b> </span>
-                    <span v-if="filters.wine_farms.length > 0" v-for="(fw, index) in filters.wine_farms" :key="fw.farm_name+index"> {{ fw.farm_name }} <b>|</b> </span>
-                    <span v-if="filters.products.length > 0" v-for="(fp, index) in filters.products" :key="fp.product_name+index"> {{ fp.product_name }} <b>|</b> </span>
-                    <span v-if="filters.types.length > 0" v-for="(ft, index) in filters.types" :key="ft.product_type+index"> {{ ft.product_type }} <b>|</b> </span> )
-                </p>
-            </div> -->
             <div class="uk-width-1-1@m">
                 <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>
                     <div class="uk-width-5-6@m">
@@ -164,25 +143,10 @@
                                 <div class="uk-card uk-card-primary uk-card-small">
                                     <h3 class="uk-card-title">Search Filters</h3>
                                     <div class="cardBody">
-                                        <!-- <p>
-                                                                                <span v-if="filters.years.length > 0" v-for="(fy, index) in filters.years" :key="fy+index"> {{ fy }} <b v-if="filters.years.length > 1 && index+1 < filters.years.length">|</b> </span><br v-if="filters.years.length > 0" />
-                                                                                <span v-if="filters.quarters.length > 0" v-for="(fq, index) in filters.quarters" :key="fq+index"> {{ fq }} <b v-if="filters.quarters.length > 1 && index+1 < filters.quarters.length">|</b> </span><br v-if="filters.quarters.length > 0"/>
-                                                                                <span v-if="filters.months.length > 0" v-for="(fm, index) in filters.months" :key="fm+index"> {{ fm }} <b v-if="filters.months.length > 1 && index+1 < filters.months.length">|</b> </span><br v-if="filters.months.length > 0"/>
-                                                                                <span v-if="filters.codes.length > 0" v-for="(fc, index) in filters.codes" :key="fc+index"> {{ fc }} <b v-if="filters.codes.length > 1 && index+1 < filters.codes.length">|</b> </span><br v-if="filters.codes.length > 0"/>
-                                                                                <span v-if="filters.reps.length > 0" v-for="(fr, index) in filters.reps" :key="fr+index"> {{ fr }} <b v-if="filters.reps.length > 1 && index+1 < filters.reps.length">|</b> </span><br v-if="filters.reps.length > 0"/>
-                                                                                <span v-if="filters.provinces.length > 0" v-for="(fpr, index) in filters.provinces" :key="fpr+index"> {{ fpr }} <b v-if="filters.provinces.length > 1 && index+1 < filters.provinces.length">|</b> </span><br v-if="filters.provinces.length > 0"/>
-                                                                                <span v-if="filters.merchant_groups.length > 0" v-for="(fmg, index) in filters.merchant_groups" :key="fmg+index"> {{ fmg }} <b v-if="filters.merchant_groups.length > 1 && index+1 < filters.merchant_groups.length">|</b> </span><br v-if="filters.merchant_groups.length > 0" />
-                                                                                <span v-if="filters.merchants.length > 0" v-for="(fm, index) in filters.merchants" :key="fm+index"> {{ fm }} <b v-if="filters.merchants.length > 1 && index+1 < filters.merchants.length">|</b> </span><br v-if="filters.merchants.length > 0"/>
-                                                                                <span v-if="filters.wine_farms.length > 0" v-for="(fw, index) in filters.wine_farms" :key="fw+index"> {{ fw }} <b v-if="filters.wine_farms.length > 1 && index+1 < filters.wine_farms.length">|</b> </span><br v-if="filters.wine_farms.length > 0"/>
-                                                                                <span v-if="filters.products.length > 0" v-for="(fp, index) in filters.products" :key="fp+index"> {{ fp }} <b v-if="filters.products.length > 1 && index+1 < filters.products.length">|</b> </span><br v-if="filters.products.length > 0"/>
-                                                                                <span v-if="filters.types.length > 0" v-for="(ft, index) in filters.types" :key="ft+index"> {{ ft }} <b v-if="filters.types.length > 1 && index+1 < filters.types.length">|</b> </span><br v-if="filters.types.length > 0"/>
-                                                                            </p> -->
-                                        <!-- <div class="uk-margin" uk-margin> -->
                                         <center>
                                             <button class="uk-button uk-button-default" @click="getStuff()">Apply</button>
                                             <button class="uk-button uk-button-default" @click="clearFilters()">Clear</button>
                                         </center>
-                                        <!-- </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -199,16 +163,6 @@
                             <chart :option="option" :loading="loading" @ready="onReady" @click="onClick" id="chart1"/>
                         </div>
                     </div>
-                    <!-- <div class="uk-width-1-6@m">
-                        <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>
-                            <div class="uk-width-1-1@m">
-                                <div>
-                                    <button class="uk-button uk-button-default" @click="getStuff()">Apply</button>
-                                    <button class="uk-button uk-button-default" @click="clearFilters()">Clear</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="uk-width-1-4@m">
                         <div class="uk-card uk-card-default uk-card-small">
                             <h3 class="uk-card-title">Bottom 5 Merchants</h3>
@@ -287,6 +241,10 @@
             return {
                 chart: null,
                 chart5: null,
+                topSaleAmount: 0,
+                topSaleSpace: 0,
+                topSaleAmountAccume: 0,
+                topSaleSpaceAccume: 0,
                 filters: {
                     years: [],
                     quarters: [],
@@ -804,68 +762,9 @@
             },
             onBtExport() {
                 var params = {
-                    // skipHeader: getBooleanValue('#skipHeader'),
-                    // columnGroups: getBooleanValue('#columnGroups'),
-                    // skipFooters: getBooleanValue('#skipFooters'),
-                    // skipGroups: getBooleanValue('#skipGroups'),
-                    // skipPinnedTop: getBooleanValue('#skipPinnedTop'),
-                    // skipPinnedBottom: getBooleanValue('#skipPinnedBottom'),
-                    // allColumns: getBooleanValue('#allColumns'),
-                    // onlySelected: getBooleanValue('#onlySelected'),
                     fileName: "filename",
                     sheetName: 'sheetName'
                 };
-    
-                // if (getBooleanValue('#skipGroupR')) {
-                //     params.shouldRowBeSkipped = function(params) {
-                //         return params.node.data.country.charAt(0) === 'R'
-                //     };
-                // }
-    
-                // if (getBooleanValue('#useCellCallback')) {
-                //     params.processCellCallback = function(params) {
-                //         if (params.value && params.value.toUpperCase) {
-                //             return params.value.toUpperCase();
-                //         } else {
-                //             return params.value;
-                //         }
-                //     };
-                // }
-    
-                // if (getBooleanValue('#useSpecificColumns')) {
-                //     params.columnKeys = ['country','bronze'];
-                // }
-    
-                // if (getBooleanValue('#processHeaders')) {
-                //     params.processHeaderCallback  = function(params) {
-                //         return params.column.getColDef().headerName.toUpperCase();
-                //     };
-                // }
-    
-                // if (getBooleanValue('#appendHeader')) {
-                //     params.customHeader  = [
-                //         [],
-                //         [{data:{type:'String', value:'Summary'}}],
-                //         [
-                //             {data:{type:'String', value:'Sales'}, mergeAcross:2},
-                //             {data:{type:'Number', value:'3695.36'}}
-                //         ],
-                //         []
-                //     ];
-                // }
-    
-                // if (getBooleanValue('#appendFooter')) {
-                //     params.customFooter  = [
-                //         [],
-                //         [{data:{type:'String', value:'Footer'}}],
-                //         [
-                //             {data:{type:'String', value:'Purchases'}, mergeAcross:2},
-                //             {data:{type:'Number', value:'7896.35'}}
-                //         ],
-                //         []
-                //     ];
-                // }
-    
                 this.gridOptions.api.exportDataAsExcel(params);
             },
             doRandom() {
@@ -882,7 +781,6 @@
                 this.years[index].selected = !this.years[index].selected;
                 if (this.years[index].selected) {
                     this.filters.years.indexOf(year) === -1 ? this.filters.years.push(year) : console.log("This item already exists");
-                    // this.filters.years.push(year);
                 } else {
                     for (var i = 0; i < this.filters.years.length; i++) {
                         if (this.filters.years[i] === year) {
@@ -907,7 +805,6 @@
                 this.months[index].selected = !this.months[index].selected;
                 if (this.months[index].selected) {
                     this.filters.months.indexOf(month) === -1 ? this.filters.months.push(month) : console.log("This item already exists");
-                    // this.filters.months.push(month);
                 } else {
                     for (var i = 0; i < this.filters.months.length; i++) {
                         if (this.filters.months[i] === month) {
@@ -1017,10 +914,6 @@
                 // console.log("Request: ", request);
                 axios.post(this.$store.state.api_url + 'filters', request)
                     .then(response => {
-                        // Add entity to session in vuex
-                        
-                        // console.log('this.year: ', this.year);
-                        // this.filters = response.data.data;
                         this.years = response.data.data.years;
                         this.quarters = response.data.data.quarters;
                         this.months = response.data.data.months;
@@ -1039,17 +932,6 @@
                                 }
                             }
                         }
-                        // console.log(this.month);
-                        // if(this.month != ""){
-                        //     console.log("this.month");
-                        //     console.log(this.months);
-                        //     for(var i = 0; i < this.months.length; i++){
-                        //         if(this.months[i].month == this.month){
-                        //             console.log("this.month");
-                        //             this.updateMonths(i, this.months[i].month);
-                        //         }
-                        //     }
-                        // }
 
                         this.getBudgetAndSales();
                         this.getTypes();
@@ -1089,9 +971,30 @@
                 console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_budget', request) //transactions_filtered
                     .then(response => {
-                        console.log('Response: ', response);
+                        console.log('Response Graph: ', response);
                         this.graph_months = response.data.data.graph_months;
                         this.legend = response.data.data.legend;
+
+                        this.topSaleAmount = 0;
+                        for(var i = 0; i < response.data.data.years.length; i++){
+                            for(var j = 0; j < response.data.data.years[i].sale.length; j++){
+                                if(response.data.data.years[i].sale[j] > this.topSaleAmount){
+                                    this.topSaleAmount = Math.ceil(response.data.data.years[i].sale[j] / 1000000) * 1000000;
+                                    this.topSaleSpace = this.topSaleAmount/5;
+                                }
+                            }
+                            for(var j = 0; j < response.data.data.years[i].sale_accum.length; j++){
+                                if(response.data.data.years[i].sale_accum[j] > this.topSaleAmountAccume){
+                                    this.topSaleAmountAccume = Math.ceil(response.data.data.years[i].sale_accum[j] / 1000000) * 1000000;
+                                    this.topSaleSpaceAccume = this.topSaleAmountAccume/5;
+                                }
+                            }
+                        }
+
+
+                        
+
+
                         var o= {
                             tooltip: {
                                 trigger: 'axis',
@@ -1139,8 +1042,8 @@
                                     type: 'value',
                                     name: 'Sales/Budget',
                                     min: 0,
-                                    max: 1500000,
-                                    interval: 250000,
+                                    max: this.topSaleAmount,
+                                    interval: this.topSaleSpace,
                                     axisLabel: {
                                         formatter: '{value} R'
                                     },
@@ -1154,8 +1057,8 @@
                                     type: 'value',
                                     name: 'Accum',
                                     min: 0,
-                                    max: 10000000,
-                                    interval: 2500000,
+                                    max: this.topSaleAmountAccume ,
+                                    interval: this.topSaleSpaceAccume ,
                                     axisLabel: {
                                         formatter: '{value} R'
                                     },
@@ -1405,15 +1308,6 @@
                         }
                     }
                 }
-                // if(request.filters.months.length == 0){
-                //     request.filters.months.push(currentmonth);
-                //     this.month = currentmonth;
-                //     for(var i = 0; i < this.months.length; i++){
-                //         if(this.months[i].month == this.month){
-                //             this.updateMonths(i, this.months[i].month);
-                //         }
-                //     }
-                // }
                 console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_top5_products', request) //transactions_filtered
                     .then(response => {
@@ -1443,15 +1337,6 @@
                         }
                     }
                 }
-                // if(request.filters.months.length == 0){
-                //     request.filters.months.push(currentmonth);
-                //     this.month = currentmonth;
-                //     for(var i = 0; i < this.months.length; i++){
-                //         if(this.months[i].month == this.month){
-                //             this.updateMonths(i, this.months[i].month);
-                //         }
-                //     }
-                // }
                 console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_bottom5_merchants', request) //transactions_filtered
                     .then(response => {
@@ -1481,15 +1366,6 @@
                         }
                     }
                 }
-                // if(request.filters.months.length == 0){
-                //     request.filters.months.push(currentmonth);
-                //     this.month = currentmonth;
-                //     for(var i = 0; i < this.months.length; i++){
-                //         if(this.months[i].month == this.month){
-                //             this.updateMonths(i, this.months[i].month);
-                //         }
-                //     }
-                // }
                 console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_top5_merchants', request) //transactions_filtered
                     .then(response => {
@@ -1519,15 +1395,6 @@
                         }
                     }
                 }
-                // if(request.filters.months.length == 0){
-                //     request.filters.months.push(currentmonth);
-                //     this.month = currentmonth;
-                //     for(var i = 0; i < this.months.length; i++){
-                //         if(this.months[i].month == this.month){
-                //             this.updateMonths(i, this.months[i].month);
-                //         }
-                //     }
-                // }
                 console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_bottom5_products', request) //transactions_filtered
                     .then(response => {
@@ -1557,15 +1424,6 @@
                         }
                     }
                 }
-                // if(request.filters.months.length == 0){
-                //     request.filters.months.push(currentmonth);
-                //     this.month = currentmonth;
-                //     for(var i = 0; i < this.months.length; i++){
-                //         if(this.months[i].month == this.month){
-                //             this.updateMonths(i, this.months[i].month);
-                //         }
-                //     }
-                // }
                 console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_grid', request) //transactions_filtered
                     .then(response => {
@@ -1679,8 +1537,6 @@
                 passive: true,
                 capture: false,
             });
-            // this.month = currentmonth.toString();
-            // console.log(this.month);
         }
     };
 </script>
@@ -1710,35 +1566,3 @@
         border: none;
     }
 </style>
-
-
-// List of all the following
-// transaction years
-// reps
-// codes
-// provinces
-// merchant groups
-// merchants
-// wine_farms
-// products
-// type
-// filter on all transactions with above
-// top 5 merchants
-// top 5 products
-//
-
-// {
-//     graph_months:['April', 'May'],
-//     years:[
-//         {year:"2015", budget:[2100, 3200], sale:[2100, 3299], sale_accum:[2100, 5399], buget_accum:[2100, 5300]}
-//     ],
-//     legend:["budget2015","sale2015","buget_accum2015","sale_accum2025"],
-//     types: [{name:"Whit wine", value: 1231231}, {name:"Red wine", value: 1231231}],
-//     provinces: [{name:"Natal", value: 11232},{name:"Gauteng", value: 6546546}],
-//     code: [{name:"code1", value: 11232},{name:"code2", value: 6546546}],
-//     top5_products: [{name:"wine1", value: 11232}],
-//     bottom5_products: [{name:"wine9", value: 2}],
-//     top5_merchants: [{name:"pnp", value: 11232}],
-//     bottom5_merchants: [{name:"spar", value: 1}],
-//     records:[{all the transaction detail}]
-// }
