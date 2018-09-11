@@ -35,7 +35,7 @@
                                     <input class="uk-input" type="password" placeholder="Password" v-model="password">
                                 </div>
                             </div>
-                            <div class="uk-margin" v-if="session_profile == 'Admin'">
+                            <div class="uk-margin">
                                 <label class="uk-form-label" for="form-stacked-text">Profile Type</label>
                                 <div class="uk-form-controls">
                                     <select class="uk-select" v-model="profile_type">
@@ -112,8 +112,7 @@
                     {id:"Admin"},
                     {id:"Manager"},
                     {id:"Rep"}
-                ],
-                session_profile: this.$store.state.session.profile_type
+                ]
             }
         },
         methods: {
@@ -134,7 +133,7 @@
             getReps() {
                 let request = {};
                 console.log(request);
-                axios.post(this.$store.state.api_url + '/profiles_update', request)
+                axios.post(this.$store.state.api_url + '/profiles_rep_list', request)
                 .then(response => {
                     console.log(response);
                     this.gridOptions.api.setColumnDefs(this.columnDefs);
@@ -153,7 +152,6 @@
                     first_name: this.first_name,
                     last_name: this.last_name,
                     profile_type: this.profile_type,
-                    profile_id: this.$route.params.id,
                     reps: this.rowData,
                 };
                 console.log("Request: ", request);

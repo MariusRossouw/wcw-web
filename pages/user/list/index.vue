@@ -6,7 +6,9 @@
                     <div class="uk-card-body">
                         <div uk-grid>
                             <h1>List of Users</h1>
+                            
                             <div class="uk-card-body" style="width: 100%; height: 75vh;">
+                                <button v-if="session_profile == 'Admin'" class="uk-button uk-button-default" @click="addUser()">Add User</button>
                                 <div style="width: 100%; height: 70vh;">
                                     <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptions" :columnDefs="columnDefs" :rowData="rowData">
                                     </ag-grid-vue>
@@ -36,6 +38,7 @@
         },
         data() {
             return {
+                session_profile: this.$store.state.session.profile_type,
                 columnDefs: [
                     {headerName: "First Name", field: "first_name", minWidth: 90, headerClass: 'resizable-header'},
                     {headerName: "Last Name", field: "last_name", minWidth: 110, headerClass: 'resizable-header'},
@@ -109,6 +112,9 @@
                     allColumnIds.push(column.colId);
                 });
                 gridOptions.columnApi.autoSizeColumns(allColumnIds);
+            },
+            addUser(){
+                this.$router.push("/user/add");
             }
         },
         beforeMount() {

@@ -62,8 +62,32 @@
                         console.log('Response: ', response);
                         this.$store.state.session.entity = response.data.data;
                         this.$store.state.session.authed = true;
+                        if(this.$store.state.session.entity.profile_type == 'Admin'){
+                            this.$store.state.session.navbar = [
+                                {to:"/", description:"Home"},
+                                {to:"/user/"+response.data.data.profile_id, description:response.data.data.first_name + " " + response.data.data.last_name},
+                                {to:"/dashboard", description:"Dashboard"},
+                                {to:"/farm/list", description:"Wine Farms"},
+                                {to:"/product/list", description:"Products"},
+                                {to:"/merchant/list", description:"Merchants"},
+                                {to:"/user/list", description:"Users"},
+                                {to:"/upload", description:"Upload"},
+                            ];
+                        }
+                        if(this.$store.state.session.entity.profile_type == 'Manager' || this.$store.state.session.entity.profile_type == 'Rep'){
+                            this.$store.state.session.navbar = [
+                                {to:"/", description:"Home"},
+                                {to:"/user/"+response.data.data.profile_id, description:response.data.data.first_name + " " + response.data.data.last_name},
+                                {to:"/dashboard", description:"Dashboard"},
+                                {to:"/farm/list", description:"Wine Farms"},
+                                {to:"/product/list", description:"Products"},
+                                {to:"/merchant/list", description:"Merchants"},
+                                {to:"/user/list", description:"Users"}
+                            ];
+                        }
                         this.$store.state.session.navbar = [
                             {to:"/", description:"Home"},
+                            {to:"/user/"+response.data.data.profile_id, description:response.data.data.first_name + " " + response.data.data.last_name},
                             {to:"/dashboard", description:"Dashboard"},
                             {to:"/farm/list", description:"Wine Farms"},
                             {to:"/product/list", description:"Products"},
@@ -76,27 +100,6 @@
                     })
                     .catch(error => {
                         console.log(error.response);
-                        if(error.response.status == 400){
-                            console.log(error.response);
-                        }
-                        if(error.response.status == 401){
-                            console.log(error.response);
-                            // login / session expired
-                        }
-                        if(error.response.status == 403){
-                            console.log(error.response);
-                            // broke a rule
-                            new Error();
-                            // this.$router.push("/error");
-                        }
-                        if(error.response.status == 404){
-                            console.log(error.response);
-                            // page not found / not there
-                        }
-                        if(error.response.status == 500){
-                            console.log(error.response);
-                            // server error / db error
-                        }
                     });
             }
         },
