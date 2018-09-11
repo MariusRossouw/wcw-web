@@ -87,7 +87,7 @@
                 .then(response => {
                         // Add entity to session in vuex
                         console.log('Response: ', response);
-                        this.selectedFile = null;
+                        this.selectedFileB = null;
                     })
                     .catch(error => {
                         console.log(error.response);

@@ -38,7 +38,7 @@
         },
         data() {
             return {
-                session_profile: this.$store.state.session.profile_type,
+                session_profile: this.$store.state.session.entity.type,
                 columnDefs: [
                     {headerName: "First Name", field: "first_name", minWidth: 90, headerClass: 'resizable-header'},
                     {headerName: "Last Name", field: "last_name", minWidth: 110, headerClass: 'resizable-header'},

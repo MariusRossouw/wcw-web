@@ -38,8 +38,8 @@
                             <div class="uk-margin">
                                 <label class="uk-form-label" for="form-stacked-text">Profile Type</label>
                                 <div class="uk-form-controls">
-                                    <select class="uk-select" v-model="profile_type">
-                                        <option v-for="type in profile_type_list" :value="type.id" :key="type.id">
+                                    <select class="uk-select" v-model="type">
+                                        <option v-for="type in type_list" :value="type.id" :key="type.id">
                                         {{type.id}}
                                         </option>
                                     </select>
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="uk-card-body" style="width: 100%; height: 75vh;" v-if="profile_type == 'Manager'">
+                <div class="uk-card-body" style="width: 100%; height: 75vh;" v-if="type == 'Manager'">
                     <div style="width: 100%; height: 70vh;">
                         <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptions" :columnDefs="columnDefs" :rowData="rowData">
                         </ag-grid-vue>
@@ -85,7 +85,7 @@
                     {headerName: "Last Name", field: "last_name", minWidth: 110, headerClass: 'resizable-header'},
                     {headerName: "Email", field: "email", minWidth: 200, headerClass: 'resizable-header'},
                     {headerName: "Mobile", minWidth: 200, valueGetter: this.mobileValueGetter, headerClass: 'resizable-header'},
-                    {headerName: "Type", field: "profile_type", minWidth: 100, headerClass: 'resizable-header'},
+                    {headerName: "Type", field: "type", minWidth: 100, headerClass: 'resizable-header'},
                     {headerName: "Rep Code", field: "rep_code", minWidth: 100, headerClass: 'resizable-header'},
                     {headerName: "Gender", field: "gender", minWidth: 100, headerClass: 'resizable-header'}
                 ],
@@ -107,8 +107,8 @@
                 email: "",
                 mobile_no: "",
                 password: "",
-                profile_type: "",
-                profile_type_list: [
+                type: "",
+                type_list: [
                     {id:"Admin"},
                     {id:"Manager"},
                     {id:"Rep"}
@@ -116,6 +116,15 @@
             }
         },
         methods: {
+            checkAuthState() {
+                let ls = JSON.parse(localStorage.getItem("State"));
+                console.log(ls);
+                if (!ls) {
+                    this.$router.push("/login");
+                } else {
+                    this.$store.replaceState(ls);
+                }
+            },
             checkboxCellRenderer (params){
                 if(params.data.selected){
                     return '<h4 style="color:green;">☑</h4>';
@@ -133,7 +142,7 @@
             getReps() {
                 let request = {};
                 console.log(request);
-                axios.post(this.$store.state.api_url + '/profiles_rep_list', request)
+                axios.post(this.$store.state.api_url + '/user_profile_rep_list', request)
                 .then(response => {
                     console.log(response);
                     this.gridOptions.api.setColumnDefs(this.columnDefs);
@@ -147,11 +156,11 @@
             createProfile() {
                 let request = {
                     email: this.email,
-                    mobile_no: this.mobile_no,
+                    mobile_no_exl: this.mobile_no,
                     password: this.password,
                     first_name: this.first_name,
                     last_name: this.last_name,
-                    profile_type: this.profile_type,
+                    type: this.type,
                     reps: this.rowData,
                 };
                 console.log("Request: ", request);
@@ -167,12 +176,15 @@
             }
         },
         watch: {
-            profile_type() {
-                if(this.profile_type != "" && this.profile_type == "Manager"){
+            type() {
+                if(this.type != "" && this.type == "Manager"){
                     this.getReps();
                 }
             }
         },
+        beforeMount() {
+            this.checkAuthState();
+        }
     }
 </script>
 

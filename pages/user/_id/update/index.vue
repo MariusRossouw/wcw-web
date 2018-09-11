@@ -8,38 +8,38 @@
                             <div class="uk-margin">
                                 <label class="uk-form-label" for="form-stacked-text">First Name</label>
                                 <div class="uk-form-controls">
-                                    <input class="uk-input" type="text" placeholder="First Name" v-model="first_name">
+                                    <input class="uk-input" type="text" placeholder="First Name" v-model="profile.first_name">
                                 </div>
                             </div>
                             <div class="uk-margin">
                                 <label class="uk-form-label" for="form-stacked-text">Last Name</label>
                                 <div class="uk-form-controls">
-                                    <input class="uk-input" type="text" placeholder="Last Name" v-model="last_name">
+                                    <input class="uk-input" type="text" placeholder="Last Name" v-model="profile.last_name">
                                 </div>
                             </div>
                             <div class="uk-margin">
                                 <label class="uk-form-label" for="form-stacked-text">Email</label>
                                 <div class="uk-form-controls">
-                                    <input class="uk-input" type="text" placeholder="Email" v-model="email">
+                                    <input class="uk-input" type="text" placeholder="Email" v-model="profile.email">
                                 </div>
                             </div>
                             <div class="uk-margin">
                                 <label class="uk-form-label" for="form-stacked-text">Mobile Number</label>
                                 <div class="uk-form-controls">
-                                    <input class="uk-input" type="text" placeholder="Mobile Number" v-model="mobile_no">
+                                    <input class="uk-input" type="text" placeholder="Mobile Number" v-model="profile.mobile_no_exl">
                                 </div>
                             </div>
                             <div class="uk-margin">
                                 <label class="uk-form-label" for="form-stacked-text">Password</label>
                                 <div class="uk-form-controls">
-                                    <input class="uk-input" type="password" placeholder="Password" v-model="password">
+                                    <input class="uk-input" type="password" placeholder="Password" v-model="profile.password">
                                 </div>
                             </div>
                             <div class="uk-margin" v-if="session_profile == 'Admin'">
                                 <label class="uk-form-label" for="form-stacked-text">Profile Type</label>
                                 <div class="uk-form-controls">
-                                    <select class="uk-select" v-model="profile_type">
-                                        <option v-for="type in profile_type_list" :value="type.id" :key="type.id">
+                                    <select class="uk-select" v-model="profile.type">
+                                        <option v-for="type in type_list" :value="type.id" :key="type.id">
                                         {{type.id}}
                                         </option>
                                     </select>
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="uk-card-body" style="width: 100%; height: 75vh;" v-if="profile_type == 'Manager'">
+                <div class="uk-card-body" style="width: 100%; height: 75vh;" v-if="profile.type == 'Manager'">
                     <div style="width: 100%; height: 70vh;">
                         <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptions" :columnDefs="columnDefs" :rowData="rowData">
                         </ag-grid-vue>
@@ -85,7 +85,7 @@
                     {headerName: "Last Name", field: "last_name", minWidth: 110, headerClass: 'resizable-header'},
                     {headerName: "Email", field: "email", minWidth: 200, headerClass: 'resizable-header'},
                     {headerName: "Mobile", minWidth: 200, valueGetter: this.mobileValueGetter, headerClass: 'resizable-header'},
-                    {headerName: "Type", field: "profile_type", minWidth: 100, headerClass: 'resizable-header'},
+                    {headerName: "Type", field: "type", minWidth: 100, headerClass: 'resizable-header'},
                     {headerName: "Rep Code", field: "rep_code", minWidth: 100, headerClass: 'resizable-header'},
                     {headerName: "Gender", field: "gender", minWidth: 100, headerClass: 'resizable-header'}
                 ],
@@ -102,21 +102,32 @@
                         params.api.sizeColumnsToFit();
                     }
                 },
-                first_name: "",
-                last_name: "",
-                email: "",
-                mobile_no: "",
-                password: "",
-                profile_type: "",
-                profile_type_list: [
+                profile: {
+                    first_name: "",
+                    last_name: "",
+                    email: "",
+                    mobile_no: "",
+                    password: "",
+                    type: "",
+                },
+                type_list: [
                     {id:"Admin"},
                     {id:"Manager"},
                     {id:"Rep"}
                 ],
-                session_profile: this.$store.state.session.profile_type
+                session_profile: this.$store.state.session.entity.type
             }
         },
         methods: {
+            checkAuthState() {
+                let ls = JSON.parse(localStorage.getItem("State"));
+                console.log(ls);
+                if (!ls) {
+                    this.$router.push("/login");
+                } else {
+                    this.$store.replaceState(ls);
+                }
+            },
             checkboxCellRenderer (params){
                 if(params.data.selected){
                     return '<h4 style="color:green;">☑</h4>';
@@ -131,10 +142,29 @@
                 console.log(this.rowData);
                 this.gridOptions.api.setRowData(this.rowData);
             },
-            getReps() {
-                let request = {};
+            getProfile() {
+                let request = {
+                    profile_id: this.$route.params.id
+                };
                 console.log(request);
-                axios.post(this.$store.state.api_url + '/profiles_update', request)
+                axios.post(this.$store.state.api_url + '/user_profile', request)
+                .then(response => {
+                    console.log(response);
+                    this.profile = response.data.data;
+                    if(this.profile.type == "Manager"){
+                        this.getReps();
+                    }
+                })
+                .catch(error => {
+                    console.log(error.response);
+                });
+            },
+            getReps() {
+                let request = {
+                    manager_id: this.$route.params.id
+                };
+                console.log(request);
+                axios.post(this.$store.state.api_url + '/user_profile_rep_list', request)
                 .then(response => {
                     console.log(response);
                     this.gridOptions.api.setColumnDefs(this.columnDefs);
@@ -147,12 +177,12 @@
             },
             createProfile() {
                 let request = {
-                    email: this.email,
-                    mobile_no: this.mobile_no,
-                    password: this.password,
-                    first_name: this.first_name,
-                    last_name: this.last_name,
-                    profile_type: this.profile_type,
+                    email: this.profile.email,
+                    mobile_no_exl: this.profile.mobile_no,
+                    password: this.profile.password,
+                    first_name: this.profile.first_name,
+                    last_name: this.profile.last_name,
+                    type: this.profile.type,
                     profile_id: this.$route.params.id,
                     reps: this.rowData,
                 };
@@ -169,12 +199,18 @@
             }
         },
         watch: {
-            profile_type() {
-                if(this.profile_type != "" && this.profile_type == "Manager"){
+            type() {
+                if(this.type != "" && this.type == "Manager"){
                     this.getReps();
                 }
             }
         },
+        beforeMount() {
+            this.checkAuthState();
+        },
+        mounted() {
+            this.getProfile();
+        }
     }
 </script>
 

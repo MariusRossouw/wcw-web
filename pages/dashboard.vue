@@ -1011,9 +1011,21 @@
                                     this.topSaleSpace = this.topSaleAmount/5;
                                 }
                             }
+                            for(var j = 0; j < response.data.data.years[i].budget.length; j++){
+                                if(response.data.data.years[i].budget[j] > this.topSaleAmount){
+                                    this.topSaleAmount = Math.ceil(response.data.data.years[i].budget[j] / 1000000) * 1000000;
+                                    this.topSaleSpace = this.topSaleAmount/5;
+                                }
+                            }
                             for(var j = 0; j < response.data.data.years[i].sale_accum.length; j++){
                                 if(response.data.data.years[i].sale_accum[j] > this.topSaleAmountAccume){
                                     this.topSaleAmountAccume = Math.ceil(response.data.data.years[i].sale_accum[j] / 1000000) * 1000000;
+                                    this.topSaleSpaceAccume = this.topSaleAmountAccume/5;
+                                }
+                            }
+                            for(var j = 0; j < response.data.data.years[i].budget_accum.length; j++){
+                                if(response.data.data.years[i].budget_accum[j] > this.topSaleAmountAccume){
+                                    this.topSaleAmountAccume = Math.ceil(response.data.data.years[i].budget_accum[j] / 1000000) * 1000000;
                                     this.topSaleSpaceAccume = this.topSaleAmountAccume/5;
                                 }
                             }
