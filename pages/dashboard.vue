@@ -162,31 +162,31 @@
                         </div>
                     </div>
                     <div class="uk-width-1-4@m">
-                        <div class="uk-card uk-card-default uk-card-small">
+                        <div class="uk-card uk-card-default uk-card-small superLink">
                             <h3 class="uk-card-title">Bottom 5 Merchants</h3>
                             <img v-if="bottom5_merchants.length == 0" src="@/assets/svg/spinner.svg" class="logo-image"/>
-                            <li v-for="(bM, index) in bottom5_merchants" :key="index"><span style="float:left; margin-left:5px;">{{bM.name}}</span> <span style="float:right; margin-right:5px;">{{bM.value | toCurrency}}</span><br/></li>
+                            <li v-for="(bM, index) in bottom5_merchants" :key="index" @click="merchantAddFilter(bM)" style="cursor: pointer"><span  style="float:left; margin-left:5px;">{{bM.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;">{{bM.value | toCurrency}}</span><br/></li>
                         </div>
                     </div>
                     <div class="uk-width-1-4@m">
-                        <div class="uk-card uk-card-default uk-card-small">
+                        <div class="uk-card uk-card-default uk-card-small superLink">
                             <h3 class="uk-card-title">Top 5 Merchants</h3>
                             <img v-if="top5_merchants.length == 0" src="@/assets/svg/spinner.svg" class="logo-image"/>
-                            <li v-for="(tM, index) in top5_merchants" :key="index"><span style="float:left; margin-left:5px;">{{tM.name}}</span> <span style="float:right; margin-right:5px;"> {{tM.value | toCurrency}}</span><br/></li>
+                            <li v-for="(tM, index) in top5_merchants" :key="index" @click="merchantAddFilter(tM)" style="cursor: pointer"><span style="float:left; margin-left:5px;" >{{tM.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;"> {{tM.value | toCurrency}}</span><br/></li>
                         </div>
                     </div>
                     <div class="uk-width-1-4@m">
-                        <div class="uk-card uk-card-default uk-card-small">
+                        <div class="uk-card uk-card-default uk-card-small superLink">
                             <h3 class="uk-card-title">Bottom 5 Products</h3>
                             <img v-if="bottom5_products.length == 0" src="@/assets/svg/spinner.svg" class="logo-image"/>
-                            <li v-for="(bP, index) in bottom5_products" :key="index"><span style="float:left; margin-left:5px;">{{bP.name}}</span> <span style="float:right; margin-right:5px;"> {{bP.value | toCurrency}}</span><br/></li>
+                            <li v-for="(bP, index) in bottom5_products" :key="index" @click="productAddFilter(bP)" style="cursor: pointer"><span style="float:left; margin-left:5px;" >{{bP.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;"> {{bP.value | toCurrency}}</span><br/></li>
                         </div>
                     </div>
                     <div class="uk-width-1-4@m">
-                        <div class="uk-card uk-card-default uk-card-small">
+                        <div class="uk-card uk-card-default uk-card-small superLink">
                             <h3 class="uk-card-title">Top 5 Products</h3>
                             <img v-if="top5_products.length == 0" src="@/assets/svg/spinner.svg" class="logo-image"/>
-                            <li v-for="(tP, index) in top5_products" :key="index"><span style="float:left; margin-left:5px;">{{tP.name}}</span> <span style="float:right; margin-right:5px;"> {{tP.value | toCurrency}}</span><br/></li>
+                            <li v-for="(tP, index) in top5_products" :key="index" @click="productAddFilter(tP)" style="cursor: pointer"><span style="float:left; margin-left:5px;" >{{tP.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;"> {{tP.value | toCurrency}}</span><br/></li>
                         </div>
                     </div>
                 </div>
@@ -720,9 +720,41 @@
             };
         },
         methods: {
+            merchantAddFilter(merchant){
+                for(var k = 0; k < this.merchants.length; k++){
+                    if(this.merchants[k].merchant_id == merchant.id){
+                        this.merchants[k].selected = !this.merchants[k].selected;
+                        if(this.merchants[k].selected){
+                            this.filters.merchants.push(this.merchants[k]);
+                        } else {
+                            for (var i = 0; i < this.filters.merchants.length; i++) {
+                                if (this.filters.merchants[i].merchant_id === this.merchants[k].merchant_id) {
+                                    this.filters.merchants.splice(i, 1);
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            productAddFilter(product){
+                for(var k = 0; k < this.products.length; k++){
+                    if(this.products[k].product_id == product.id){
+                        this.products[k].selected = !this.products[k].selected;
+                        if(this.products[k].selected){
+                            this.filters.products.push(this.products[k]);
+                        } else {
+                            for (var i = 0; i < this.filters.products.length; i++) {
+                                if (this.filters.products[i].product_id === this.products[k].product_id) {
+                                    this.filters.products.splice(i, 1);
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             checkAuthState() {
                 let ls = JSON.parse(localStorage.getItem("State"));
-                console.log(ls);
+                // console.log(ls);
                 if (!ls) {
                     this.$router.push("/login");
                 } else {
@@ -730,19 +762,19 @@
                 }
             },
             openGroup(params) {
-                console.log(params);
+                // console.log(params);
                 this.$router.push("/group/" + params.data.merchant_group_id);
             },
             openMerchant(params) {
-                console.log(params);
+                // console.log(params);
                 this.$router.push("/merchant/" + params.data.merchant_id);
             },
             openRep(params) {
-                console.log(params);
+                // console.log(params);
                 this.$router.push("/user/" + params.data.profile_id);
             },
             openFarm(params) {
-                console.log(params);
+                // console.log(params);
                 this.$router.push("/farm/" + params.data.wine_farm_id);
             },
             onBtNormal() {
@@ -780,10 +812,10 @@
                 that.loading = !that.loading;
             },
             onReady(instance, ECharts) {
-                console.log(instance, ECharts);
+                // console.log(instance, ECharts);
             },
             onClick(event, instance, ECharts) {
-                console.log(arguments);
+                // console.log(arguments);
             },
             updateYears(index, year) {
                 this.years[index].selected = !this.years[index].selected;
@@ -922,6 +954,7 @@
                 // console.log("Request: ", request);
                 axios.post(this.$store.state.api_url + 'filters', request)
                     .then(response => {
+                        // console.log(response.data.data);
                         this.years = response.data.data.years;
                         this.quarters = response.data.data.quarters;
                         this.months = response.data.data.months;
@@ -999,9 +1032,11 @@
                 console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_budget', request) //transactions_filtered
                     .then(response => {
-                        console.log('Response Graph: ', response);
+                        // console.log('Response Graph: ', response);
                         this.graph_months = response.data.data.graph_months;
                         this.legend = response.data.data.legend;
+                        this.legend.push('Volume(L)');
+                        this.legend.push('Volume(L) Accum');
                         this.loading1 = false;
                         this.topSaleAmount = 0;
                         for(var i = 0; i < response.data.data.years.length; i++){
@@ -1090,7 +1125,7 @@
                                 },
                                 {
                                     type: 'value',
-                                    name: 'Accum',
+                                    name: 'Accum/Volume',
                                     min: 0,
                                     max: this.topSaleAmountAccume ,
                                     interval: this.topSaleSpaceAccume ,
@@ -1108,7 +1143,7 @@
                         }
                         var j = 0;
                         for(var i = 0; i < response.data.data.years.length; i++){
-                            console.log(o.series.length);
+                            // console.log(o.series.length);
                             o.series.push({
                                     name: this.legend[i],
                                     type: 'bar',
@@ -1119,7 +1154,7 @@
                             j++;
                         }
                         for(var i = 0; i < response.data.data.years.length; i++){
-                            console.log(o.series.length);
+                            // console.log(o.series.length);
                             o.series.push({
                                     name: this.legend[j],
                                     type: 'bar',
@@ -1130,7 +1165,7 @@
                             j++;
                         }
                         for(var i = 0; i < response.data.data.years.length; i++){
-                            console.log(o.series.length);
+                            // console.log(o.series.length);
                             o.series.push({
                                     name: this.legend[j],
                                     type: 'line',
@@ -1141,7 +1176,7 @@
                             j++;
                         }
                         for(var i = 0; i < response.data.data.years.length; i++){
-                            console.log(o.series.length);
+                            // console.log(o.series.length);
                             o.series.push({
                                     name: this.legend[j],
                                     type: 'line',
@@ -1151,7 +1186,31 @@
                             )
                             j++;
                         }
-                        console.log("O: ", o)
+                        for(var i = 0; i < response.data.data.years.length; i++){
+                            // console.log(o.series.length);
+                            o.series.push({
+                                    name: this.legend[j],
+                                    type: 'bar',
+                                    yAxisIndex: 1,
+                                    // data: response.data.data.years[i].volume // volume [] -> for the year and months selected
+                                    data: [234525,34532,234523,3252345,2352345,234523,23534,34523,3452345,2345324,345237,2345234]
+                                },
+                            )
+                            j++;
+                        }
+                        for(var i = 0; i < response.data.data.years.length; i++){
+                            // console.log(o.series.length);
+                            o.series.push({
+                                    name: this.legend[j],
+                                    type: 'line',
+                                    yAxisIndex: 1,
+                                    // data: response.data.data.years[i].volume_accum // sale_accum [] -> for the year and months selected
+                                    data: [234525,234525+34532,234525+34532+234523,234525+34532+234523+3252345,234525+34532+234523+3252345+2352345]
+                                },
+                            )
+                            j++;
+                        }
+                        // console.log("O: ", o)
                         this.chart.setOption(o, true);
                     })
             },
@@ -1174,10 +1233,10 @@
                         }
                     }
                 }
-                console.log("Request: " + JSON.stringify(request));
+                // console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_types', request) //transactions_filtered
                     .then(response => {
-                        console.log('Response: ', response);
+                        // console.log('Response: ', response);
                         this.loading2 = false;
                         // this.max1 = Math.max(response.data.data.years[0].sale);
                         for(var i = 0; i < response.data.data.types.length; i++){
@@ -1232,10 +1291,10 @@
                         }
                     }
                 }
-                console.log("Request: " + JSON.stringify(request));
+                // console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_provinces', request) //transactions_filtered
                     .then(response => {
-                        console.log('Response: ', response);
+                        // console.log('Response: ', response);
                         this.loading3 = false;
                         for(var i = 0; i < response.data.data.provinces.length; i++){
                             this.provinces_names.push(response.data.data.provinces[i].name);
@@ -1289,12 +1348,12 @@
                         }
                     }
                 }
-                console.log("Request: " + JSON.stringify(request));
+                // console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_codes', request) //transactions_filtered
                     .then(response => {
-                        console.log('Response: ', response);
+                        // console.log('Response: ', response);
                         this.loading4 = false;
-                        console.log("this.loading4: ",this.loading4);
+                        // console.log("this.loading4: ",this.loading4);
                         for(var i = 0; i < response.data.data.code.length; i++){
                             this.code_names.push(response.data.data.code[i].name);
                         }
@@ -1347,10 +1406,10 @@
                         }
                     }
                 }
-                console.log("Request: " + JSON.stringify(request));
+                // console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_top5_products', request) //transactions_filtered
                     .then(response => {
-                        console.log('Response: ', response);
+                        // console.log('Response: ', response);
                         this.top5_products = response.data.data.top5_products;
                     })
                     .catch(error => {
@@ -1376,10 +1435,10 @@
                         }
                     }
                 }
-                console.log("Request: " + JSON.stringify(request));
+                // console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_bottom5_merchants', request) //transactions_filtered
                     .then(response => {
-                        console.log('Response: ', response);
+                        // console.log('Response: ', response);
                         this.bottom5_merchants = response.data.data.bottom5_merchants;
                     })
                     .catch(error => {
@@ -1405,10 +1464,10 @@
                         }
                     }
                 }
-                console.log("Request: " + JSON.stringify(request));
+                // console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_top5_merchants', request) //transactions_filtered
                     .then(response => {
-                        console.log('Response: ', response);
+                        // console.log('Response: ', response);
                         this.top5_merchants = response.data.data.top5_merchants;
                     })
                     .catch(error => {
@@ -1434,10 +1493,10 @@
                         }
                     }
                 }
-                console.log("Request: " + JSON.stringify(request));
+                // console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_bottom5_products', request) //transactions_filtered
                     .then(response => {
-                        console.log('Response: ', response);
+                        // console.log('Response: ', response);
                         this.bottom5_products = response.data.data.bottom5_products;
                     })
                     .catch(error => {
@@ -1463,10 +1522,10 @@
                         }
                     }
                 }
-                console.log("Request: " + JSON.stringify(request));
+                // console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_grid', request) //transactions_filtered
                     .then(response => {
-                        console.log('Response: ', response);
+                        // console.log('Response: ', response);
                         this.gridOptions.api.setColumnDefs(this.columnDefs);
                         this.gridOptions.api.setRowData(response.data.data.records);
                     })
@@ -1621,5 +1680,10 @@
         margin-bottom: 3px;
         margin-left: 28px;
         border: none;
+    }
+
+    .superLink li:hover {
+        background: #adc962;
+        color: white;
     }
 </style>

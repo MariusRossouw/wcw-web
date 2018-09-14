@@ -38,7 +38,7 @@
                             <div class="uk-margin" v-if="session_profile == 'Admin'">
                                 <label class="uk-form-label" for="form-stacked-text">Profile Type</label>
                                 <div class="uk-form-controls">
-                                    <select class="uk-select" v-model="profile.type">
+                                    <select class="uk-select" v-model="type">
                                         <option v-for="type in type_list" :value="type.id" :key="type.id">
                                         {{type.id}}
                                         </option>
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="uk-card-body" style="width: 100%; height: 75vh;" v-if="profile.type == 'Manager'">
+                <div class="uk-card-body" style="width: 100%; height: 75vh;" v-if="type == 'Manager'">
                     <div style="width: 100%; height: 70vh;">
                         <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptions" :columnDefs="columnDefs" :rowData="rowData">
                         </ag-grid-vue>
@@ -115,7 +115,8 @@
                     {id:"Manager"},
                     {id:"Rep"}
                 ],
-                session_profile: this.$store.state.session.entity.type
+                session_profile: this.$store.state.session.entity.type,
+                type:""
             }
         },
         methods: {
@@ -151,7 +152,8 @@
                 .then(response => {
                     console.log(response);
                     this.profile = response.data.data;
-                    if(this.profile.type == "Manager"){
+                    this.profile_type = this.type;
+                    if(this.type == "Manager"){
                         this.getReps();
                     }
                 })
@@ -182,12 +184,12 @@
                     password: this.profile.password,
                     first_name: this.profile.first_name,
                     last_name: this.profile.last_name,
-                    type: this.profile.type,
+                    type: this.type,
                     profile_id: this.$route.params.id,
                     reps: this.rowData,
                 };
                 console.log("Request: ", request);
-                axios.post(this.$store.state.api_url + '/user_profile_add', request)
+                axios.post(this.$store.state.api_url + '/user_profile_update', request)
                     .then(response => {
                         // Add entity to session in vuex
                         console.log('Response: ', response);
