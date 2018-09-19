@@ -2,225 +2,219 @@
     <div class="container">
         <div class="content-background">
             <div class="uk-container uk-container-large uk-padding-remove">
-        <div class="uk-offcanvas-content">
-            <div class="uk-width-1-1@m">
+                <div class="uk-offcanvas-content">
+                    <div class="uk-width-1-1@m">
+                        <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>
+                            <div class="uk-width-5-6@m">
+                                <div class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #offcanvas-usage" style="width:100%; 
+                                        background-color:#a5cb4f; 
+                                        color:white; font-size:20px;">Filter
+                                    <p v-if="filters.years.length == 0 && filters.quarters.length == 0 && filters.months.length == 0 && filters.codes.length == 0 && filters.reps.length == 0 && filters.province_filter.length == 0 && filters.merchant_groups.length == 0 && filters.merchant_filter.length == 0 && filters.wine_farms.length == 0 && filters.products.length == 0 && filters.product_types.length == 0">Showing (All)</p>
+                                    <p v-if="filters.years.length > 0 || filters.quarters.length > 0 || filters.months.length > 0 || filters.codes.length > 0 || filters.reps.length > 0 || filters.province_filter.length > 0 || filters.merchant_groups.length > 0 || filters.merchant_filter.length > 0 || filters.wine_farms.length > 0 || filters.products.length > 0 || filters.product_types.length > 0">
+                                    Showing (
+                                        <span v-if="filters.years.length > 0" v-for="(fy, index) in filters.years" :key="fy+index"> {{ fy }} <b>|</b> </span>
+                                        <span v-if="filters.quarters.length > 0" v-for="(fq, index) in filters.quarters" :key="fq+index"> {{ fq }} <b>|</b> </span>
+                                        <span v-if="filters.months.length > 0" v-for="(fm, index) in filters.months" :key="fm+index"> {{ fm }} <b>|</b> </span>
+                                        <span v-if="filters.codes.length > 0" v-for="(fc, index) in filters.codes" :key="fc+index"> {{ fc }} <b>|</b> </span>
+                                        <span v-if="filters.reps.length > 0" v-for="(fr, index) in filters.reps" :key="fr.rep_name+index"> {{ fr.rep_name }} <b>|</b> </span>
+                                        <span v-if="filters.province_filter.length > 0" v-for="(fpr, index) in filters.province_filter" :key="fpr.province_name+index"> {{ fpr.province_name }} <b>|</b> </span>
+                                        <span v-if="filters.merchant_groups.length > 0" v-for="(fmg, index) in filters.merchant_groups" :key="fmg.group_name+index"> {{ fmg.group_name }} <b>|</b> </span>
+                                        <span v-if="filters.merchant_filter.length > 0" v-for="(fm, index) in filters.merchant_filter" :key="fm.merchant_name+index"> {{ fm.merchant_name }} <b>|</b> </span>
+                                        <span v-if="filters.wine_farms.length > 0" v-for="(fw, index) in filters.wine_farms" :key="fw.farm_name+index"> {{ fw.farm_name }} <b>|</b> </span>
+                                        <span v-if="filters.products.length > 0" v-for="(fp, index) in filters.products" :key="fp.product_name+index"> {{ fp.product_name }} <b>|</b> </span>
+                                        <span v-if="filters.product_types.length > 0" v-for="(ft, index) in filters.product_types" :key="ft.product_type+index"> {{ ft.product_type }} <b>|</b> </span> )
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="uk-width-1-6@m">
+                                <div>
+                                    <button class="uk-button uk-button-default uk-margin-small-right" type="button" style="width:100%; 
+                                        background-color:#6296d0; 
+                                        color:white; font-size:20px; height:50px;" @click="getStuff()">Apply</button><br/>
+                                    <button class="uk-button uk-button-default uk-margin-small-right" type="button" style="width:100%; 
+                                        background-color:#6296d0; 
+                                        color:white; font-size:20px; height:50px;" @click="clearFilters()">Clear</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="offcanvas-usage" uk-offcanvas>
+                        <div class="uk-offcanvas-bar">
+                            <button class="uk-offcanvas-close" type="button" uk-close style="color:red;"></button>
+                            <div class="uk-width-1-1@m">
+                                <div class="uk-grid-small" style="padding-right: 15px;" uk-grid>
+                                    <div class="uk-width-1-6@m">
+                                        <div class="uk-card uk-card-primary uk-card-small">
+                                            <h3 class="uk-card-title">Code <span v-if="filters.codes.length > 0">{{filters.codes.length}}</span></h3>
+                                            <div class="cardBody">
+                                                <button v-for="(c, index) in codes" :key="index" :class="{'isSelected': c['selected'],  'isNotSelected': !c['selected']}" @click="updateCodes(index, c.code)">{{c.code}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-1-6@m">
+                                        <div class="uk-card uk-card-primary uk-card-small">
+                                            <h3 class="uk-card-title">Province <span v-if="filters.province_filter.length > 0">{{filters.province_filter.length}}</span></h3>
+                                            <div class="cardBody">
+                                                <button v-for="(p, index) in provinces" :key="index" :class="{'isSelected': p['selected'],  'isNotSelected': !p['selected']}" @click="updateProvinces(index, p)">{{p.province_name}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-1-6@m">
+                                        <div class="uk-card uk-card-primary uk-card-small">
+                                            <h3 class="uk-card-title">Merchant Group <span v-if="filters.merchant_groups.length > 0">{{filters.merchant_groups.length}}</span></h3>
+                                            <div class="cardBody">
+                                                <button v-for="(mg, index) in merchant_groups" :key="index" :class="{'isSelected': mg['selected'],  'isNotSelected': !mg['selected']}" @click="updateMerchantGroups(index, mg)">{{mg.group_name}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-1-6@m">
+                                        <div class="uk-card uk-card-primary uk-card-small">
+                                            <h3 class="uk-card-title">Merchant <span v-if="filters.merchant_filter.length > 0">{{filters.merchant_filter.length}}</span></h3>
+                                            <div class="cardBody">
+                                                <button v-for="(m, index) in merchants" :key="index" :class="{'isSelected': m['selected'],  'isNotSelected': !m['selected']}" @click="updateMerchants(index, m)">{{m.merchant_name}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-1-6@m">
+                                        <div class="uk-card uk-card-primary uk-card-small">
+                                            <h3 class="uk-card-title">Rep <span v-if="filters.reps.length > 0">{{filters.reps.length}}</span></h3>
+                                            <div class="cardBody">
+                                                <button v-for="(r, index) in reps" :key="index" :class="{'isSelected': r['selected'],  'isNotSelected': !r['selected']}" @click="updateReps(index, r)">{{r.rep_name}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-1-6@m">
+                                        <div class="uk-card uk-card-primary uk-card-small">
+                                            <h3 class="uk-card-title">Year <span v-if="filters.years.length > 0">{{filters.years.length}}</span></h3>
+                                            <div class="cardBody">
+                                                <button v-for="(y, index) in years" :key="index" :class="{'isSelected': y['selected'],  'isNotSelected': !y['selected']}" @click="updateYears(index, y.transaction_year)">{{y.transaction_year}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-1-6@m">
+                                        <div class="uk-card uk-card-primary uk-card-small">
+                                            <h3 class="uk-card-title">Quarter <span v-if="filters.quarters.length > 0">{{filters.quarters.length}}</span></h3>
+                                            <div class="cardBody">
+                                                <button v-for="(q, index) in quarters" :key="index" :class="{'isSelected': q['selected'],  'isNotSelected': !q['selected']}" @click="updateQuarters(index, q.quarter)">{{q.quarter}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-1-6@m">
+                                        <div class="uk-card uk-card-primary uk-card-small">
+                                            <h3 class="uk-card-title">Month <span v-if="filters.months.length > 0">{{filters.months.length}}</span></h3>
+                                            <div class="cardBody">
+                                                <button v-for="(m, index) in months" :key="index" :class="{'isSelected': m['selected'],  'isNotSelected': !m['selected']}" @click="updateMonths(index, m.month)">{{m.month}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-1-6@m">
+                                        <div class="uk-card uk-card-primary uk-card-small">
+                                            <h3 class="uk-card-title">Wine Farm <span v-if="filters.wine_farms.length > 0">{{filters.wine_farms.length}}</span></h3>
+                                            <div class="cardBody">
+                                                <button v-for="(w, index) in wine_farms" :key="index" :class="{'isSelected': w['selected'],  'isNotSelected': !w['selected']}" @click="updateWine_farms(index, w)">{{w.farm_name}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-1-6@m">
+                                        <div class="uk-card uk-card-primary uk-card-small">
+                                            <h3 class="uk-card-title">Product <span v-if="filters.products.length > 0">{{filters.products.length}}</span></h3>
+                                            <div class="cardBody">
+                                                <button v-for="(p, index) in products" :key="index" :class="{'isSelected': p['selected'],  'isNotSelected': !p['selected']}" @click="updateProducts(index, p)">{{p.product_name}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-1-6@m">
+                                        <div class="uk-card uk-card-primary uk-card-small">
+                                            <h3 class="uk-card-title">Type <span v-if="filters.product_types.length > 0">{{filters.product_types.length}}</span></h3>
+                                            <div class="cardBody">
+                                                <button v-for="(t, index) in types" :key="index" :class="{'isSelected': t['selected'],  'isNotSelected': !t['selected']}" @click="updateTypes(index, t)">{{t.product_type}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-1-6@m">
+                                        <div class="uk-card uk-card-primary uk-card-small">
+                                            <h3 class="uk-card-title">Search Filters</h3>
+                                            <div class="cardBody">
+                                                <center>
+                                                    <button class="uk-button uk-button-default" @click="getStuff()">Apply</button>
+                                                    <button class="uk-button uk-button-default" @click="clearFilters()">Clear</button>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>
-                    <div class="uk-width-5-6@m">
-                        <div class="uk-button uk-button-default uk-margin-small-right" 
-                            type="button" 
-                            uk-toggle="target: #offcanvas-usage" 
-                            style="width:100%; 
-                                    background-color:#a5cb4f; 
-                                    color:white; font-size:20px;">Filter
-                            <p v-if="filters.years.length == 0 && filters.quarters.length == 0 && filters.months.length == 0 && filters.codes.length == 0 && filters.reps.length == 0 && filters.provinces.length == 0 && filters.merchant_groups.length == 0 && filters.merchants.length == 0 && filters.wine_farms.length == 0 && filters.products.length == 0 && filters.types.length == 0">Showing (All)</p>
-                            <p v-if="filters.years.length > 0 || filters.quarters.length > 0 || filters.months.length > 0 || filters.codes.length > 0 || filters.reps.length > 0 || filters.provinces.length > 0 || filters.merchant_groups.length > 0 || filters.merchants.length > 0 || filters.wine_farms.length > 0 || filters.products.length > 0 || filters.types.length > 0"> Showing (
-                                <span v-if="filters.years.length > 0" v-for="(fy, index) in filters.years" :key="fy+index"> {{ fy }} <b>|</b> </span>
-                                <span v-if="filters.quarters.length > 0" v-for="(fq, index) in filters.quarters" :key="fq+index"> {{ fq }} <b>|</b> </span>
-                                <span v-if="filters.months.length > 0" v-for="(fm, index) in filters.months" :key="fm+index"> {{ fm }} <b>|</b> </span>
-                                <span v-if="filters.codes.length > 0" v-for="(fc, index) in filters.codes" :key="fc+index"> {{ fc }} <b>|</b> </span>
-                                <span v-if="filters.reps.length > 0" v-for="(fr, index) in filters.reps" :key="fr.rep_name+index"> {{ fr.rep_name }} <b>|</b> </span>
-                                <span v-if="filters.provinces.length > 0" v-for="(fpr, index) in filters.provinces" :key="fpr.province_name+index"> {{ fpr.province_name }} <b>|</b> </span>
-                                <span v-if="filters.merchant_groups.length > 0" v-for="(fmg, index) in filters.merchant_groups" :key="fmg.group_name+index"> {{ fmg.group_name }} <b>|</b> </span>
-                                <span v-if="filters.merchants.length > 0" v-for="(fm, index) in filters.merchants" :key="fm.merchant_name+index"> {{ fm.merchant_name }} <b>|</b> </span>
-                                <span v-if="filters.wine_farms.length > 0" v-for="(fw, index) in filters.wine_farms" :key="fw.farm_name+index"> {{ fw.farm_name }} <b>|</b> </span>
-                                <span v-if="filters.products.length > 0" v-for="(fp, index) in filters.products" :key="fp.product_name+index"> {{ fp.product_name }} <b>|</b> </span>
-                                <span v-if="filters.types.length > 0" v-for="(ft, index) in filters.types" :key="ft.product_type+index"> {{ ft.product_type }} <b>|</b> </span> )
-                            </p>
-                        </div>
-                    </div>
-                    <div class="uk-width-1-6@m">
-                        <div>
-                            <button class="uk-button uk-button-default uk-margin-small-right" 
-                            type="button"  
-                            style="width:100%; 
-                                    background-color:#6296d0; 
-                                    color:white; font-size:20px; height:50px;" @click="getStuff()">Apply</button><br/>
-                            <button class="uk-button uk-button-default uk-margin-small-right" 
-                            type="button" 
-                            style="width:100%; 
-                                    background-color:#6296d0; 
-                                    color:white; font-size:20px; height:50px;" @click="clearFilters()">Clear</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="offcanvas-usage" uk-offcanvas>
-                <div class="uk-offcanvas-bar">
-                    <button class="uk-offcanvas-close" type="button" uk-close style="color:red;"></button>
                     <div class="uk-width-1-1@m">
-                        <div class="uk-grid-small" style="padding-right: 15px;" uk-grid>
-                            <div class="uk-width-1-6@m">
-                                <div class="uk-card uk-card-primary uk-card-small">
-                                    <h3 class="uk-card-title">Code <span v-if="filters.codes.length > 0">{{filters.codes.length}}</span></h3>
-                                    <div class="cardBody">
-                                        <button v-for="(c, index) in codes" :key="index" :class="{'isSelected': c['selected'],  'isNotSelected': !c['selected']}" @click="updateCodes(index, c.code)">{{c.code}}</button>
-                                    </div>
+                        <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-1@m">
+                                <div class="uk-card uk-card-default uk-card-small echarts">
+                                    <chart :option="option" :loading="loading1" @ready="onReady" @click="onClick" id="chart1" />
                                 </div>
                             </div>
-                            <div class="uk-width-1-6@m">
-                                <div class="uk-card uk-card-primary uk-card-small">
-                                    <h3 class="uk-card-title">Province <span v-if="filters.provinces.length > 0">{{filters.provinces.length}}</span></h3>
-                                    <div class="cardBody">
-                                        <button v-for="(p, index) in provinces" :key="index" :class="{'isSelected': p['selected'],  'isNotSelected': !p['selected']}" @click="updateProvinces(index, p)">{{p.province_name}}</button>
-                                    </div>
+                            <div class="uk-width-1-4@m">
+                                <div class="uk-card uk-card-default uk-card-small superLink">
+                                    <h3 class="uk-card-title">Bottom 5 Merchants</h3>
+                                    <img v-if="bottom5_merchants.length == 0" src="@/assets/svg/spinner.svg" class="logo-image" />
+                                    <li v-for="(bM, index) in bottom5_merchants" :key="index" @click="merchantAddFilter(bM)" style="cursor: pointer"><span style="float:left; margin-left:5px;">{{bM.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;">{{bM.value | toCurrency}}</span><br/></li>
                                 </div>
                             </div>
-                            <div class="uk-width-1-6@m">
-                                <div class="uk-card uk-card-primary uk-card-small">
-                                    <h3 class="uk-card-title">Merchant Group <span v-if="filters.merchant_groups.length > 0">{{filters.merchant_groups.length}}</span></h3>
-                                    <div class="cardBody">
-                                        <button v-for="(mg, index) in merchant_groups" :key="index" :class="{'isSelected': mg['selected'],  'isNotSelected': !mg['selected']}" @click="updateMerchantGroups(index, mg)">{{mg.group_name}}</button>
-                                    </div>
+                            <div class="uk-width-1-4@m">
+                                <div class="uk-card uk-card-default uk-card-small superLink">
+                                    <h3 class="uk-card-title">Top 5 Merchants</h3>
+                                    <img v-if="top5_merchants.length == 0" src="@/assets/svg/spinner.svg" class="logo-image" />
+                                    <li v-for="(tM, index) in top5_merchants" :key="index" @click="merchantAddFilter(tM)" style="cursor: pointer"><span style="float:left; margin-left:5px;">{{tM.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;"> {{tM.value | toCurrency}}</span><br/></li>
                                 </div>
                             </div>
-                            <div class="uk-width-1-6@m">
-                                <div class="uk-card uk-card-primary uk-card-small">
-                                    <h3 class="uk-card-title">Merchant <span v-if="filters.merchants.length > 0">{{filters.merchants.length}}</span></h3>
-                                    <div class="cardBody">
-                                        <button v-for="(m, index) in merchants" :key="index" :class="{'isSelected': m['selected'],  'isNotSelected': !m['selected']}" @click="updateMerchants(index, m)">{{m.merchant_name}}</button>
-                                    </div>
+                            <div class="uk-width-1-4@m">
+                                <div class="uk-card uk-card-default uk-card-small superLink">
+                                    <h3 class="uk-card-title">Bottom 5 Products</h3>
+                                    <img v-if="bottom5_products.length == 0" src="@/assets/svg/spinner.svg" class="logo-image" />
+                                    <li v-for="(bP, index) in bottom5_products" :key="index" @click="productAddFilter(bP)" style="cursor: pointer"><span style="float:left; margin-left:5px;">{{bP.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;"> {{bP.value | toCurrency}}</span><br/></li>
                                 </div>
                             </div>
-                            <div class="uk-width-1-6@m">
-                                <div class="uk-card uk-card-primary uk-card-small">
-                                    <h3 class="uk-card-title">Rep <span v-if="filters.reps.length > 0">{{filters.reps.length}}</span></h3>
-                                    <div class="cardBody">
-                                        <button v-for="(r, index) in reps" :key="index" :class="{'isSelected': r['selected'],  'isNotSelected': !r['selected']}" @click="updateReps(index, r)">{{r.rep_name}}</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="uk-width-1-6@m">
-                                <div class="uk-card uk-card-primary uk-card-small">
-                                    <h3 class="uk-card-title">Year <span v-if="filters.years.length > 0">{{filters.years.length}}</span></h3>
-                                    <div class="cardBody">
-                                        <button v-for="(y, index) in years" :key="index" :class="{'isSelected': y['selected'],  'isNotSelected': !y['selected']}" @click="updateYears(index, y.transaction_year)">{{y.transaction_year}}</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="uk-width-1-6@m">
-                                <div class="uk-card uk-card-primary uk-card-small">
-                                    <h3 class="uk-card-title">Quarter <span v-if="filters.quarters.length > 0">{{filters.quarters.length}}</span></h3>
-                                    <div class="cardBody">
-                                        <button v-for="(q, index) in quarters" :key="index" :class="{'isSelected': q['selected'],  'isNotSelected': !q['selected']}" @click="updateQuarters(index, q.quarter)">{{q.quarter}}</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="uk-width-1-6@m">
-                                <div class="uk-card uk-card-primary uk-card-small">
-                                    <h3 class="uk-card-title">Month <span v-if="filters.months.length > 0">{{filters.months.length}}</span></h3>
-                                    <div class="cardBody">
-                                        <button v-for="(m, index) in months" :key="index" :class="{'isSelected': m['selected'],  'isNotSelected': !m['selected']}" @click="updateMonths(index, m.month)">{{m.month}}</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="uk-width-1-6@m">
-                                <div class="uk-card uk-card-primary uk-card-small">
-                                    <h3 class="uk-card-title">Wine Farm <span v-if="filters.wine_farms.length > 0">{{filters.wine_farms.length}}</span></h3>
-                                    <div class="cardBody">
-                                        <button v-for="(w, index) in wine_farms" :key="index" :class="{'isSelected': w['selected'],  'isNotSelected': !w['selected']}" @click="updateWine_farms(index, w)">{{w.farm_name}}</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="uk-width-1-6@m">
-                                <div class="uk-card uk-card-primary uk-card-small">
-                                    <h3 class="uk-card-title">Product <span v-if="filters.products.length > 0">{{filters.products.length}}</span></h3>
-                                    <div class="cardBody">
-                                        <button v-for="(p, index) in products" :key="index" :class="{'isSelected': p['selected'],  'isNotSelected': !p['selected']}" @click="updateProducts(index, p)">{{p.product_name}}</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="uk-width-1-6@m">
-                                <div class="uk-card uk-card-primary uk-card-small">
-                                    <h3 class="uk-card-title">Type <span v-if="filters.types.length > 0">{{filters.types.length}}</span></h3>
-                                    <div class="cardBody">
-                                        <button v-for="(t, index) in types" :key="index" :class="{'isSelected': t['selected'],  'isNotSelected': !t['selected']}" @click="updateTypes(index, t)">{{t.product_type}}</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="uk-width-1-6@m">
-                                <div class="uk-card uk-card-primary uk-card-small">
-                                    <h3 class="uk-card-title">Search Filters</h3>
-                                    <div class="cardBody">
-                                        <center>
-                                            <button class="uk-button uk-button-default" @click="getStuff()">Apply</button>
-                                            <button class="uk-button uk-button-default" @click="clearFilters()">Clear</button>
-                                        </center>
-                                    </div>
+                            <div class="uk-width-1-4@m">
+                                <div class="uk-card uk-card-default uk-card-small superLink">
+                                    <h3 class="uk-card-title">Top 5 Products</h3>
+                                    <img v-if="top5_products.length == 0" src="@/assets/svg/spinner.svg" class="logo-image" />
+                                    <li v-for="(tP, index) in top5_products" :key="index" @click="productAddFilter(tP)" style="cursor: pointer"><span style="float:left; margin-left:5px;">{{tP.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;"> {{tP.value | toCurrency}}</span><br/></li>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>
-            <div class="uk-width-1-1@m">
+    
+    
                 <div class="uk-grid-small" uk-grid>
-                    <div class="uk-width-1-1@m">
-                        <div class="uk-card uk-card-default uk-card-small echarts">
-                            <chart :option="option" :loading="loading1" @ready="onReady" @click="onClick" id="chart1"/>
-                        </div>
+                    <div class="uk-width-1-3@m">
+                        <chart style="height: 400px; width: 100%; background-color: white" :option="option2" :loading="loading2" @ready="onReady" @click="onClick" id="chart2" />
                     </div>
-                    <div class="uk-width-1-4@m">
-                        <div class="uk-card uk-card-default uk-card-small superLink">
-                            <h3 class="uk-card-title">Bottom 5 Merchants</h3>
-                            <img v-if="bottom5_merchants.length == 0" src="@/assets/svg/spinner.svg" class="logo-image"/>
-                            <li v-for="(bM, index) in bottom5_merchants" :key="index" @click="merchantAddFilter(bM)" style="cursor: pointer"><span  style="float:left; margin-left:5px;">{{bM.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;">{{bM.value | toCurrency}}</span><br/></li>
-                        </div>
+                    <div class="uk-width-1-3@m">
+                        <chart style="height: 400px; width: 100%; background-color: white" :option="option3" :loading="loading3" @ready="onReady" @click="onClick" id="chart3" />
                     </div>
-                    <div class="uk-width-1-4@m">
-                        <div class="uk-card uk-card-default uk-card-small superLink">
-                            <h3 class="uk-card-title">Top 5 Merchants</h3>
-                            <img v-if="top5_merchants.length == 0" src="@/assets/svg/spinner.svg" class="logo-image"/>
-                            <li v-for="(tM, index) in top5_merchants" :key="index" @click="merchantAddFilter(tM)" style="cursor: pointer"><span style="float:left; margin-left:5px;" >{{tM.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;"> {{tM.value | toCurrency}}</span><br/></li>
-                        </div>
-                    </div>
-                    <div class="uk-width-1-4@m">
-                        <div class="uk-card uk-card-default uk-card-small superLink">
-                            <h3 class="uk-card-title">Bottom 5 Products</h3>
-                            <img v-if="bottom5_products.length == 0" src="@/assets/svg/spinner.svg" class="logo-image"/>
-                            <li v-for="(bP, index) in bottom5_products" :key="index" @click="productAddFilter(bP)" style="cursor: pointer"><span style="float:left; margin-left:5px;" >{{bP.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;"> {{bP.value | toCurrency}}</span><br/></li>
-                        </div>
-                    </div>
-                    <div class="uk-width-1-4@m">
-                        <div class="uk-card uk-card-default uk-card-small superLink">
-                            <h3 class="uk-card-title">Top 5 Products</h3>
-                            <img v-if="top5_products.length == 0" src="@/assets/svg/spinner.svg" class="logo-image"/>
-                            <li v-for="(tP, index) in top5_products" :key="index" @click="productAddFilter(tP)" style="cursor: pointer"><span style="float:left; margin-left:5px;" >{{tP.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;"> {{tP.value | toCurrency}}</span><br/></li>
-                        </div>
+                    <div class="uk-width-1-3@m">
+                        <chart style="height: 400px; width: 100%; background-color: white" :option="option4" :loading="loading4" @ready="onReady" @click="onClick" id="chart4" />
                     </div>
                 </div>
-            </div>
-        </div>
     
-    
-        <div class="uk-grid-small" uk-grid>
-            <div class="uk-width-1-3@m">
-                <chart style="height: 400px; width: 100%; background-color: white" :option="option2" :loading="loading2" @ready="onReady" @click="onClick" id="chart2"/>
-            </div>
-            <div class="uk-width-1-3@m">
-                <chart style="height: 400px; width: 100%; background-color: white" :option="option3" :loading="loading3" @ready="onReady" @click="onClick" id="chart3"/>
-            </div>
-            <div class="uk-width-1-3@m">
-                <chart style="height: 400px; width: 100%; background-color: white" :option="option4" :loading="loading4" @ready="onReady" @click="onClick" id="chart4"/>
-            </div>
-        </div>
-    
-        <div class="uk-card-small uk-width-1-1">
-            <h3>Transaction Data</h3>
-            <button @click="onBtNormal()">1 - Grouping Active</button>
-            <button @click="onBtPivotMode()">2 - Grouping Active with Pivot Mode</button>
-            <button @click="onBtFullPivot()">3 - Grouping Active with Pivot Mode and Pivot Active</button>
-            <div class="gridSize">
-                <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptions" :columnDefs="columnDefs" :rowData="rowData">
-                </ag-grid-vue>
-            </div>
-            <button class="uk-button uk-button-default" @click="onBtExport()">Export</button>
-        </div>
+                <div class="uk-card-small uk-width-1-1">
+                    <h3>Transaction Data</h3>
+                    <button @click="onBtNormal()">1 - Grouping Active</button>
+                    <button @click="onBtPivotMode()">2 - Grouping Active with Pivot Mode</button>
+                    <button @click="onBtFullPivot()">3 - Grouping Active with Pivot Mode and Pivot Active</button>
+                    <div class="gridSize">
+                        <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptions" :columnDefs="columnDefs" :rowData="rowData">
+                        </ag-grid-vue>
+                    </div>
+                    <button class="uk-button uk-button-default" @click="onBtExport()">Export</button>
+                </div>
             </div>
         </div>
         <!-- <img src="@/assets/wine.gif" class="logo-image"/> -->
-        
+    
     </div>
 </template>
 
@@ -259,15 +253,15 @@
                     months: [],
                     codes: [],
                     merchant_groups: [],
-                    merchants: [],
+                    merchant_filter: [],
                     wine_farms: [],
-                    provinces: [],
+                    province_filter: [],
                     products: [],
-                    types: [],
+                    product_types: [],
                     reps: []
                 },
-                year:"",
-                month:"",
+                year: "",
+                month: "",
                 monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
                 bottom5_merchants: [],
                 bottom5_products: [],
@@ -276,7 +270,7 @@
                 type_names: [],
                 provinces_names: [],
                 code_names: [],
-                max1:0,
+                max1: 0,
                 years: [],
                 quarters: [{
                         quarter: "Q1",
@@ -361,28 +355,28 @@
                         minWidth: 120,
                         headerClass: 'resizable-header',
                         filter: 'agTextColumnFilter',
-                        filterParams:{
-                            filterOptions:['contains'],
-                            textCustomComparator: function  (filter, value, filterText) {
+                        filterParams: {
+                            filterOptions: ['contains'],
+                            textCustomComparator: function(filter, value, filterText) {
                                 var filterTextLoweCase = filterText.toLowerCase();
                                 var valueLowerCase = value.toString().toLowerCase();
-                                var aliases={
-                                    wc:'western cape',
-                                    gp:'gauteng',
-                                    fs:'free stare',
-                                    ec:'eastern cape',
-                                    kzn:'kwazulu natal'
+                                var aliases = {
+                                    wc: 'western cape',
+                                    gp: 'gauteng',
+                                    fs: 'free stare',
+                                    ec: 'eastern cape',
+                                    kzn: 'kwazulu natal'
                                 };
-
-                                function contains (target, lookingFor){
+    
+                                function contains(target, lookingFor) {
                                     if (target === null) return false;
                                     return target.indexOf(lookingFor) >= 0
                                 }
-
+    
                                 var literalMatch = contains(valueLowerCase, filterTextLoweCase);
                                 return literalMatch || contains(valueLowerCase, aliases[filterTextLoweCase]);
                             },
-                            debounceMs:2000
+                            debounceMs: 2000
                         }
                     },
                     {
@@ -604,7 +598,7 @@
                     },
                     {
                         headerName: "Group",
-                        field: "group_name",
+                        field: "merchant_group",
                         minWidth: 110,
                         headerClass: 'resizable-header',
                         onCellDoubleClicked: this.openGroup
@@ -616,22 +610,22 @@
                         headerClass: 'resizable-header',
                         onCellDoubleClicked: this.openMerchant,
                         filter: 'agTextColumnFilter',
-                        filterParams:{
-                            filterOptions:['contains'],
-                            textCustomComparator: function  (filter, value, filterText) {
+                        filterParams: {
+                            filterOptions: ['contains'],
+                            textCustomComparator: function(filter, value, filterText) {
                                 var filterTextLoweCase = filterText.toLowerCase();
                                 var valueLowerCase = value.toString().toLowerCase();
-                                var aliases={};
-
-                                function contains (target, lookingFor){
+                                var aliases = {};
+    
+                                function contains(target, lookingFor) {
                                     if (target === null) return false;
                                     return target.indexOf(lookingFor) >= 0
                                 }
-
+    
                                 var literalMatch = contains(valueLowerCase, filterTextLoweCase);
                                 return literalMatch || contains(valueLowerCase, aliases[filterTextLoweCase]);
                             },
-                            debounceMs:2000
+                            debounceMs: 2000
                         }
                     },
                     {
@@ -720,32 +714,32 @@
             };
         },
         methods: {
-            merchantAddFilter(merchant){
-                for(var k = 0; k < this.merchants.length; k++){
-                    if(this.merchants[k].merchant_id == merchant.id){
+            merchantAddFilter(merchant) {
+                for (var k = 0; k < this.merchants.length; k++) {
+                    if (this.merchants[k].merchant_id == merchant.merchant_id) {
                         this.merchants[k].selected = !this.merchants[k].selected;
-                        if(this.merchants[k].selected){
-                            this.filters.merchants.push(this.merchants[k]);
+                        if (this.merchants[k].selected) {
+                            this.filters.merchant_filter.push(this.merchants[k]);
                         } else {
-                            for (var i = 0; i < this.filters.merchants.length; i++) {
-                                if (this.filters.merchants[i].merchant_id === this.merchants[k].merchant_id) {
-                                    this.filters.merchants.splice(i, 1);
+                            for (var i = 0; i < this.filters.merchant_filter.length; i++) {
+                                if (this.filters.merchant_filter[i].merchant_id === this.merchants[k].merchant_id) {
+                                    this.filters.merchant_filter.splice(i, 1);
                                 }
                             }
                         }
                     }
                 }
             },
-            productAddFilter(product){
-                for(var k = 0; k < this.products.length; k++){
-                    if(this.products[k].product_id == product.id){
+            productAddFilter(product) {
+                for (var k = 0; k < this.products.length; k++) {
+                    if (this.products[k].product_id == product.product_id) {
                         this.products[k].selected = !this.products[k].selected;
-                        if(this.products[k].selected){
-                            this.filters.products.push(this.products[k]);
+                        if (this.products[k].selected) {
+                            this.filters.product_types.push(this.products[k]);
                         } else {
-                            for (var i = 0; i < this.filters.products.length; i++) {
-                                if (this.filters.products[i].product_id === this.products[k].product_id) {
-                                    this.filters.products.splice(i, 1);
+                            for (var i = 0; i < this.filters.product_types.length; i++) {
+                                if (this.filters.product_types[i].product_id === this.products[k].product_id) {
+                                    this.filters.product_types.splice(i, 1);
                                 }
                             }
                         }
@@ -759,6 +753,47 @@
                     this.$router.push("/login");
                 } else {
                     this.$store.replaceState(ls);
+                    if(this.$store.state.session.entity.type != 'Admin'){
+                        this.setFilterFromState(ls);
+                    }
+                }
+            },
+            setFilterFromState(ls){
+                // this.filters = ls.session.entity.filters;
+                this.years = ls.session.entity.filters.years;
+                // this.quarters = ls.session.entity.filters.quarters;
+                // this.months = ls.session.entity.filters.months;
+                this.codes = ls.session.entity.filters.codes;
+                this.merchant_groups = ls.session.entity.filters.merchant_groups;
+                this.merchants = ls.session.entity.filters.merchants;
+                this.wine_farms = ls.session.entity.filters.wine_farms;
+                this.provinces = ls.session.entity.filters.provinces;
+                this.products = ls.session.entity.filters.products;
+                this.types = ls.session.entity.filters.types;
+                this.reps = ls.session.entity.filters.reps;
+                if (this.year != "") {
+                    for (var i = 0; i < this.years.length; i++) {
+                        if (this.years[i].transaction_year == this.year) {
+                            this.updateYears(i, this.years[i].transaction_year);
+                        }
+                    }
+                }
+                this.bottom5_merchants = [];
+                this.bottom5_products = [];
+                this.top5_merchants = [];
+                this.top5_products = [];
+
+                if (this.loading4 != true) {
+                    this.loading4 = !this.loading4;
+                }
+                if (this.loading1 != true) {
+                    this.loading1 = !this.loading1;
+                }
+                if (this.loading2 != true) {
+                    this.loading2 = !this.loading2;
+                }
+                if (this.loading3 != true) {
+                    this.loading3 = !this.loading3;
                 }
             },
             openGroup(params) {
@@ -868,11 +903,11 @@
             updateProvinces(index, province) {
                 this.provinces[index].selected = !this.provinces[index].selected;
                 if (this.provinces[index].selected) {
-                    this.filters.provinces.push(province);
+                    this.filters.province_filter.push(province);
                 } else {
-                    for (var i = 0; i < this.filters.provinces.length; i++) {
-                        if (this.filters.provinces[i] === province) {
-                            this.filters.provinces.splice(i, 1);
+                    for (var i = 0; i < this.filters.province_filter.length; i++) {
+                        if (this.filters.province_filter[i] === province) {
+                            this.filters.province_filter.splice(i, 1);
                         }
                     }
                 }
@@ -892,11 +927,11 @@
             updateMerchants(index, merchant) {
                 this.merchants[index].selected = !this.merchants[index].selected;
                 if (this.merchants[index].selected) {
-                    this.filters.merchants.push(merchant);
+                    this.filters.merchant_filter.push(merchant);
                 } else {
-                    for (var i = 0; i < this.filters.merchants.length; i++) {
-                        if (this.filters.merchants[i] === merchant) {
-                            this.filters.merchants.splice(i, 1);
+                    for (var i = 0; i < this.filters.merchant_filter.length; i++) {
+                        if (this.filters.merchant_filter[i] === merchant) {
+                            this.filters.merchant_filter.splice(i, 1);
                         }
                     }
                 }
@@ -904,11 +939,11 @@
             updateProducts(index, product) {
                 this.products[index].selected = !this.products[index].selected;
                 if (this.products[index].selected) {
-                    this.filters.products.push(product);
+                    this.filters.product_types.push(product);
                 } else {
-                    for (var i = 0; i < this.filters.products.length; i++) {
-                        if (this.filters.products[i] === product) {
-                            this.filters.products.splice(i, 1);
+                    for (var i = 0; i < this.filters.product_types.length; i++) {
+                        if (this.filters.product_types[i] === product) {
+                            this.filters.product_types.splice(i, 1);
                         }
                     }
                 }
@@ -954,7 +989,7 @@
                 // console.log("Request: ", request);
                 axios.post(this.$store.state.api_url + 'filters', request)
                     .then(response => {
-                        // console.log(response.data.data);
+                        console.log(response.data.data);
                         this.years = response.data.data.years;
                         this.quarters = response.data.data.quarters;
                         this.months = response.data.data.months;
@@ -966,32 +1001,32 @@
                         this.products = response.data.data.products;
                         this.types = response.data.data.types;
                         this.reps = response.data.data.reps;
-                        if(this.year != ""){
-                            for(var i = 0; i < this.years.length; i++){
-                                if(this.years[i].transaction_year == this.year){
+                        if (this.year != "") {
+                            for (var i = 0; i < this.years.length; i++) {
+                                if (this.years[i].transaction_year == this.year) {
                                     this.updateYears(i, this.years[i].transaction_year);
                                 }
                             }
                         }
-
-                        this.bottom5_merchants= [];
-                        this.bottom5_products= [];
-                        this.top5_merchants= [];
-                        this.top5_products= [];
-
-                        if(this.loading4 != true){
+    
+                        this.bottom5_merchants = [];
+                        this.bottom5_products = [];
+                        this.top5_merchants = [];
+                        this.top5_products = [];
+    
+                        if (this.loading4 != true) {
                             this.loading4 = !this.loading4;
                         }
-                        if(this.loading1 != true){
+                        if (this.loading1 != true) {
                             this.loading1 = !this.loading1;
                         }
-                        if(this.loading2 != true){
+                        if (this.loading2 != true) {
                             this.loading2 = !this.loading2;
                         }
-                        if(this.loading3 != true){
+                        if (this.loading3 != true) {
                             this.loading3 = !this.loading3;
                         }
-                        
+    
                         this.gridOptions.api.setColumnDefs(this.columnDefs);
                         this.gridOptions.api.setRowData([]);
                         this.getBudgetAndSales();
@@ -1003,13 +1038,13 @@
                         this.getTop5Merchants();
                         this.getBottom5Products();
                         this.getGraphData();
-                        
+    
                     })
                     .catch(error => {
                         console.log("Error: ", error.response);
                     });
             },
-            getBudgetAndSales(){
+            getBudgetAndSales() {
                 this.chart.clear();
                 this.chart.setOption({}, true);
                 // allways start with the current year as default
@@ -1020,52 +1055,60 @@
                 let request = {
                     filters: this.filters
                 };
-                if(request.filters.years.length == 0){
+                if (request.filters.years.length == 0) {
                     request.filters.years.push(currentyear);
                     this.year = currentyear;
-                    for(var i = 0; i < this.years.length; i++){
-                        if(this.years[i].transaction_year == this.year){
+                    for (var i = 0; i < this.years.length; i++) {
+                        if (this.years[i].transaction_year == this.year) {
                             this.updateYears(i, this.years[i].transaction_year);
                         }
                     }
                 }
-                console.log("Request: " + JSON.stringify(request));
+                if(this.$store.state.session.entity.type != 'Admin'){
+                    if(request.filters.reps.length == 0){
+                        request.filters.reps = this.reps;
+                        for(var i =0; i < this.reps.length; i++){
+                            this.reps[i].selected = true;
+                        }
+                    }
+                }
+                // console.log("Request: " + JSON.stringify(request));
                 axios.post(this.$store.state.api_url + 'transactions_budget', request) //transactions_filtered
                     .then(response => {
                         // console.log('Response Graph: ', response);
                         this.graph_months = response.data.data.graph_months;
                         this.legend = response.data.data.legend;
-                        this.legend.push('Volume(L)');
-                        this.legend.push('Volume(L) Accum');
+                        // this.legend.push('Volume(L) 2018');
+                        // this.legend.push('Volume(L) Accum 2018');
                         this.loading1 = false;
                         this.topSaleAmount = 0;
-                        for(var i = 0; i < response.data.data.years.length; i++){
-                            for(var j = 0; j < response.data.data.years[i].sale.length; j++){
-                                if(response.data.data.years[i].sale[j] > this.topSaleAmount){
-                                    this.topSaleAmount = Math.ceil(response.data.data.years[i].sale[j] / 1000000) * 1000000;
-                                    this.topSaleSpace = this.topSaleAmount/5;
+                        for (var i = 0; i < response.data.data.years.length; i++) {
+                            for (var j = 0; j < response.data.data.years[i].sale.length; j++) {
+                                if (response.data.data.years[i].sale[j] > this.topSaleAmount) {
+                                    this.topSaleAmount = Math.ceil(response.data.data.years[i].sale[j] / 10000) * 10000;
+                                    this.topSaleSpace = this.topSaleAmount / 5;
                                 }
                             }
-                            for(var j = 0; j < response.data.data.years[i].budget.length; j++){
-                                if(response.data.data.years[i].budget[j] > this.topSaleAmount){
-                                    this.topSaleAmount = Math.ceil(response.data.data.years[i].budget[j] / 1000000) * 1000000;
-                                    this.topSaleSpace = this.topSaleAmount/5;
+                            for (var j = 0; j < response.data.data.years[i].budget.length; j++) {
+                                if (response.data.data.years[i].budget[j] > this.topSaleAmount) {
+                                    this.topSaleAmount = Math.ceil(response.data.data.years[i].budget[j] / 10000) * 10000;
+                                    this.topSaleSpace = this.topSaleAmount / 5;
                                 }
                             }
-                            for(var j = 0; j < response.data.data.years[i].sale_accum.length; j++){
-                                if(response.data.data.years[i].sale_accum[j] > this.topSaleAmountAccume){
-                                    this.topSaleAmountAccume = Math.ceil(response.data.data.years[i].sale_accum[j] / 1000000) * 1000000;
-                                    this.topSaleSpaceAccume = this.topSaleAmountAccume/5;
+                            for (var j = 0; j < response.data.data.years[i].sale_accum.length; j++) {
+                                if (response.data.data.years[i].sale_accum[j] > this.topSaleAmountAccume) {
+                                    this.topSaleAmountAccume = Math.ceil(response.data.data.years[i].sale_accum[j] / 10000) * 10000;
+                                    this.topSaleSpaceAccume = this.topSaleAmountAccume / 5;
                                 }
                             }
-                            for(var j = 0; j < response.data.data.years[i].budget_accum.length; j++){
-                                if(response.data.data.years[i].budget_accum[j] > this.topSaleAmountAccume){
-                                    this.topSaleAmountAccume = Math.ceil(response.data.data.years[i].budget_accum[j] / 1000000) * 1000000;
-                                    this.topSaleSpaceAccume = this.topSaleAmountAccume/5;
+                            for (var j = 0; j < response.data.data.years[i].budget_accum.length; j++) {
+                                if (response.data.data.years[i].budget_accum[j] > this.topSaleAmountAccume) {
+                                    this.topSaleAmountAccume = Math.ceil(response.data.data.years[i].budget_accum[j] / 10000) * 10000;
+                                    this.topSaleSpaceAccume = this.topSaleAmountAccume / 5;
                                 }
                             }
                         }
-                        var o= {
+                        var o = {
                             tooltip: {
                                 trigger: 'axis',
                                 axisPointer: {
@@ -1110,7 +1153,7 @@
                             }],
                             yAxis: [{
                                     type: 'value',
-                                    name: 'Sales/Budget',
+                                    name: 'Sales/Budget/Volume',
                                     min: 0,
                                     max: this.topSaleAmount,
                                     interval: this.topSaleSpace,
@@ -1125,10 +1168,10 @@
                                 },
                                 {
                                     type: 'value',
-                                    name: 'Accum/Volume',
+                                    name: 'Accum',
                                     min: 0,
-                                    max: this.topSaleAmountAccume ,
-                                    interval: this.topSaleSpaceAccume ,
+                                    max: this.topSaleAmountAccume,
+                                    interval: this.topSaleSpaceAccume,
                                     axisLabel: {
                                         formatter: '{value} R'
                                     },
@@ -1142,79 +1185,73 @@
                             series: []
                         }
                         var j = 0;
-                        for(var i = 0; i < response.data.data.years.length; i++){
+                        for (var i = 0; i < response.data.data.years.length; i++) {
                             // console.log(o.series.length);
                             o.series.push({
-                                    name: this.legend[i],
-                                    type: 'bar',
-                                    yAxisIndex: 0,
-                                    data: response.data.data.years[i].budget // budget [] -> for the year and months selected
-                                },
-                            )
+                                name: this.legend[i],
+                                type: 'bar',
+                                yAxisIndex: 0,
+                                data: response.data.data.years[i].budget // budget [] -> for the year and months selected
+                            }, )
                             j++;
                         }
-                        for(var i = 0; i < response.data.data.years.length; i++){
+                        for (var i = 0; i < response.data.data.years.length; i++) {
                             // console.log(o.series.length);
                             o.series.push({
-                                    name: this.legend[j],
-                                    type: 'bar',
-                                    yAxisIndex: 0,
-                                    data: response.data.data.years[i].sale // sale [] -> for the year and months selected
-                                },
-                            )
+                                name: this.legend[j],
+                                type: 'bar',
+                                yAxisIndex: 0,
+                                data: response.data.data.years[i].sale // sale [] -> for the year and months selected
+                            }, )
                             j++;
                         }
-                        for(var i = 0; i < response.data.data.years.length; i++){
+                        for (var i = 0; i < response.data.data.years.length; i++) {
                             // console.log(o.series.length);
                             o.series.push({
-                                    name: this.legend[j],
-                                    type: 'line',
-                                    yAxisIndex: 1,
-                                    data: response.data.data.years[i].budget_accum // buget_accum [] -> for the year and months selected
-                                },
-                            )
+                                name: this.legend[j],
+                                type: 'bar',
+                                yAxisIndex: 0,
+                                data: response.data.data.years[i].volume // volume [] -> for the year and months selected
+                                // data: [234525,34532,234523,3252345,2352345,234523,23534,34523,3452345,2345324,345237,2345234]
+                            }, )
                             j++;
                         }
-                        for(var i = 0; i < response.data.data.years.length; i++){
+                        for (var i = 0; i < response.data.data.years.length; i++) {
                             // console.log(o.series.length);
                             o.series.push({
-                                    name: this.legend[j],
-                                    type: 'line',
-                                    yAxisIndex: 1,
-                                    data: response.data.data.years[i].sale_accum // sale_accum [] -> for the year and months selected
-                                },
-                            )
+                                name: this.legend[j],
+                                type: 'line',
+                                yAxisIndex: 1,
+                                data: response.data.data.years[i].budget_accum // buget_accum [] -> for the year and months selected
+                            }, )
                             j++;
                         }
-                        for(var i = 0; i < response.data.data.years.length; i++){
+                        for (var i = 0; i < response.data.data.years.length; i++) {
                             // console.log(o.series.length);
                             o.series.push({
-                                    name: this.legend[j],
-                                    type: 'bar',
-                                    yAxisIndex: 1,
-                                    // data: response.data.data.years[i].volume // volume [] -> for the year and months selected
-                                    data: [234525,34532,234523,3252345,2352345,234523,23534,34523,3452345,2345324,345237,2345234]
-                                },
-                            )
+                                name: this.legend[j],
+                                type: 'line',
+                                yAxisIndex: 1,
+                                data: response.data.data.years[i].sale_accum // sale_accum [] -> for the year and months selected
+                            }, )
                             j++;
                         }
-                        for(var i = 0; i < response.data.data.years.length; i++){
+                        for (var i = 0; i < response.data.data.years.length; i++) {
                             // console.log(o.series.length);
                             o.series.push({
-                                    name: this.legend[j],
-                                    type: 'line',
-                                    yAxisIndex: 1,
-                                    // data: response.data.data.years[i].volume_accum // sale_accum [] -> for the year and months selected
-                                    data: [234525,234525+34532,234525+34532+234523,234525+34532+234523+3252345,234525+34532+234523+3252345+2352345]
-                                },
-                            )
+                                name: this.legend[j],
+                                type: 'line',
+                                yAxisIndex: 0,
+                                data: response.data.data.years[i].volume_accum // sale_accum [] -> for the year and months selected
+                                // data: [234525,234525+34532,234525+34532+234523,234525+34532+234523+3252345,234525+34532+234523+3252345+2352345,234525+34532+234523+3252345+2352345+3324234,234525+34532+234523+3252345+2352345+3324234+423434,234525+34532+234523+3252345+2352345+3324234+423434+4353453]
+                            }, )
                             j++;
                         }
                         // console.log("O: ", o)
                         this.chart.setOption(o, true);
                     })
             },
-            getTypes(){
+            getTypes() {
                 this.chart2.clear();
                 this.chart2.setOption({}, true);
                 var currentyear = new Date().getFullYear();
@@ -1224,11 +1261,11 @@
                 let request = {
                     filters: this.filters
                 };
-                if(request.filters.years.length == 0){
+                if (request.filters.years.length == 0) {
                     request.filters.years.push(currentyear);
                     this.year = currentyear;
-                    for(var i = 0; i < this.years.length; i++){
-                        if(this.years[i].transaction_year == this.year){
+                    for (var i = 0; i < this.years.length; i++) {
+                        if (this.years[i].transaction_year == this.year) {
                             this.updateYears(i, this.years[i].transaction_year);
                         }
                     }
@@ -1239,7 +1276,7 @@
                         // console.log('Response: ', response);
                         this.loading2 = false;
                         // this.max1 = Math.max(response.data.data.years[0].sale);
-                        for(var i = 0; i < response.data.data.types.length; i++){
+                        for (var i = 0; i < response.data.data.types.length; i++) {
                             this.type_names.push(response.data.data.types[i].name);
                         }
                         var o2 = {
@@ -1272,7 +1309,7 @@
                         console.log(error.response);
                     });
             },
-            getProvinces(){
+            getProvinces() {
                 this.chart3.clear();
                 this.chart3.setOption({}, true);
                 var currentyear = new Date().getFullYear();
@@ -1282,11 +1319,11 @@
                 let request = {
                     filters: this.filters
                 };
-                if(request.filters.years.length == 0){
+                if (request.filters.years.length == 0) {
                     request.filters.years.push(currentyear);
                     this.year = currentyear;
-                    for(var i = 0; i < this.years.length; i++){
-                        if(this.years[i].transaction_year == this.year){
+                    for (var i = 0; i < this.years.length; i++) {
+                        if (this.years[i].transaction_year == this.year) {
                             this.updateYears(i, this.years[i].transaction_year);
                         }
                     }
@@ -1296,7 +1333,7 @@
                     .then(response => {
                         // console.log('Response: ', response);
                         this.loading3 = false;
-                        for(var i = 0; i < response.data.data.provinces.length; i++){
+                        for (var i = 0; i < response.data.data.provinces.length; i++) {
                             this.provinces_names.push(response.data.data.provinces[i].name);
                         }
                         var o3 = {
@@ -1329,7 +1366,7 @@
                         console.log(error.response);
                     });
             },
-            getCodes(){
+            getCodes() {
                 this.chart4.clear();
                 this.chart4.setOption({}, true);
                 var currentyear = new Date().getFullYear();
@@ -1339,11 +1376,11 @@
                 let request = {
                     filters: this.filters
                 };
-                if(request.filters.years.length == 0){
+                if (request.filters.years.length == 0) {
                     request.filters.years.push(currentyear);
                     this.year = currentyear;
-                    for(var i = 0; i < this.years.length; i++){
-                        if(this.years[i].transaction_year == this.year){
+                    for (var i = 0; i < this.years.length; i++) {
+                        if (this.years[i].transaction_year == this.year) {
                             this.updateYears(i, this.years[i].transaction_year);
                         }
                     }
@@ -1354,7 +1391,7 @@
                         // console.log('Response: ', response);
                         this.loading4 = false;
                         // console.log("this.loading4: ",this.loading4);
-                        for(var i = 0; i < response.data.data.code.length; i++){
+                        for (var i = 0; i < response.data.data.code.length; i++) {
                             this.code_names.push(response.data.data.code[i].name);
                         }
                         var o4 = {
@@ -1387,7 +1424,7 @@
                         console.log(error.response);
                     });
             },
-            getTop5Products(){
+            getTop5Products() {
                 // this.o = {};
                 // allways start with the current year as default
                 var currentyear = new Date().getFullYear();
@@ -1397,11 +1434,11 @@
                 let request = {
                     filters: this.filters
                 };
-                if(request.filters.years.length == 0){
+                if (request.filters.years.length == 0) {
                     request.filters.years.push(currentyear);
                     this.year = currentyear;
-                    for(var i = 0; i < this.years.length; i++){
-                        if(this.years[i].transaction_year == this.year){
+                    for (var i = 0; i < this.years.length; i++) {
+                        if (this.years[i].transaction_year == this.year) {
                             this.updateYears(i, this.years[i].transaction_year);
                         }
                     }
@@ -1416,7 +1453,7 @@
                         console.log(error.response);
                     });
             },
-            getBottom5Merchants(){
+            getBottom5Merchants() {
                 // this.o = {};
                 // allways start with the current year as default
                 var currentyear = new Date().getFullYear();
@@ -1426,11 +1463,11 @@
                 let request = {
                     filters: this.filters
                 };
-                if(request.filters.years.length == 0){
+                if (request.filters.years.length == 0) {
                     request.filters.years.push(currentyear);
                     this.year = currentyear;
-                    for(var i = 0; i < this.years.length; i++){
-                        if(this.years[i].transaction_year == this.year){
+                    for (var i = 0; i < this.years.length; i++) {
+                        if (this.years[i].transaction_year == this.year) {
                             this.updateYears(i, this.years[i].transaction_year);
                         }
                     }
@@ -1445,7 +1482,7 @@
                         console.log(error.response);
                     });
             },
-            getTop5Merchants(){
+            getTop5Merchants() {
                 // this.o = {};
                 // allways start with the current year as default
                 var currentyear = new Date().getFullYear();
@@ -1455,11 +1492,11 @@
                 let request = {
                     filters: this.filters
                 };
-                if(request.filters.years.length == 0){
+                if (request.filters.years.length == 0) {
                     request.filters.years.push(currentyear);
                     this.year = currentyear;
-                    for(var i = 0; i < this.years.length; i++){
-                        if(this.years[i].transaction_year == this.year){
+                    for (var i = 0; i < this.years.length; i++) {
+                        if (this.years[i].transaction_year == this.year) {
                             this.updateYears(i, this.years[i].transaction_year);
                         }
                     }
@@ -1474,7 +1511,7 @@
                         console.log(error.response);
                     });
             },
-            getBottom5Products(){
+            getBottom5Products() {
                 // this.o = {};
                 // allways start with the current year as default
                 var currentyear = new Date().getFullYear();
@@ -1484,11 +1521,11 @@
                 let request = {
                     filters: this.filters
                 };
-                if(request.filters.years.length == 0){
+                if (request.filters.years.length == 0) {
                     request.filters.years.push(currentyear);
                     this.year = currentyear;
-                    for(var i = 0; i < this.years.length; i++){
-                        if(this.years[i].transaction_year == this.year){
+                    for (var i = 0; i < this.years.length; i++) {
+                        if (this.years[i].transaction_year == this.year) {
                             this.updateYears(i, this.years[i].transaction_year);
                         }
                     }
@@ -1503,7 +1540,7 @@
                         console.log(error.response);
                     });
             },
-            getGraphData(){
+            getGraphData() {
                 // this.o = {};
                 // allways start with the current year as default
                 var currentyear = new Date().getFullYear();
@@ -1513,11 +1550,11 @@
                 let request = {
                     filters: this.filters
                 };
-                if(request.filters.years.length == 0){
+                if (request.filters.years.length == 0) {
                     request.filters.years.push(currentyear);
                     this.year = currentyear;
-                    for(var i = 0; i < this.years.length; i++){
-                        if(this.years[i].transaction_year == this.year){
+                    for (var i = 0; i < this.years.length; i++) {
+                        if (this.years[i].transaction_year == this.year) {
                             this.updateYears(i, this.years[i].transaction_year);
                         }
                     }
@@ -1534,40 +1571,40 @@
                     });
             },
             clearFilters() {
-
+    
                 this.filters = {
                     years: [],
                     quarters: [],
                     months: [],
                     codes: [],
+                    reps: [],
+                    province_filter: [],
                     merchant_groups: [],
-                    merchants: [],
+                    merchant_filter: [],
                     wine_farms: [],
-                    provinces: [],
                     products: [],
-                    types: [],
-                    reps: []
+                    product_types: []
                 };
-
+    
                 for (var j = 0; j < this.years.length; j++) {
-                        this.years[j].selected = false;
+                    this.years[j].selected = false;
                 }
                 for (var j = 0; j < this.quarters.length; j++) {
                     this.quarters[j].selected = false;
                 }
-
+    
                 for (var j = 0; j < this.months.length; j++) {
                     this.months[j].selected = false;
                 }
-
+    
                 for (var j = 0; j < this.codes.length; j++) {
                     this.codes[j].selected = false;
                 }
-
+    
                 for (var j = 0; j < this.merchant_groups.length; j++) {
                     this.merchant_groups[j].selected = false;
                 }
-                
+    
     
                 for (var j = 0; j < this.merchants.length; j++) {
                     this.merchants[j].selected = false;
@@ -1598,29 +1635,29 @@
                 }
     
             },
-            resize(){
+            resize() {
                 this.chart.resize();
                 this.chart2.resize();
                 this.chart3.resize();
                 this.chart4.resize();
             },
-            getStuff(){
-                this.bottom5_merchants= [];
-                this.bottom5_products= [];
-                this.top5_merchants= [];
-                this.top5_products= [];
+            getStuff() {
+                this.bottom5_merchants = [];
+                this.bottom5_products = [];
+                this.top5_merchants = [];
+                this.top5_products = [];
                 this.gridOptions.api.setColumnDefs(this.columnDefs);
                 this.gridOptions.api.setRowData([]);
-                if(this.loading4 != true){
+                if (this.loading4 != true) {
                     this.loading4 = !this.loading4;
                 }
-                if(this.loading1 != true){
+                if (this.loading1 != true) {
                     this.loading1 = !this.loading1;
                 }
-                if(this.loading2 != true){
+                if (this.loading2 != true) {
                     this.loading2 = !this.loading2;
                 }
-                if(this.loading3 != true){
+                if (this.loading3 != true) {
                     this.loading3 = !this.loading3;
                 }
                 this.getBudgetAndSales();
@@ -1643,7 +1680,19 @@
             this.chart2 = echarts.init(document.getElementById('chart2'));
             this.chart3 = echarts.init(document.getElementById('chart3'));
             this.chart4 = echarts.init(document.getElementById('chart4'));
-            this.getFilterData();
+            if(this.$store.state.session.entity.type == 'Admin'){
+                this.getFilterData();
+            }else{
+                this.getBudgetAndSales();
+                this.getTypes();
+                this.getProvinces();
+                this.getCodes();
+                this.getTop5Products();
+                this.getBottom5Merchants();
+                this.getTop5Merchants();
+                this.getBottom5Products();
+                this.getGraphData();
+            }
             var currentyear = new Date().getFullYear();
             var cm = new Date();
             // this.month = this.monthNames[cm.getMonth()];
@@ -1681,7 +1730,7 @@
         margin-left: 28px;
         border: none;
     }
-
+    
     .superLink li:hover {
         background: #adc962;
         color: white;

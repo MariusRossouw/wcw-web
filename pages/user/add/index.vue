@@ -168,7 +168,7 @@
                     .then(response => {
                         // Add entity to session in vuex
                         console.log('Response: ', response);
-                        this.$router.push("/user/" + this.$route.params.id);
+                        this.$router.push("/user/" + response.data.data.profile_id);
                     })
                     .catch(error => {
                         console.log(error.response);

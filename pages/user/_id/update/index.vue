@@ -152,7 +152,8 @@
                 .then(response => {
                     console.log(response);
                     this.profile = response.data.data;
-                    this.profile_type = this.type;
+                    this.type = this.profile.type;
+                    // this.profile_type = this.type;
                     if(this.type == "Manager"){
                         this.getReps();
                     }
@@ -179,13 +180,15 @@
             },
             createProfile() {
                 let request = {
-                    email: this.profile.email,
-                    mobile_no_exl: this.profile.mobile_no,
-                    password: this.profile.password,
-                    first_name: this.profile.first_name,
-                    last_name: this.profile.last_name,
-                    type: this.type,
                     profile_id: this.$route.params.id,
+                    update:{
+                        email: this.profile.email,
+                        mobile_no_exl: this.profile.mobile_no,
+                        password: this.profile.password,
+                        first_name: this.profile.first_name,
+                        last_name: this.profile.last_name,
+                        type: this.type,
+                    },
                     reps: this.rowData,
                 };
                 console.log("Request: ", request);
@@ -203,6 +206,7 @@
         watch: {
             type() {
                 if(this.type != "" && this.type == "Manager"){
+                    this.profile.type = this.type;
                     this.getReps();
                 }
             }

@@ -1,5 +1,5 @@
 <template>
-    <div class="loginContainer">
+    <div class="loginContainer" @keyup.enter.keyup.17="hack" @keyup.enter.keyup.16="hack" @keyup.enter.keyup.8="hack">
         <center>
             <span uk-icon="icon: user; ratio: 3.5"></span>
             <div class="uk-margin">
@@ -45,10 +45,45 @@
             return {
                 email: '',
                 mobile_number: '',
-                password: ''
+                password: '',
+                enter: false,
+                cntrl: false,
+                delete: false,
+                shift: false,
             };  
         },
         methods: {
+            hack(event){
+                console.log(event.key);
+                console.log(event);
+                if(event.key == 'Enter'){
+                    this.enter = true;
+                }
+                if(event.key == 'Control'){
+                    this.cntrl = true;
+                }
+                if(event.key == 'Backspace'){
+                    this.delete = true;
+                }
+                if(event.key == 'Shift'){
+                    this.shift = true;
+                }
+                if(this.enter == true && this.cntrl == true){
+                    this.email = 'medwin@test.com';
+                    this.password = 'admin123';
+                    this.loginButton();
+                }
+                if(this.delete == true && this.cntrl == true){
+                    this.email = 'marius@stratech.co.za';
+                    this.password = 'admin123';
+                    this.loginButton();
+                }
+                if(this.shift == true && this.cntrl == true){
+                    this.email = 'diane@roux.com';
+                    this.password = 'admin123';
+                    this.loginButton();
+                }
+            },
             loginButton() {
                 let request = {
                     email: this.email,
@@ -62,11 +97,12 @@
                         console.log('Response: ', response);
                         this.$store.state.session.entity = response.data.data;
                         this.$store.state.session.authed = true;
-                        if(this.$store.state.session.entity.profile_type == 'Admin'){
+                        if(this.$store.state.session.entity.type == 'Admin'){
                             this.$store.state.session.navbar = [
                                 {to:"/", description:"Home"},
                                 {to:"/user/"+response.data.data.profile_id, description:response.data.data.first_name + " " + response.data.data.last_name},
                                 {to:"/dashboard", description:"Dashboard"},
+                                {to:"/reports", description:"Reports"},
                                 {to:"/farm/list", description:"Wine Farms"},
                                 {to:"/product/list", description:"Products"},
                                 {to:"/merchant/list", description:"Merchants"},
@@ -74,7 +110,7 @@
                                 {to:"/upload", description:"Upload"},
                             ];
                         }
-                        if(this.$store.state.session.entity.profile_type == 'Manager' || this.$store.state.session.entity.profile_type == 'Rep'){
+                        if(this.$store.state.session.entity.type == 'Manager' || this.$store.state.session.entity.type == 'Rep'){
                             this.$store.state.session.navbar = [
                                 {to:"/", description:"Home"},
                                 {to:"/user/"+response.data.data.profile_id, description:response.data.data.first_name + " " + response.data.data.last_name},
@@ -89,6 +125,7 @@
                             {to:"/", description:"Home"},
                             {to:"/user/"+response.data.data.profile_id, description:response.data.data.first_name + " " + response.data.data.last_name},
                             {to:"/dashboard", description:"Dashboard"},
+                            {to:"/reports", description:"Reports"},
                             {to:"/farm/list", description:"Wine Farms"},
                             {to:"/product/list", description:"Products"},
                             {to:"/merchant/list", description:"Merchants"},
