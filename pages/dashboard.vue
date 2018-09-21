@@ -22,7 +22,7 @@
                                         <span v-if="filters.merchant_filter.length > 0" v-for="(fm, index) in filters.merchant_filter" :key="fm.merchant_name+index"> {{ fm.merchant_name }} <b>|</b> </span>
                                         <span v-if="filters.wine_farms.length > 0" v-for="(fw, index) in filters.wine_farms" :key="fw.farm_name+index"> {{ fw.farm_name }} <b>|</b> </span>
                                         <span v-if="filters.products.length > 0" v-for="(fp, index) in filters.products" :key="fp.product_name+index"> {{ fp.product_name }} <b>|</b> </span>
-                                        <span v-if="filters.product_types.length > 0" v-for="(ft, index) in filters.product_types" :key="ft.product_type+index"> {{ ft.product_type }} <b>|</b> </span> )
+                                        <span v-if="filters.types.length > 0" v-for="(ft, index) in filters.types" :key="ft.product_type+index"> {{ ft.product_type }} <b>|</b> </span> )
                                     </p>
                                 </div>
                             </div>
@@ -159,28 +159,28 @@
                                 <div class="uk-card uk-card-default uk-card-small superLink">
                                     <h3 class="uk-card-title">Bottom 5 Merchants</h3>
                                     <img v-if="bottom5_merchants.length == 0" src="@/assets/svg/spinner.svg" class="logo-image" />
-                                    <li v-for="(bM, index) in bottom5_merchants" :key="index" @click="merchantAddFilter(bM)" style="cursor: pointer"><span style="float:left; margin-left:5px;">{{bM.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;">{{bM.value | toCurrency}}</span><br/></li>
+                                    <li v-for="(bM, index) in bottom5_merchants" :key="index" @click="merchantAddFilter(bM)" style="cursor: pointer" :title="bM.name"><span style="float:left; margin-left:5px;">{{bM.name | truncate(10, '...')}}</span> <span style="float:right; margin-right:5px;">{{bM.value | toCurrency}}</span><br/></li>
                                 </div>
                             </div>
                             <div class="uk-width-1-4@m">
                                 <div class="uk-card uk-card-default uk-card-small superLink">
                                     <h3 class="uk-card-title">Top 5 Merchants</h3>
                                     <img v-if="top5_merchants.length == 0" src="@/assets/svg/spinner.svg" class="logo-image" />
-                                    <li v-for="(tM, index) in top5_merchants" :key="index" @click="merchantAddFilter(tM)" style="cursor: pointer"><span style="float:left; margin-left:5px;">{{tM.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;"> {{tM.value | toCurrency}}</span><br/></li>
+                                    <li v-for="(tM, index) in top5_merchants" :key="index" @click="merchantAddFilter(tM)" style="cursor: pointer" :title="tM.name"><span style="float:left; margin-left:5px;">{{tM.name | truncate(10, '...')}}</span> <span style="float:right; margin-right:5px;"> {{tM.value | toCurrency}}</span><br/></li>
                                 </div>
                             </div>
                             <div class="uk-width-1-4@m">
                                 <div class="uk-card uk-card-default uk-card-small superLink">
                                     <h3 class="uk-card-title">Bottom 5 Products</h3>
                                     <img v-if="bottom5_products.length == 0" src="@/assets/svg/spinner.svg" class="logo-image" />
-                                    <li v-for="(bP, index) in bottom5_products" :key="index" @click="productAddFilter(bP)" style="cursor: pointer"><span style="float:left; margin-left:5px;">{{bP.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;"> {{bP.value | toCurrency}}</span><br/></li>
+                                    <li v-for="(bP, index) in bottom5_products" :key="index" @click="productAddFilter(bP)" style="cursor: pointer" :title="bP.name"><span style="float:left; margin-left:5px;">{{bP.name | truncate(10, '...')}}</span> <span style="float:right; margin-right:5px;"> {{bP.value | toCurrency}}</span><br/></li>
                                 </div>
                             </div>
                             <div class="uk-width-1-4@m">
-                                <div class="uk-card uk-card-default uk-card-small superLink">
+                                <div class="uk-card uk-card-default uk-card-small superLink" >
                                     <h3 class="uk-card-title">Top 5 Products</h3>
                                     <img v-if="top5_products.length == 0" src="@/assets/svg/spinner.svg" class="logo-image" />
-                                    <li v-for="(tP, index) in top5_products" :key="index" @click="productAddFilter(tP)" style="cursor: pointer"><span style="float:left; margin-left:5px;">{{tP.name | truncate(20, '...')}}</span> <span style="float:right; margin-right:5px;"> {{tP.value | toCurrency}}</span><br/></li>
+                                    <li v-for="(tP, index) in top5_products" :key="index" @click="productAddFilter(tP)" style="cursor: pointer" :title="tP.name"><span style="float:left; margin-left:5px;">{{tP.name | truncate(10, '...')}}</span> <span style="float:right; margin-right:5px;"> {{tP.value | toCurrency}}</span><br/></li>
                                 </div>
                             </div>
                         </div>
@@ -258,7 +258,8 @@
                     province_filter: [],
                     products: [],
                     product_types: [],
-                    reps: []
+                    reps: [],
+                    types: []
                 },
                 year: "",
                 month: "",
@@ -731,20 +732,22 @@
                 }
             },
             productAddFilter(product) {
+                console.log(product);
                 for (var k = 0; k < this.products.length; k++) {
                     if (this.products[k].product_id == product.product_id) {
                         this.products[k].selected = !this.products[k].selected;
                         if (this.products[k].selected) {
-                            this.filters.product_types.push(this.products[k]);
+                            this.filters.products.push(this.products[k]);
                         } else {
-                            for (var i = 0; i < this.filters.product_types.length; i++) {
-                                if (this.filters.product_types[i].product_id === this.products[k].product_id) {
-                                    this.filters.product_types.splice(i, 1);
+                            for (var i = 0; i < this.filters.products.length; i++) {
+                                if (this.filters.products[i].product_id === this.products[k].product_id) {
+                                    this.filters.products.splice(i, 1);
                                 }
                             }
                         }
                     }
                 }
+                console.log(this.filters.products);
             },
             checkAuthState() {
                 let ls = JSON.parse(localStorage.getItem("State"));
@@ -939,16 +942,17 @@
             updateProducts(index, product) {
                 this.products[index].selected = !this.products[index].selected;
                 if (this.products[index].selected) {
-                    this.filters.product_types.push(product);
+                    this.filters.products.push(product);
                 } else {
-                    for (var i = 0; i < this.filters.product_types.length; i++) {
-                        if (this.filters.product_types[i] === product) {
-                            this.filters.product_types.splice(i, 1);
+                    for (var i = 0; i < this.filters.products.length; i++) {
+                        if (this.filters.products[i] === product) {
+                            this.filters.products.splice(i, 1);
                         }
                     }
                 }
             },
             updateTypes(index, type) {
+                console.log(type);
                 this.types[index].selected = !this.types[index].selected;
                 if (this.types[index].selected) {
                     this.filters.types.push(type);
@@ -1577,13 +1581,14 @@
                     quarters: [],
                     months: [],
                     codes: [],
-                    reps: [],
-                    province_filter: [],
                     merchant_groups: [],
                     merchant_filter: [],
                     wine_farms: [],
+                    province_filter: [],
                     products: [],
-                    product_types: []
+                    product_types: [],
+                    reps: [],
+                    types: []
                 };
     
                 for (var j = 0; j < this.years.length; j++) {
@@ -1729,6 +1734,11 @@
         margin-bottom: 3px;
         margin-left: 28px;
         border: none;
+    }
+
+    .superLink {
+        overflow-y: scroll;
+        height: 200px;
     }
     
     .superLink li:hover {

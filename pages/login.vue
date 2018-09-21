@@ -121,17 +121,17 @@
                                 {to:"/user/list", description:"Users"}
                             ];
                         }
-                        this.$store.state.session.navbar = [
-                            {to:"/", description:"Home"},
-                            {to:"/user/"+response.data.data.profile_id, description:response.data.data.first_name + " " + response.data.data.last_name},
-                            {to:"/dashboard", description:"Dashboard"},
-                            {to:"/reports", description:"Reports"},
-                            {to:"/farm/list", description:"Wine Farms"},
-                            {to:"/product/list", description:"Products"},
-                            {to:"/merchant/list", description:"Merchants"},
-                            {to:"/user/list", description:"Users"},
-                            {to:"/upload", description:"Upload"},
-                        ];
+                        // this.$store.state.session.navbar = [
+                        //     {to:"/", description:"Home"},
+                        //     {to:"/user/"+response.data.data.profile_id, description:response.data.data.first_name + " " + response.data.data.last_name},
+                        //     {to:"/dashboard", description:"Dashboard"},
+                        //     {to:"/reports", description:"Reports"},
+                        //     {to:"/farm/list", description:"Wine Farms"},
+                        //     {to:"/product/list", description:"Products"},
+                        //     {to:"/merchant/list", description:"Merchants"},
+                        //     {to:"/user/list", description:"Users"},
+                        //     {to:"/upload", description:"Upload"},
+                        // ];
                         localStorage.setItem("State", JSON.stringify(this.$store.state));
                         this.$router.push("/dashboard");
                     })
