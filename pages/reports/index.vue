@@ -334,6 +334,9 @@
                     // floatingFilter: true,
                     onGridReady: function(params) {
                         params.api.sizeColumnsToFit();
+                    },
+                    rowClassRules: {
+                        'blue-class': function(params) { return params.data.code === 'TOTAL'}
                     }
                 },
                 gridOptionsOYTD: {
@@ -2337,6 +2340,24 @@
                 axios.post(this.$store.state.api_url + '/report_omtd', request)
                 .then(response => {
                     console.log(response);
+                    var o = {
+                        code: "TOTAL",
+                        m1budget: 0,
+                        m2budget: 0,
+                        m1cases: 0,
+                        m2cases: 0,
+                        m1sale: 0,
+                        m2sale: 0
+                    };
+                    for(var i = 0; i < response.data.data.rowDataOMTD.length; i++){
+                        o.m1budget = o.m1budget + response.data.data.rowDataOMTD[i].m1budget;
+                        o.m2budget = o.m2budget + response.data.data.rowDataOMTD[i].m2budget;
+                        o.m1cases = o.m1cases + response.data.data.rowDataOMTD[i].m1cases;
+                        o.m2cases = o.m2cases + response.data.data.rowDataOMTD[i].m2cases;
+                        o.m1sale = o.m1sale + response.data.data.rowDataOMTD[i].m1sale;
+                        o.m2sale = o.m2sale + response.data.data.rowDataOMTD[i].m2sale;
+                    }
+                    response.data.data.rowDataOMTD.push(o);
                     this.gridOptionsOMTD.api.setColumnDefs(this.columnDefsOMTD);
                     this.gridOptionsOMTD.api.setRowData(response.data.data.rowDataOMTD);
                     this.rowDataOMTD = response.data.data.rowDataOMTD;
@@ -2595,5 +2616,12 @@
     .superLink li:hover {
         background: #adc962;
         color: white;
+    }
+
+    .ag-theme-balham .blue-class {
+        background-color: #6296d0 !important;
+        font-weight: bold !important;
+        font-size: 16px !important;
+        color: white !important;
     }
 </style>
