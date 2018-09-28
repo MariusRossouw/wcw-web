@@ -86,14 +86,14 @@
                                     </div>
                                     <button class="uk-button uk-button-default" @click="onBtExportOMTD()">Export</button>
                                 </div> -->
-                                <div class="uk-card-small uk-width-1-1">
+                                <!-- <div class="uk-card-small uk-width-1-1">
                                     <h3>Rep Overview - Excl Corp Sales</h3>
                                     <div class="gridSize">
                                         <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptionsREPS" :columnDefs="columnDefsREPS" :rowData="rowDataREPS">
                                         </ag-grid-vue>
                                     </div>
                                     <button class="uk-button uk-button-default" @click="onBtExportREPS()">Export</button>
-                                </div>
+                                </div> -->
                                 <div class="uk-card-small uk-width-1-1">
                                     <h3>Product Report</h3>
                                     <div class="gridSize">
@@ -237,83 +237,12 @@
                 // =================================================================================================================
                 // =================================================================================================================
                 rowDataOMTD: [],
-                rowDataOYTD: [{
-                    code: "SCS",
-                    type: "Year To Date",
-                    y1sale: 3420,
-                    y2sale: 53423,
-                    y1budget: 24234,
-                    y1cases: 332,
-                    y2cases: 223
-                }],
-                rowDataSCBD: [{
-                    code: "SCS",
-                    province: "Western Cape",
-                    m1sale: 120,
-                    m2sale: 170,
-                    m1budget: 140,
-                    m1cases: 12,
-                    m2cases: 15,
-                    y1sale: 3420,
-                    y2sale: 53423,
-                    y1budget: 24234,
-                    y1cases: 332,
-                    y2cases: 223
-                }],
-                rowDataSCBD2: [{
-                    code: "SCS",
-                    province: "PNP",
-                    m1sale: 120,
-                    m2sale: 170,
-                    m1budget: 140,
-                    m1cases: 12,
-                    m2cases: 15,
-                    y1sale: 3420,
-                    y2sale: 53423,
-                    y1budget: 24234,
-                    y1cases: 332,
-                    y2cases: 223
-                }],
-                rowDataREPS: [{
-                    rep: "John Williams",
-                    m1sale: 120,
-                    m2sale: 170,
-                    m1budget: 140,
-                    m1cases: 12,
-                    m2cases: 15,
-                    y1sale: 3420,
-                    y2sale: 53423,
-                    y1budget: 24234,
-                    y1cases: 332,
-                    y2cases: 223
-                }],
-                rowDataPRODUCT: [{
-                    product: "CHENIN BLANK",
-                    m1sale: 120,
-                    m2sale: 170,
-                    m1budget: 140,
-                    m1cases: 12,
-                    m2cases: 15,
-                    y1sale: 3420,
-                    y2sale: 53423,
-                    y1budget: 24234,
-                    y1cases: 332,
-                    y2cases: 223
-                }],
-                rowDataSCBE: [{
-                    code: "EXPORT DUTY PAID",
-                    province: "JURIC IMPORT EXPORT cc",
-                    m1sale: 120,
-                    m2sale: 170,
-                    m1budget: 140,
-                    m1cases: 12,
-                    m2cases: 15,
-                    y1sale: 3420,
-                    y2sale: 53423,
-                    y1budget: 24234,
-                    y1cases: 332,
-                    y2cases: 223
-                }],
+                rowDataOYTD: [],
+                rowDataSCBD: [],
+                rowDataSCBD2: [],
+                rowDataREPS: [],
+                rowDataPRODUCT: [],
+                rowDataSCBE: [],
                 // =================================================================================================================
                 // =================================================================================================================
                 // =================================================================================================================
@@ -2331,6 +2260,12 @@
             },
             createReports(){
                 this.loadReportOMTD();
+                this.loadReportOYTD();
+                this.loadReportSCBD();
+                this.loadReportSCBD2();
+                this.loadReportREPS();
+                this.loadReportPRODUCT();
+                this.loadReportSCBE();
             },
             loadReportOMTD() {
                 let request = {
@@ -2381,11 +2316,6 @@
                     console.log(error.response);
                 });
             },
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
             onBtExportOMTD() {
                 var params = {
                     fileName: "filename",
@@ -2393,12 +2323,166 @@
                 };
                 this.gridOptionsOMTD.api.exportDataAsExcel(params);
             },
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            loadReportOYTD() {
+                let request = {
+                    month: this.month,
+                    year: this.year
+                };
+                axios.post(this.$store.state.api_url + '/report_oytd', request)
+                .then(response => {
+                    console.log(response);
+                    var o = {
+                        code: "Total",
+                        y1sale: 0,
+                        y2sale: 0,
+                        y1budget: 0,
+                        y1cases: 0,
+                        y2cases: 0
+                    };
+                    for(var i = 0; i < response.data.data.rowDataOYTD.length; i++){
+                        o.y1sale = o.y1sale + response.data.data.rowDataOYTD[i].y1sale;
+                        o.y2sale = o.y2sale + response.data.data.rowDataOYTD[i].y2sale;
+                        o.y1budget = o.y1budget + response.data.data.rowDataOYTD[i].y1budget;
+                        o.y1cases = o.y1cases + response.data.data.rowDataOYTD[i].y1cases;
+                        o.y2cases = o.y2cases + response.data.data.rowDataOYTD[i].y2cases;
+                    }
+                    response.data.data.rowDataOYTD.push(o);
+                    this.gridOptionsOYTD.api.setColumnDefs(this.columnDefsOYTD);
+                    this.gridOptionsOYTD.api.setRowData(response.data.data.rowDataOYTD);
+                    this.rowDataOYTD = response.data.data.rowDataOYTD;
+                    this.headerNamesOYTD = response.data.data.headerNamesOYTD;
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD0").headerName = this.headerNamesOYTD[0];
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD1").headerName = this.headerNamesOYTD[1];
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD2").headerName = this.headerNamesOYTD[2];
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD3").headerName = this.headerNamesOYTD[3];
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD4").headerName = this.headerNamesOYTD[4];
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD5").headerName = this.headerNamesOYTD[5];
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD6").headerName = this.headerNamesOYTD[6];
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD7").headerName = this.headerNamesOYTD[7];
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD8").headerName = this.headerNamesOYTD[8];
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD9").headerName = this.headerNamesOYTD[9];
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD10").headerName = this.headerNamesOYTD[10];
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD11").headerName = this.headerNamesOYTD[11];
+                    this.gridOptionsOYTD.api.refreshHeader();
+                })
+                .catch(error => {
+                    console.log(error.response);
+                });
+            },
             onBtExportOYTD() {
                 var params = {
                     fileName: "filename",
                     sheetName: 'sheetName'
                 };
                 this.gridOptionsOYTD.api.exportDataAsExcel(params);
+            },
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            loadReportSCBD() {
+                let request = {
+                    month: this.month,
+                    year: this.year
+                };
+                axios.post(this.$store.state.api_url + '/report_scbd', request)
+                .then(response => {
+                    console.log(response);
+                    var o = {
+                        code: "Total",
+                        province: "",
+                        m1sale: 0,
+                        m2sale: 0,
+                        m1budget: 0,
+                        m1cases: 0,
+                        m2cases: 0,
+                        y1sale: 0,
+                        y2sale: 0,
+                        y1budget: 0,
+                        y1cases: 0,
+                        y2cases: 0
+                    }
+                    for(var i = 0; i < response.data.data.rowDataSCBD.length; i++){
+                        let prov = response.data.data.rowDataSCBD[i].province;
+                        if(i === 0){ //first
+                            o.province = response.data.data.rowDataSCBD[i].province;
+                            o.m1sale = response.data.data.rowDataSCBD[i].m1sale;
+                            o.m2sale = response.data.data.rowDataSCBD[i].m2sale;
+                            o.m1budget = response.data.data.rowDataSCBD[i].m1budget;
+                            o.m1cases = response.data.data.rowDataSCBD[i].m1cases;
+                            o.m2cases = response.data.data.rowDataSCBD[i].m2cases;
+                            o.y1sale = response.data.data.rowDataSCBD[i].y1sale;
+                            o.y2sale = response.data.data.rowDataSCBD[i].y2sale;
+                            o.y1budget = response.data.data.rowDataSCBD[i].y1budget;
+                            o.y1cases = response.data.data.rowDataSCBD[i].y1cases;
+                            o.y2cases = response.data.data.rowDataSCBD[i].y2cases;
+                        }else if(o.province === response.data.data.rowDataSCBD[i].province){ //second
+                            o.m1sale = o.m1sale + response.data.data.rowDataSCBD[i].m1sale;
+                            o.m2sale = o.m2sale + response.data.data.rowDataSCBD[i].m2sale;
+                            o.m1budget = o.m1budget + response.data.data.rowDataSCBD[i].m1budget;
+                            o.m1cases = o.m1cases + response.data.data.rowDataSCBD[i].m1cases;
+                            o.m2cases = o.m2cases + response.data.data.rowDataSCBD[i].m2cases;
+                            o.y1sale = o.y1sale + response.data.data.rowDataSCBD[i].y1sale;
+                            o.y2sale = o.y2sale + response.data.data.rowDataSCBD[i].y2sale;
+                            o.y1budget = o.y1budget + response.data.data.rowDataSCBD[i].y1budget;
+                            o.y1cases = o.y1cases + response.data.data.rowDataSCBD[i].y1cases;
+                            o.y2cases = o.y2cases + response.data.data.rowDataSCBD[i].y2cases;
+                        } else { // insert and start over with totals
+                            response.data.data.rowDataSCBD.slice( i, 0, o);
+                            i++;
+                            o.province = response.data.data.rowDataSCBD[i].province;
+                            o.m1sale = response.data.data.rowDataSCBD[i].m1sale;
+                            o.m2sale = response.data.data.rowDataSCBD[i].m2sale;
+                            o.m1budget = response.data.data.rowDataSCBD[i].m1budget;
+                            o.m1cases = response.data.data.rowDataSCBD[i].m1cases;
+                            o.m2cases = response.data.data.rowDataSCBD[i].m2cases;
+                            o.y1sale = response.data.data.rowDataSCBD[i].y1sale;
+                            o.y2sale = response.data.data.rowDataSCBD[i].y2sale;
+                            o.y1budget = response.data.data.rowDataSCBD[i].y1budget;
+                            o.y1cases = response.data.data.rowDataSCBD[i].y1cases;
+                            o.y2cases = response.data.data.rowDataSCBD[i].y2cases;
+                        }
+                    }
+                    response.data.data.rowDataSCBD.push(o);
+                    this.gridOptionsSCBD.api.setColumnDefs(this.columnDefsSCBD);
+                    this.gridOptionsSCBD.api.setRowData(response.data.data.rowDataSCBD);
+                    this.rowDataSCBD = response.data.data.rowDataSCBD;
+                    this.headerNamesSCBD = response.data.data.headerNamesSCBD;
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD0").headerName = this.headerNamesSCBD[0];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD01").headerName = this.headerNamesSCBD[1];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD1").headerName = this.headerNamesSCBD[2];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD2").headerName = this.headerNamesSCBD[3];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD3").headerName = this.headerNamesSCBD[4];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD4").headerName = this.headerNamesSCBD[5];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD5").headerName = this.headerNamesSCBD[6];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD6").headerName = this.headerNamesSCBD[7];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD7").headerName = this.headerNamesSCBD[8];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD8").headerName = this.headerNamesSCBD[9];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD9").headerName = this.headerNamesSCBD[10];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD10").headerName = this.headerNamesSCBD[11];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD11").headerName = this.headerNamesSCBD[12];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD12").headerName = this.headerNamesSCBD[13];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD13").headerName = this.headerNamesSCBD[14];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD14").headerName = this.headerNamesSCBD[15];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD15").headerName = this.headerNamesSCBD[16];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD16").headerName = this.headerNamesSCBD[17];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD17").headerName = this.headerNamesSCBD[18];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD18").headerName = this.headerNamesSCBD[19];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD19").headerName = this.headerNamesSCBD[20];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD20").headerName = this.headerNamesSCBD[21];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD21").headerName = this.headerNamesSCBD[22];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD22").headerName = this.headerNamesSCBD[23];
+                    this.gridOptionsSCBD.api.refreshHeader();
+                })
+                .catch(error => {
+                    console.log(error.response);
+                });
             },
             onBtExportSCBD() {
                 var params = {
@@ -2412,178 +2496,385 @@
             // =================================================================================================================
             // =================================================================================================================
             // =================================================================================================================
+            loadReportSCBD2() {
+                let request = {
+                    month: this.month,
+                    year: this.year
+                };
+                axios.post(this.$store.state.api_url + '/report_scbd2', request)
+                .then(response => {
+                    console.log(response);
+                    var o = {
+                        code: "Total",
+                        merchant_group: "",
+                        m1sale: 0,
+                        m2sale: 0,
+                        m1budget: 0,
+                        m1cases: 0,
+                        m2cases: 0,
+                        y1sale: 0,
+                        y2sale: 0,
+                        y1budget: 0,
+                        y1cases: 0,
+                        y2cases: 0
+                    }
+                    for(var i = 0; i < response.data.data.rowDataSCBD2.length; i++){
+                        let prov = response.data.data.rowDataSCBD2[i].merchant_group;
+                        if(i === 0){ //first
+                            o.merchant_group = response.data.data.rowDataSCBD2[i].merchant_group;
+                            o.m1sale = response.data.data.rowDataSCBD2[i].m1sale;
+                            o.m2sale = response.data.data.rowDataSCBD2[i].m2sale;
+                            o.m1budget = response.data.data.rowDataSCBD2[i].m1budget;
+                            o.m1cases = response.data.data.rowDataSCBD2[i].m1cases;
+                            o.m2cases = response.data.data.rowDataSCBD2[i].m2cases;
+                            o.y1sale = response.data.data.rowDataSCBD2[i].y1sale;
+                            o.y2sale = response.data.data.rowDataSCBD2[i].y2sale;
+                            o.y1budget = response.data.data.rowDataSCBD2[i].y1budget;
+                            o.y1cases = response.data.data.rowDataSCBD2[i].y1cases;
+                            o.y2cases = response.data.data.rowDataSCBD2[i].y2cases;
+                        }else if(o.merchant_group === response.data.data.rowDataSCBD2[i].merchant_group){ //second
+                            o.m1sale = o.m1sale + response.data.data.rowDataSCBD2[i].m1sale;
+                            o.m2sale = o.m2sale + response.data.data.rowDataSCBD2[i].m2sale;
+                            o.m1budget = o.m1budget + response.data.data.rowDataSCBD2[i].m1budget;
+                            o.m1cases = o.m1cases + response.data.data.rowDataSCBD2[i].m1cases;
+                            o.m2cases = o.m2cases + response.data.data.rowDataSCBD2[i].m2cases;
+                            o.y1sale = o.y1sale + response.data.data.rowDataSCBD2[i].y1sale;
+                            o.y2sale = o.y2sale + response.data.data.rowDataSCBD2[i].y2sale;
+                            o.y1budget = o.y1budget + response.data.data.rowDataSCBD2[i].y1budget;
+                            o.y1cases = o.y1cases + response.data.data.rowDataSCBD2[i].y1cases;
+                            o.y2cases = o.y2cases + response.data.data.rowDataSCBD2[i].y2cases;
+                        } else { // insert and start over with totals
+                            response.data.data.rowDataSCBD2.slice( i, 0, o);
+                            i++;
+                            o.merchant_group = response.data.data.rowDataSCBD2[i].merchant_group;
+                            o.m1sale = response.data.data.rowDataSCBD2[i].m1sale;
+                            o.m2sale = response.data.data.rowDataSCBD2[i].m2sale;
+                            o.m1budget = response.data.data.rowDataSCBD2[i].m1budget;
+                            o.m1cases = response.data.data.rowDataSCBD2[i].m1cases;
+                            o.m2cases = response.data.data.rowDataSCBD2[i].m2cases;
+                            o.y1sale = response.data.data.rowDataSCBD2[i].y1sale;
+                            o.y2sale = response.data.data.rowDataSCBD2[i].y2sale;
+                            o.y1budget = response.data.data.rowDataSCBD2[i].y1budget;
+                            o.y1cases = response.data.data.rowDataSCBD2[i].y1cases;
+                            o.y2cases = response.data.data.rowDataSCBD2[i].y2cases;
+                        }
+                    }
+                    response.data.data.rowDataSCBD2.push(o);
+                    this.gridOptionsSCBD2.api.setColumnDefs(this.columnDefsSCBD2);
+                    this.gridOptionsSCBD2.api.setRowData(response.data.data.rowDataSCBD2);
+                    this.rowDataSCBD2 = response.data.data.rowDataSCBD2;
+                    this.headerNamesSCBD2 = response.data.data.headerNamesSCBD2;
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD20").headerName = this.headerNamesSCBD2[0];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD201").headerName = this.headerNamesSCBD2[1];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD21").headerName = this.headerNamesSCBD2[2];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD2222").headerName = this.headerNamesSCBD2[3];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD23").headerName = this.headerNamesSCBD2[4];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD24").headerName = this.headerNamesSCBD2[5];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD25").headerName = this.headerNamesSCBD2[6];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD26").headerName = this.headerNamesSCBD2[7];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD27").headerName = this.headerNamesSCBD2[8];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD28").headerName = this.headerNamesSCBD2[9];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD29").headerName = this.headerNamesSCBD2[10];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD210").headerName = this.headerNamesSCBD2[11];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD211").headerName = this.headerNamesSCBD2[12];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD212").headerName = this.headerNamesSCBD2[13];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD213").headerName = this.headerNamesSCBD2[14];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD214").headerName = this.headerNamesSCBD2[15];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD215").headerName = this.headerNamesSCBD2[16];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD216").headerName = this.headerNamesSCBD2[17];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD217").headerName = this.headerNamesSCBD2[18];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD218").headerName = this.headerNamesSCBD2[19];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD219").headerName = this.headerNamesSCBD2[20];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD220").headerName = this.headerNamesSCBD2[21];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD221").headerName = this.headerNamesSCBD2[22];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD222").headerName = this.headerNamesSCBD2[23];
+                    this.gridOptionsSCBD2.api.refreshHeader();
+                })
+                .catch(error => {
+                    console.log(error.response);
+                });
+            },
+            onBtExportSCBD2() {
+                var params = {
+                    fileName: "filename",
+                    sheetName: 'sheetName'
+                };
+                this.gridOptionsSCBD2.api.exportDataAsExcel(params);
+            },
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            loadReportREPS() {
+                let request = {
+                    month: this.month,
+                    year: this.year
+                };
+                axios.post(this.$store.state.api_url + '/report_reps', request)
+                .then(response => {
+                    console.log(response);
+                    var o = {
+                        code: "Total",
+                        m1sale: 0,
+                        m2sale: 0,
+                        m1budget: 0,
+                        m1cases: 0,
+                        m2cases: 0,
+                        y1sale: 0,
+                        y2sale: 0,
+                        y1budget: 0,
+                        y1cases: 0,
+                        y2cases: 0
+                    }
+                    for(var i = 0; i < response.data.data.rowDataREPS.length; i++){
+                        o.m1sale = o.m1sale + response.data.data.rowDataREPS[i].m1sale;
+                        o.m2sale = o.m2sale + response.data.data.rowDataREPS[i].m2sale;
+                        o.m1budget = o.m1budget + response.data.data.rowDataREPS[i].m1budget;
+                        o.m1cases = o.m1cases + response.data.data.rowDataREPS[i].m1cases;
+                        o.m2cases = o.m2cases + response.data.data.rowDataREPS[i].m2cases;
+                        o.y1sale = o.y1sale + response.data.data.rowDataREPS[i].y1sale;
+                        o.y2sale = o.y2sale + response.data.data.rowDataREPS[i].y2sale;
+                        o.y1budget = o.y1budget + response.data.data.rowDataREPS[i].y1budget;
+                        o.y1cases = o.y1cases + response.data.data.rowDataREPS[i].y1cases;
+                        o.y2cases = o.y2cases + response.data.data.rowDataREPS[i].y2cases;
+                    }
+                    response.data.data.rowDataREPS.push(o);
+                    this.gridOptionsREPS.api.setColumnDefs(this.columnDefsREPS);
+                    this.gridOptionsREPS.api.setRowData(response.data.data.rowDataREPS);
+                    this.rowDataREPS = response.data.data.rowDataREPS;
+                    this.headerNamesREPS = response.data.data.headerNamesREPS;
+                    this.gridOptionsREPS.api.getColumnDef("REPS0").headerName = this.headerNamesREPS[0];
+                    this.gridOptionsREPS.api.getColumnDef("REPS1").headerName = this.headerNamesREPS[1];
+                    this.gridOptionsREPS.api.getColumnDef("REPS2").headerName = this.headerNamesREPS[2];
+                    this.gridOptionsREPS.api.getColumnDef("REPS3").headerName = this.headerNamesREPS[3];
+                    this.gridOptionsREPS.api.getColumnDef("REPS4").headerName = this.headerNamesREPS[4];
+                    this.gridOptionsREPS.api.getColumnDef("REPS5").headerName = this.headerNamesREPS[5];
+                    this.gridOptionsREPS.api.getColumnDef("REPS6").headerName = this.headerNamesREPS[6];
+                    this.gridOptionsREPS.api.getColumnDef("REPS7").headerName = this.headerNamesREPS[7];
+                    this.gridOptionsREPS.api.getColumnDef("REPS8").headerName = this.headerNamesREPS[8];
+                    this.gridOptionsREPS.api.getColumnDef("REPS9").headerName = this.headerNamesREPS[9];
+                    this.gridOptionsREPS.api.getColumnDef("REPS10").headerName = this.headerNamesREPS[10];
+                    this.gridOptionsREPS.api.getColumnDef("REPS11").headerName = this.headerNamesREPS[11];
+                    this.gridOptionsREPS.api.getColumnDef("REPS12").headerName = this.headerNamesREPS[12];
+                    this.gridOptionsREPS.api.getColumnDef("REPS13").headerName = this.headerNamesREPS[13];
+                    this.gridOptionsREPS.api.getColumnDef("REPS14").headerName = this.headerNamesREPS[14];
+                    this.gridOptionsREPS.api.getColumnDef("REPS15").headerName = this.headerNamesREPS[15];
+                    this.gridOptionsREPS.api.getColumnDef("REPS16").headerName = this.headerNamesREPS[16];
+                    this.gridOptionsREPS.api.getColumnDef("REPS17").headerName = this.headerNamesREPS[17];
+                    this.gridOptionsREPS.api.getColumnDef("REPS18").headerName = this.headerNamesREPS[18];
+                    this.gridOptionsREPS.api.getColumnDef("REPS19").headerName = this.headerNamesREPS[19];
+                    this.gridOptionsREPS.api.getColumnDef("REPS20").headerName = this.headerNamesREPS[20];
+                    this.gridOptionsREPS.api.getColumnDef("REPS21").headerName = this.headerNamesREPS[21];
+                    this.gridOptionsREPS.api.getColumnDef("REPS22").headerName = this.headerNamesREPS[22];
+                    this.gridOptionsREPS.api.refreshHeader();
+                })
+                .catch(error => {
+                    console.log(error.response);
+                });
+            },
+            onBtExportREPS() {
+                var params = {
+                    fileName: "filename",
+                    sheetName: 'sheetName'
+                };
+                this.gridOptionsREPS.api.exportDataAsExcel(params);
+            },
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            loadReportPRODUCT() {
+                let request = {
+                    month: this.month,
+                    year: this.year
+                };
+                axios.post(this.$store.state.api_url + '/report_product', request)
+                .then(response => {
+                    console.log(response);
+                    var o = {
+                        code: "Total",
+                        m1sale: 0,
+                        m2sale: 0,
+                        m1budget: 0,
+                        m1cases: 0,
+                        m2cases: 0,
+                        y1sale: 0,
+                        y2sale: 0,
+                        y1budget: 0,
+                        y1cases: 0,
+                        y2cases: 0
+                    }
+                    for(var i = 0; i < response.data.data.rowDataPRODUCT.length; i++){
+                        o.m1sale = o.m1sale + response.data.data.rowDataPRODUCT[i].m1sale;
+                        o.m2sale = o.m2sale + response.data.data.rowDataPRODUCT[i].m2sale;
+                        o.m1budget = o.m1budget + response.data.data.rowDataPRODUCT[i].m1budget;
+                        o.m1cases = o.m1cases + response.data.data.rowDataPRODUCT[i].m1cases;
+                        o.m2cases = o.m2cases + response.data.data.rowDataPRODUCT[i].m2cases;
+                        o.y1sale = o.y1sale + response.data.data.rowDataPRODUCT[i].y1sale;
+                        o.y2sale = o.y2sale + response.data.data.rowDataPRODUCT[i].y2sale;
+                        o.y1budget = o.y1budget + response.data.data.rowDataPRODUCT[i].y1budget;
+                        o.y1cases = o.y1cases + response.data.data.rowDataPRODUCT[i].y1cases;
+                        o.y2cases = o.y2cases + response.data.data.rowDataPRODUCT[i].y2cases;
+                    }
+                    response.data.data.rowDataPRODUCT.push(o);
+                    this.gridOptionsPRODUCT.api.setColumnDefs(this.columnDefsPRODUCT);
+                    this.gridOptionsPRODUCT.api.setRowData(response.data.data.rowDataPRODUCT);
+                    this.rowDataPRODUCT = response.data.data.rowDataPRODUCT;
+                    this.headerNamesPRODUCT = response.data.data.headerNamesPRODUCT;
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT0").headerName = this.headerNamesPRODUCT[0];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT1").headerName = this.headerNamesPRODUCT[1];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT2").headerName = this.headerNamesPRODUCT[2];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT3").headerName = this.headerNamesPRODUCT[3];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT4").headerName = this.headerNamesPRODUCT[4];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT5").headerName = this.headerNamesPRODUCT[5];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT6").headerName = this.headerNamesPRODUCT[6];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT7").headerName = this.headerNamesPRODUCT[7];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT8").headerName = this.headerNamesPRODUCT[8];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT9").headerName = this.headerNamesPRODUCT[9];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT10").headerName = this.headerNamesPRODUCT[10];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT11").headerName = this.headerNamesPRODUCT[11];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT12").headerName = this.headerNamesPRODUCT[12];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT13").headerName = this.headerNamesPRODUCT[13];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT14").headerName = this.headerNamesPRODUCT[14];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT15").headerName = this.headerNamesPRODUCT[15];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT16").headerName = this.headerNamesPRODUCT[16];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT17").headerName = this.headerNamesPRODUCT[17];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT18").headerName = this.headerNamesPRODUCT[18];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT19").headerName = this.headerNamesPRODUCT[19];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT20").headerName = this.headerNamesPRODUCT[20];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT21").headerName = this.headerNamesPRODUCT[21];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT22").headerName = this.headerNamesPRODUCT[22];
+                    this.gridOptionsPRODUCT.api.refreshHeader();
+                })
+                .catch(error => {
+                    console.log(error.response);
+                });
+            },
+            onBtExportPRODUCT() {
+                var params = {
+                    fileName: "filename",
+                    sheetName: 'sheetName'
+                };
+                this.gridOptionsPRODUCT.api.exportDataAsExcel(params);
+            },
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            loadReportSCBE() {
+                let request = {
+                    month: this.month,
+                    year: this.year
+                };
+                axios.post(this.$store.state.api_url + '/report_scbe', request)
+                .then(response => {
+                    console.log(response);
+                    var o = {
+                        code: "Total",
+                        m1sale: 0,
+                        m2sale: 0,
+                        m1budget: 0,
+                        m1cases: 0,
+                        m2cases: 0,
+                        y1sale: 0,
+                        y2sale: 0,
+                        y1budget: 0,
+                        y1cases: 0,
+                        y2cases: 0
+                    }
+                    for(var i = 0; i < response.data.data.rowDataSCBE.length; i++){
+                        let prov = response.data.data.rowDataSCBE[i].code;
+                        if(i === 0){ //first
+                            o.code = response.data.data.rowDataSCBE[i].code;
+                            o.m1sale = response.data.data.rowDataSCBE[i].m1sale;
+                            o.m2sale = response.data.data.rowDataSCBE[i].m2sale;
+                            o.m1budget = response.data.data.rowDataSCBE[i].m1budget;
+                            o.m1cases = response.data.data.rowDataSCBE[i].m1cases;
+                            o.m2cases = response.data.data.rowDataSCBE[i].m2cases;
+                            o.y1sale = response.data.data.rowDataSCBE[i].y1sale;
+                            o.y2sale = response.data.data.rowDataSCBE[i].y2sale;
+                            o.y1budget = response.data.data.rowDataSCBE[i].y1budget;
+                            o.y1cases = response.data.data.rowDataSCBE[i].y1cases;
+                            o.y2cases = response.data.data.rowDataSCBE[i].y2cases;
+                        }else if(o.code === response.data.data.rowDataSCBE[i].code){ //second
+                            o.m1sale = o.m1sale + response.data.data.rowDataSCBE[i].m1sale;
+                            o.m2sale = o.m2sale + response.data.data.rowDataSCBE[i].m2sale;
+                            o.m1budget = o.m1budget + response.data.data.rowDataSCBE[i].m1budget;
+                            o.m1cases = o.m1cases + response.data.data.rowDataSCBE[i].m1cases;
+                            o.m2cases = o.m2cases + response.data.data.rowDataSCBE[i].m2cases;
+                            o.y1sale = o.y1sale + response.data.data.rowDataSCBE[i].y1sale;
+                            o.y2sale = o.y2sale + response.data.data.rowDataSCBE[i].y2sale;
+                            o.y1budget = o.y1budget + response.data.data.rowDataSCBE[i].y1budget;
+                            o.y1cases = o.y1cases + response.data.data.rowDataSCBE[i].y1cases;
+                            o.y2cases = o.y2cases + response.data.data.rowDataSCBE[i].y2cases;
+                        } else { // insert and start over with totals
+                            o.code = "Total";
+                            response.data.data.rowDataSCBE.slice( i, 0, o);
+                            i++;
+                            o.code = response.data.data.rowDataSCBE[i].code;
+                            o.m1sale = response.data.data.rowDataSCBE[i].m1sale;
+                            o.m2sale = response.data.data.rowDataSCBE[i].m2sale;
+                            o.m1budget = response.data.data.rowDataSCBE[i].m1budget;
+                            o.m1cases = response.data.data.rowDataSCBE[i].m1cases;
+                            o.m2cases = response.data.data.rowDataSCBE[i].m2cases;
+                            o.y1sale = response.data.data.rowDataSCBE[i].y1sale;
+                            o.y2sale = response.data.data.rowDataSCBE[i].y2sale;
+                            o.y1budget = response.data.data.rowDataSCBE[i].y1budget;
+                            o.y1cases = response.data.data.rowDataSCBE[i].y1cases;
+                            o.y2cases = response.data.data.rowDataSCBE[i].y2cases;
+                        }
+                    }
+                    response.data.data.rowDataSCBE.push(o);
+                    this.gridOptionsSCBE.api.setColumnDefs(this.columnDefsSCBE);
+                    this.gridOptionsSCBE.api.setRowData(response.data.data.rowDataSCBE);
+                    this.rowDataSCBE = response.data.data.rowDataSCBE;
+                    this.headerNamesSCBE = response.data.data.headerNamesSCBE;
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE0").headerName = this.headerNamesSCBE[0];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE01").headerName = this.headerNamesSCBE[1];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE1").headerName = this.headerNamesSCBE[2];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE222").headerName = this.headerNamesSCBE[3];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE3").headerName = this.headerNamesSCBE[4];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE4").headerName = this.headerNamesSCBE[5];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE5").headerName = this.headerNamesSCBE[6];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE6").headerName = this.headerNamesSCBE[7];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE7").headerName = this.headerNamesSCBE[8];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE8").headerName = this.headerNamesSCBE[9];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE9").headerName = this.headerNamesSCBE[10];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE10").headerName = this.headerNamesSCBE[11];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE11").headerName = this.headerNamesSCBE[12];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE12").headerName = this.headerNamesSCBE[13];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE13").headerName = this.headerNamesSCBE[14];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE14").headerName = this.headerNamesSCBE[15];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE15").headerName = this.headerNamesSCBE[16];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE16").headerName = this.headerNamesSCBE[17];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE17").headerName = this.headerNamesSCBE[18];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE18").headerName = this.headerNamesSCBE[19];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE19").headerName = this.headerNamesSCBE[20];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE20").headerName = this.headerNamesSCBE[21];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE21").headerName = this.headerNamesSCBE[22];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE22").headerName = this.headerNamesSCBE[23];
+                    this.gridOptionsSCBE.api.refreshHeader();
+                })
+                .catch(error => {
+                    console.log(error.response);
+                });
+            },
+            onBtExportSCBE() {
+                var params = {
+                    fileName: "filename",
+                    sheetName: 'sheetName'
+                };
+                this.gridOptionsSCBE.api.exportDataAsExcel(params);
+            },
         },
         beforeMount() {
             this.checkAuthState();
         },
         mounted() {
             
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            this.gridOptionsOYTD.api.getColumnDef("OYTD0").headerName = this.headerNamesOYTD[0];
-            this.gridOptionsOYTD.api.getColumnDef("OYTD1").headerName = this.headerNamesOYTD[1];
-            this.gridOptionsOYTD.api.getColumnDef("OYTD2").headerName = this.headerNamesOYTD[2];
-            this.gridOptionsOYTD.api.getColumnDef("OYTD3").headerName = this.headerNamesOYTD[3];
-            this.gridOptionsOYTD.api.getColumnDef("OYTD4").headerName = this.headerNamesOYTD[4];
-            this.gridOptionsOYTD.api.getColumnDef("OYTD5").headerName = this.headerNamesOYTD[5];
-            this.gridOptionsOYTD.api.getColumnDef("OYTD6").headerName = this.headerNamesOYTD[6];
-            this.gridOptionsOYTD.api.getColumnDef("OYTD7").headerName = this.headerNamesOYTD[7];
-            this.gridOptionsOYTD.api.getColumnDef("OYTD8").headerName = this.headerNamesOYTD[8];
-            this.gridOptionsOYTD.api.getColumnDef("OYTD9").headerName = this.headerNamesOYTD[9];
-            this.gridOptionsOYTD.api.getColumnDef("OYTD10").headerName = this.headerNamesOYTD[10];
-            this.gridOptionsOYTD.api.getColumnDef("OYTD11").headerName = this.headerNamesOYTD[11];
-            this.gridOptionsOYTD.api.refreshHeader();
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            this.gridOptionsSCBD.api.getColumnDef("SCBD0").headerName = this.headerNamesSCBD[0];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD01").headerName = this.headerNamesSCBD[1];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD1").headerName = this.headerNamesSCBD[2];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD2").headerName = this.headerNamesSCBD[3];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD3").headerName = this.headerNamesSCBD[4];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD4").headerName = this.headerNamesSCBD[5];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD5").headerName = this.headerNamesSCBD[6];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD6").headerName = this.headerNamesSCBD[7];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD7").headerName = this.headerNamesSCBD[8];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD8").headerName = this.headerNamesSCBD[9];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD9").headerName = this.headerNamesSCBD[10];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD10").headerName = this.headerNamesSCBD[11];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD11").headerName = this.headerNamesSCBD[12];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD12").headerName = this.headerNamesSCBD[13];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD13").headerName = this.headerNamesSCBD[14];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD14").headerName = this.headerNamesSCBD[15];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD15").headerName = this.headerNamesSCBD[16];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD16").headerName = this.headerNamesSCBD[17];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD17").headerName = this.headerNamesSCBD[18];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD18").headerName = this.headerNamesSCBD[19];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD19").headerName = this.headerNamesSCBD[20];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD20").headerName = this.headerNamesSCBD[21];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD21").headerName = this.headerNamesSCBD[22];
-            this.gridOptionsSCBD.api.getColumnDef("SCBD22").headerName = this.headerNamesSCBD[23];
-            this.gridOptionsSCBD.api.refreshHeader();
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD20").headerName = this.headerNamesSCBD2[0];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD201").headerName = this.headerNamesSCBD2[1];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD21").headerName = this.headerNamesSCBD2[2];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD2222").headerName = this.headerNamesSCBD2[3];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD23").headerName = this.headerNamesSCBD2[4];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD24").headerName = this.headerNamesSCBD2[5];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD25").headerName = this.headerNamesSCBD2[6];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD26").headerName = this.headerNamesSCBD2[7];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD27").headerName = this.headerNamesSCBD2[8];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD28").headerName = this.headerNamesSCBD2[9];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD29").headerName = this.headerNamesSCBD2[10];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD210").headerName = this.headerNamesSCBD2[11];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD211").headerName = this.headerNamesSCBD2[12];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD212").headerName = this.headerNamesSCBD2[13];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD213").headerName = this.headerNamesSCBD2[14];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD214").headerName = this.headerNamesSCBD2[15];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD215").headerName = this.headerNamesSCBD2[16];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD216").headerName = this.headerNamesSCBD2[17];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD217").headerName = this.headerNamesSCBD2[18];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD218").headerName = this.headerNamesSCBD2[19];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD219").headerName = this.headerNamesSCBD2[20];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD220").headerName = this.headerNamesSCBD2[21];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD221").headerName = this.headerNamesSCBD2[22];
-            this.gridOptionsSCBD2.api.getColumnDef("SCBD222").headerName = this.headerNamesSCBD2[23];
-            this.gridOptionsSCBD2.api.refreshHeader();
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            this.gridOptionsREPS.api.getColumnDef("REPS0").headerName = this.headerNamesREPS[0];
-            this.gridOptionsREPS.api.getColumnDef("REPS1").headerName = this.headerNamesREPS[1];
-            this.gridOptionsREPS.api.getColumnDef("REPS2").headerName = this.headerNamesREPS[2];
-            this.gridOptionsREPS.api.getColumnDef("REPS3").headerName = this.headerNamesREPS[3];
-            this.gridOptionsREPS.api.getColumnDef("REPS4").headerName = this.headerNamesREPS[4];
-            this.gridOptionsREPS.api.getColumnDef("REPS5").headerName = this.headerNamesREPS[5];
-            this.gridOptionsREPS.api.getColumnDef("REPS6").headerName = this.headerNamesREPS[6];
-            this.gridOptionsREPS.api.getColumnDef("REPS7").headerName = this.headerNamesREPS[7];
-            this.gridOptionsREPS.api.getColumnDef("REPS8").headerName = this.headerNamesREPS[8];
-            this.gridOptionsREPS.api.getColumnDef("REPS9").headerName = this.headerNamesREPS[9];
-            this.gridOptionsREPS.api.getColumnDef("REPS10").headerName = this.headerNamesREPS[10];
-            this.gridOptionsREPS.api.getColumnDef("REPS11").headerName = this.headerNamesREPS[11];
-            this.gridOptionsREPS.api.getColumnDef("REPS12").headerName = this.headerNamesREPS[12];
-            this.gridOptionsREPS.api.getColumnDef("REPS13").headerName = this.headerNamesREPS[13];
-            this.gridOptionsREPS.api.getColumnDef("REPS14").headerName = this.headerNamesREPS[14];
-            this.gridOptionsREPS.api.getColumnDef("REPS15").headerName = this.headerNamesREPS[15];
-            this.gridOptionsREPS.api.getColumnDef("REPS16").headerName = this.headerNamesREPS[16];
-            this.gridOptionsREPS.api.getColumnDef("REPS17").headerName = this.headerNamesREPS[17];
-            this.gridOptionsREPS.api.getColumnDef("REPS18").headerName = this.headerNamesREPS[18];
-            this.gridOptionsREPS.api.getColumnDef("REPS19").headerName = this.headerNamesREPS[19];
-            this.gridOptionsREPS.api.getColumnDef("REPS20").headerName = this.headerNamesREPS[20];
-            this.gridOptionsREPS.api.getColumnDef("REPS21").headerName = this.headerNamesREPS[21];
-            this.gridOptionsREPS.api.getColumnDef("REPS22").headerName = this.headerNamesREPS[22];
-            this.gridOptionsREPS.api.refreshHeader();
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT0").headerName = this.headerNamesPRODUCT[0];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT1").headerName = this.headerNamesPRODUCT[1];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT2").headerName = this.headerNamesPRODUCT[2];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT3").headerName = this.headerNamesPRODUCT[3];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT4").headerName = this.headerNamesPRODUCT[4];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT5").headerName = this.headerNamesPRODUCT[5];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT6").headerName = this.headerNamesPRODUCT[6];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT7").headerName = this.headerNamesPRODUCT[7];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT8").headerName = this.headerNamesPRODUCT[8];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT9").headerName = this.headerNamesPRODUCT[9];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT10").headerName = this.headerNamesPRODUCT[10];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT11").headerName = this.headerNamesPRODUCT[11];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT12").headerName = this.headerNamesPRODUCT[12];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT13").headerName = this.headerNamesPRODUCT[13];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT14").headerName = this.headerNamesPRODUCT[14];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT15").headerName = this.headerNamesPRODUCT[15];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT16").headerName = this.headerNamesPRODUCT[16];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT17").headerName = this.headerNamesPRODUCT[17];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT18").headerName = this.headerNamesPRODUCT[18];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT19").headerName = this.headerNamesPRODUCT[19];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT20").headerName = this.headerNamesPRODUCT[20];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT21").headerName = this.headerNamesPRODUCT[21];
-            this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT22").headerName = this.headerNamesPRODUCT[22];
-            this.gridOptionsPRODUCT.api.refreshHeader();
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            // =================================================================================================================
-            this.gridOptionsSCBE.api.getColumnDef("SCBE0").headerName = this.headerNamesSCBE[0];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE01").headerName = this.headerNamesSCBE[1];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE1").headerName = this.headerNamesSCBE[2];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE222").headerName = this.headerNamesSCBE[3];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE3").headerName = this.headerNamesSCBE[4];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE4").headerName = this.headerNamesSCBE[5];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE5").headerName = this.headerNamesSCBE[6];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE6").headerName = this.headerNamesSCBE[7];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE7").headerName = this.headerNamesSCBE[8];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE8").headerName = this.headerNamesSCBE[9];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE9").headerName = this.headerNamesSCBE[10];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE10").headerName = this.headerNamesSCBE[11];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE11").headerName = this.headerNamesSCBE[12];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE12").headerName = this.headerNamesSCBE[13];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE13").headerName = this.headerNamesSCBE[14];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE14").headerName = this.headerNamesSCBE[15];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE15").headerName = this.headerNamesSCBE[16];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE16").headerName = this.headerNamesSCBE[17];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE17").headerName = this.headerNamesSCBE[18];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE18").headerName = this.headerNamesSCBE[19];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE19").headerName = this.headerNamesSCBE[20];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE20").headerName = this.headerNamesSCBE[21];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE21").headerName = this.headerNamesSCBE[22];
-            this.gridOptionsSCBE.api.getColumnDef("SCBE22").headerName = this.headerNamesSCBE[23];
-            this.gridOptionsSCBE.api.refreshHeader();
         }
     };
 </script>
