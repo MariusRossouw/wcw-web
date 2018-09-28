@@ -73,6 +73,7 @@
                         }
                     })
                     .catch(error => {
+                        this.selectedFile = null;
                         console.log(error.response);
                     });
             },

@@ -30,7 +30,7 @@
                     <div class="uk-width-1-1@m">
                         <div class="uk-grid-small" uk-grid>
                             <div class="uk-width-1-1@m">
-                                <div class="uk-card-small uk-width-1-1">
+                                <div class="uk-card-small uk-width-1-1" style="margin-bottom: 100px;">
                                     <h3>Overall Sales Month to Date</h3>
                                     <div class="gridSize">
                                         <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptionsOMTD" :columnDefs="columnDefsOMTD" :rowData="rowDataOMTD">
@@ -38,7 +38,7 @@
                                     </div>
                                     <button class="uk-button uk-button-default" @click="onBtExportOMTD()">Export</button>
                                 </div>
-                                <div class="uk-card-small uk-width-1-1">
+                                <div class="uk-card-small uk-width-1-1" style="margin-bottom: 100px;">
                                     <h3>Overall Sales Year to Date</h3>
                                     <div class="gridSize">
                                         <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptionsOYTD" :columnDefs="columnDefsOYTD" :rowData="rowDataOYTD">
@@ -46,7 +46,7 @@
                                     </div>
                                     <button class="uk-button uk-button-default" @click="onBtExportOYTD()">Export</button>
                                 </div>
-                                <div class="uk-card-small uk-width-1-1">
+                                <div class="uk-card-small uk-width-1-1" style="margin-bottom: 100px;">
                                     <h3>Sales Channel Breakdown Province</h3>
                                     <div class="gridSize">
                                         <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptionsSCBD" :columnDefs="columnDefsSCBD" :rowData="rowDataSCBD">
@@ -54,7 +54,7 @@
                                     </div>
                                     <button class="uk-button uk-button-default" @click="onBtExportSCBD()">Export</button>
                                 </div>
-                                <div class="uk-card-small uk-width-1-1">
+                                <div class="uk-card-small uk-width-1-1" style="margin-bottom: 100px;">
                                     <h3>Sales Channel Breakdown Clients</h3>
                                     <div class="gridSize">
                                         <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptionsSCBD2" :columnDefs="columnDefsSCBD2" :rowData="rowDataSCBD2">
@@ -62,7 +62,7 @@
                                     </div>
                                     <button class="uk-button uk-button-default" @click="onBtExportSCBD2()">Export</button>
                                 </div>
-                                <div class="uk-card-small uk-width-1-1">
+                                <div class="uk-card-small uk-width-1-1" style="margin-bottom: 100px;">
                                     <h3>Rep Overview</h3>
                                     <div class="gridSize">
                                         <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptionsREPS" :columnDefs="columnDefsREPS" :rowData="rowDataREPS">
@@ -70,7 +70,15 @@
                                     </div>
                                     <button class="uk-button uk-button-default" @click="onBtExportREPS()">Export</button>
                                 </div>
-                                <!-- <div class="uk-card-small uk-width-1-1">
+                                <div class="uk-card-small uk-width-1-1" style="margin-bottom: 100px;">
+                                    <h3>Rep Excl Corp</h3>
+                                    <div class="gridSize">
+                                        <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptionsREPSE" :columnDefs="columnDefsREPSE" :rowData="rowDataREPSE">
+                                        </ag-grid-vue>
+                                    </div>
+                                    <button class="uk-button uk-button-default" @click="onBtExportREPSE()">Export</button>
+                                </div>
+                                <!-- <div class="uk-card-small uk-width-1-1" style="margin-bottom: 100px;">
                                     <h3>Sales Channel Breakdown</h3>
                                     <div class="gridSize">
                                         <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptionsOMTD" :columnDefs="columnDefsOMTD" :rowData="rowDataOMTD">
@@ -78,7 +86,7 @@
                                     </div>
                                     <button class="uk-button uk-button-default" @click="onBtExportOMTD()">Export</button>
                                 </div> -->
-                                <!-- <div class="uk-card-small uk-width-1-1">
+                                <!-- <div class="uk-card-small uk-width-1-1" style="margin-bottom: 100px;">
                                     <h3>Channel Overview</h3>
                                     <div class="gridSize">
                                         <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptionsOMTD" :columnDefs="columnDefsOMTD" :rowData="rowDataOMTD">
@@ -86,7 +94,7 @@
                                     </div>
                                     <button class="uk-button uk-button-default" @click="onBtExportOMTD()">Export</button>
                                 </div> -->
-                                <!-- <div class="uk-card-small uk-width-1-1">
+                                <!-- <div class="uk-card-small uk-width-1-1" style="margin-bottom: 100px;">
                                     <h3>Rep Overview - Excl Corp Sales</h3>
                                     <div class="gridSize">
                                         <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptionsREPS" :columnDefs="columnDefsREPS" :rowData="rowDataREPS">
@@ -94,7 +102,7 @@
                                     </div>
                                     <button class="uk-button uk-button-default" @click="onBtExportREPS()">Export</button>
                                 </div> -->
-                                <div class="uk-card-small uk-width-1-1">
+                                <div class="uk-card-small uk-width-1-1" style="margin-bottom: 100px;">
                                     <h3>Product Report</h3>
                                     <div class="gridSize">
                                         <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptionsPRODUCT" :columnDefs="columnDefsPRODUCT" :rowData="rowDataPRODUCT">
@@ -102,7 +110,7 @@
                                     </div>
                                     <button class="uk-button uk-button-default" @click="onBtExportPRODUCT()">Export</button>
                                 </div>
-                                <div class="uk-card-small uk-width-1-1">
+                                <div class="uk-card-small uk-width-1-1" style="margin-bottom: 100px;">
                                     <h3>Sales Channel Breakdown - EXPORT</h3>
                                     <div class="gridSize">
                                         <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptionsSCBE" :columnDefs="columnDefsSCBE" :rowData="rowDataSCBE">
@@ -144,6 +152,8 @@
         },
         data() {
             return {
+                new_month: null,
+                new_year: null,
                 year: "",
                 month: "",
                 year_list: [{
@@ -229,6 +239,7 @@
                 headerNamesSCBD: ["CHANNELS", "PROVINCE", "Sep18", "Sep17", "VAR(%)", "VAR(R)", "BSep18", "VAR(%)", "VAR(R)", "ACTUAL", "CSep18", "CSep17", "VAR(%)", "VAR(C)", "LASTYEAR", "VAR(%)", "VAR(R)", "BUDGET", "VAR(%)", "VAR(R)", "C2018/2019", "C2017/2018", "VAR(%)", "VAR(C)"],
                 headerNamesSCBD2: ["CHANNELS", "Merchant Group", "Sep18", "Sep17", "VAR(%)", "VAR(R)", "BSep18", "VAR(%)", "VAR(R)", "ACTUAL", "CSep18", "CSep17", "VAR(%)", "VAR(C)", "LASTYEAR", "VAR(%)", "VAR(R)", "BUDGET", "VAR(%)", "VAR(R)", "C2018/2019", "C2017/2018", "VAR(%)", "VAR(C)"],
                 headerNamesREPS: ["REPS", "Sep18", "Sep17", "VAR(%)", "VAR(R)", "BSep18", "VAR(%)", "VAR(R)", "ACTUAL", "CSep18", "CSep17", "VAR(%)", "VAR(C)", "LASTYEAR", "VAR(%)", "VAR(R)", "BUDGET", "VAR(%)", "VAR(R)", "C2018/2019", "C2017/2018", "VAR(%)", "VAR(C)"],
+                headerNamesREPSE: ["REPS", "Sep18", "Sep17", "VAR(%)", "VAR(R)", "BSep18", "VAR(%)", "VAR(R)", "ACTUAL", "CSep18", "CSep17", "VAR(%)", "VAR(C)", "LASTYEAR", "VAR(%)", "VAR(R)", "BUDGET", "VAR(%)", "VAR(R)", "C2018/2019", "C2017/2018", "VAR(%)", "VAR(C)"],
                 headerNamesPRODUCT: ["PRODUCT", "Sep18", "Sep17", "VAR(%)", "VAR(R)", "BSep18", "VAR(%)", "VAR(R)", "ACTUAL", "CSep18", "CSep17", "VAR(%)", "VAR(C)", "LASTYEAR", "VAR(%)", "VAR(R)", "BUDGET", "VAR(%)", "VAR(R)", "C2018/2019", "C2017/2018", "VAR(%)", "VAR(C)"],
                 headerNamesSCBE: ["CLIENT", "Merchant Group", "Sep18", "Sep17", "VAR(%)", "VAR(R)", "BSep18", "VAR(%)", "VAR(R)", "ACTUAL", "CSep18", "CSep17", "VAR(%)", "VAR(C)", "LASTYEAR", "VAR(%)", "VAR(R)", "BUDGET", "VAR(%)", "VAR(R)", "C2018/2019", "C2017/2018", "VAR(%)", "VAR(C)"],
                 // =================================================================================================================
@@ -241,6 +252,7 @@
                 rowDataSCBD: [],
                 rowDataSCBD2: [],
                 rowDataREPS: [],
+                rowDataREPSE: [],
                 rowDataPRODUCT: [],
                 rowDataSCBE: [],
                 // =================================================================================================================
@@ -283,6 +295,9 @@
                     // floatingFilter: true,
                     onGridReady: function(params) {
                         params.api.sizeColumnsToFit();
+                    },
+                    rowClassRules: {
+                        'blue-class': function(params) { return params.data.code === 'Total'}
                     }
                 },
                 gridOptionsSCBD: {
@@ -300,6 +315,9 @@
                     // floatingFilter: true,
                     onGridReady: function(params) {
                         params.api.sizeColumnsToFit();
+                    },
+                    rowClassRules: {
+                        'blue-class': function(params) { return params.data.code.substring(0, 5) === 'Total'}
                     }
                 },
                 gridOptionsSCBD2: {
@@ -317,9 +335,29 @@
                     // floatingFilter: true,
                     onGridReady: function(params) {
                         params.api.sizeColumnsToFit();
+                    },
+                    rowClassRules: {
+                        'blue-class': function(params) { return params.data.code.substring(0, 5) === 'Total'}
                     }
                 },
                 gridOptionsREPS: {
+                    defaultColDef: {
+                        // allow every column to be aggregated
+                        enableValue: true,
+                        // allow every column to be grouped
+                        enableRowGroup: true,
+                        // allow every column to be pivoted
+                        enablePivot: true,
+                    },
+                    // onRowDoubleClicked: this.openProfile,
+                    suppressPropertyNamesCheck: true,
+                    enableColResize: true,
+                    // floatingFilter: true,
+                    onGridReady: function(params) {
+                        params.api.sizeColumnsToFit();
+                    }
+                },
+                gridOptionsREPSE: {
                     defaultColDef: {
                         // allow every column to be aggregated
                         enableValue: true,
@@ -368,6 +406,9 @@
                     // floatingFilter: true,
                     onGridReady: function(params) {
                         params.api.sizeColumnsToFit();
+                    },
+                    rowClassRules: {
+                        'blue-class': function(params) { return params.data.code.substring(0, 5) === 'Total'}
                     }
                 },
                 // =================================================================================================================
@@ -467,6 +508,7 @@
                         headerName: "VAR(R)",
                         // field: "blend",
                         colId: "OMTD7",
+                        valueFormatter: this.currencyFormatter,
                         valueGetter: function varMBFunction(params) {
                             return (params.data.m1sale - params.data.m1budget).toFixed(2);
                         },
@@ -626,6 +668,7 @@
                         headerName: "VAR(R)",
                         // field: "blend",
                         colId: "OYTD7",
+                        valueFormatter: this.currencyFormatter,
                         valueGetter: function varMBFunction(params) {
                             return (params.data.y1sale - params.data.y1budget).toFixed(2);
                         },
@@ -793,6 +836,7 @@
                         headerName: "VAR(R)",
                         // field: "blend",
                         colId: "SCBD7",
+                        valueFormatter: this.currencyFormatter,
                         valueGetter: function varMBFunction(params) {
                             return (params.data.m1sale - params.data.m1budget).toFixed(2);
                         },
@@ -855,7 +899,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Sale",
+                        headerName: "Year1Sale",
                         field: "y1sale",
                         minWidth: 90,
                         colId: "SCBD12",
@@ -867,7 +911,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: "Month2Sale",
+                        headerName: "Year2Sale",
                         field: "y2sale",
                         colId: "SCBD13",
                         minWidth: 90,
@@ -909,7 +953,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Budget",
+                        headerName: "Year1Budget",
                         field: "y1budget",
                         colId: "SCBD16",
                         minWidth: 90,
@@ -939,6 +983,7 @@
                         headerName: "VAR(R)",
                         // field: "blend",
                         colId: "SCBD18",
+                        valueFormatter: this.currencyFormatter,
                         valueGetter: function varMBFunction(params) {
                             return (params.data.y1sale - params.data.y1budget).toFixed(2);
                         },
@@ -950,7 +995,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Cases",
+                        headerName: "Year1Cases",
                         field: "y1cases",
                         colId: "SCBD19",
                         minWidth: 90,
@@ -961,7 +1006,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month2Cases",
+                        headerName: "Year2Cases",
                         field: "y2cases",
                         colId: "SCBD20",
                         minWidth: 90,
@@ -1007,15 +1052,15 @@
                 // =================================================================================================================
                 // =================================================================================================================
                 columnDefsSCBD2: [{
-                        headerName: "Merchant Group",
-                        field: "merchant_group",
+                        headerName: "Code",
+                        field: "code",
                         colId: "SCBD20",
                         minWidth: 120,
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Province",
-                        field: "province",
+                        headerName: "Merchant Group",
+                        field: "merchant_group",
                         minWidth: 90,
                         colId: "SCBD201",
                         headerClass: 'resizable-header',
@@ -1106,6 +1151,7 @@
                         headerName: "VAR(R)",
                         // field: "blend",
                         colId: "SCBD27",
+                        valueFormatter: this.currencyFormatter,
                         valueGetter: function varMBFunction(params) {
                             return (params.data.m1sale - params.data.m1budget).toFixed(2);
                         },
@@ -1168,7 +1214,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Sale",
+                        headerName: "Year1Sale",
                         field: "y1sale",
                         minWidth: 90,
                         colId: "SCBD212",
@@ -1180,7 +1226,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: "Month2Sale",
+                        headerName: "Year2Sale",
                         field: "y2sale",
                         colId: "SCBD213",
                         minWidth: 90,
@@ -1222,7 +1268,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Budget",
+                        headerName: "Year1Budget",
                         field: "y1budget",
                         colId: "SCBD216",
                         minWidth: 90,
@@ -1252,6 +1298,7 @@
                         headerName: "VAR(R)",
                         // field: "blend",
                         colId: "SCBD218",
+                        valueFormatter: this.currencyFormatter,
                         valueGetter: function varMBFunction(params) {
                             return (params.data.y1sale - params.data.y1budget).toFixed(2);
                         },
@@ -1263,7 +1310,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Cases",
+                        headerName: "Year1Cases",
                         field: "y1cases",
                         colId: "SCBD219",
                         minWidth: 90,
@@ -1274,7 +1321,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month2Cases",
+                        headerName: "Year2Cases",
                         field: "y2cases",
                         colId: "SCBD220",
                         minWidth: 90,
@@ -1321,7 +1368,7 @@
                 // =================================================================================================================
                 columnDefsREPS: [{
                         headerName: "REPS",
-                        field: "reps",
+                        field: "rep",
                         colId: "REPS0",
                         minWidth: 120,
                         headerClass: 'resizable-header'
@@ -1411,6 +1458,7 @@
                         headerName: "VAR(R)",
                         // field: "blend",
                         colId: "REPS7",
+                        valueFormatter: this.currencyFormatter,
                         valueGetter: function varMBFunction(params) {
                             return (params.data.m1sale - params.data.m1budget).toFixed(2);
                         },
@@ -1473,7 +1521,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Sale",
+                        headerName: "Year1Sale",
                         field: "y1sale",
                         minWidth: 90,
                         colId: "REPS12",
@@ -1485,7 +1533,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: "Month2Sale",
+                        headerName: "Year2Sale",
                         field: "y2sale",
                         colId: "REPS13",
                         minWidth: 90,
@@ -1527,7 +1575,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Budget",
+                        headerName: "Year1Budget",
                         field: "y1budget",
                         colId: "REPS16",
                         minWidth: 90,
@@ -1557,6 +1605,7 @@
                         headerName: "VAR(R)",
                         // field: "blend",
                         colId: "REPS18",
+                        valueFormatter: this.currencyFormatter,
                         valueGetter: function varMBFunction(params) {
                             return (params.data.y1sale - params.data.y1budget).toFixed(2);
                         },
@@ -1568,7 +1617,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Cases",
+                        headerName: "Year1Cases",
                         field: "y1cases",
                         colId: "REPS19",
                         minWidth: 90,
@@ -1579,7 +1628,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month2Cases",
+                        headerName: "Year2Cases",
                         field: "y2cases",
                         colId: "REPS20",
                         minWidth: 90,
@@ -1608,6 +1657,313 @@
                         headerName: "VAR(C)",
                         // field: "blend",
                         colId: "REPS22",
+                        valueGetter: function varMCFunction(params) {
+                            return (params.data.y1cases - params.data.y2cases).toFixed(2);
+                        },
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    }
+                ],
+                // =================================================================================================================
+                // =================================================================================================================
+                // =================================================================================================================
+                // =================================================================================================================
+                // =================================================================================================================
+                columnDefsREPSE: [{
+                        headerName: "REPSE",
+                        field: "rep",
+                        colId: "REPSE0",
+                        minWidth: 120,
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "Month1Sale",
+                        field: "m1sale",
+                        minWidth: 90,
+                        colId: "REPSE1",
+                        headerClass: 'resizable-header',
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        valueFormatter: this.currencyFormatter
+                    },
+                    {
+                        headerName: "Month2Sale",
+                        field: "m2sale",
+                        colId: "REPSE2",
+                        minWidth: 90,
+                        headerClass: 'resizable-header',
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        valueFormatter: this.currencyFormatter
+                    },
+                    {
+                        headerName: " % of LY M",
+                        // field: "blend",
+                        colId: "REPSE3",
+                        valueFormatter: this.percentageFormatter,
+                        valueGetter: function percLYMFunction(params) {
+                            return ((params.data.m1sale / params.data.m2sale) * 100).toFixed(2);
+                        },
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "VAR(R)",
+                        // field: "blend",
+                        colId: "REPSE4",
+                        valueFormatter: this.currencyFormatter,
+                        valueGetter: function varLYMFunction(params) {
+                            return (params.data.m1sale - params.data.m2sale).toFixed(2);
+                        },
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "Month1Budget",
+                        field: "m1budget",
+                        colId: "REPSE5",
+                        minWidth: 90,
+                        headerClass: 'resizable-header',
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        valueFormatter: this.currencyFormatter
+                    },
+                    {
+                        headerName: "% of M B",
+                        // field: "blend",
+                        colId: "REPSE6",
+                        valueFormatter: this.percentageFormatter,
+                        valueGetter: function percMBFunction(params) {
+                            return ((params.data.m1sale / params.data.m1budget) * 100).toFixed(2);
+                        },
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "VAR(R)",
+                        // field: "blend",
+                        colId: "REPSE7",
+                        valueFormatter: this.currencyFormatter,
+                        valueGetter: function varMBFunction(params) {
+                            return (params.data.m1sale - params.data.m1budget).toFixed(2);
+                        },
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "Month1Cases",
+                        field: "m1cases",
+                        colId: "REPSE8",
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "Month2Cases",
+                        field: "m2cases",
+                        colId: "REPSE9",
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "% of LY M",
+                        // field: "blend",
+                        colId: "REPSE10",
+                        valueFormatter: this.percentageFormatter,
+                        valueGetter: function percLYMCFunction(params) {
+                            return ((params.data.m1cases / params.data.m2cases) * 100).toFixed(2);
+                        },
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "VAR(C)",
+                        // field: "blend",
+                        colId: "REPSE11",
+                        valueGetter: function varMCFunction(params) {
+                            return (params.data.m1cases - params.data.m2cases).toFixed(2);
+                        },
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "Year1Sale",
+                        field: "y1sale",
+                        minWidth: 90,
+                        colId: "REPSE12",
+                        headerClass: 'resizable-header',
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        valueFormatter: this.currencyFormatter
+                    },
+                    {
+                        headerName: "Year2Sale",
+                        field: "y2sale",
+                        colId: "REPSE13",
+                        minWidth: 90,
+                        headerClass: 'resizable-header',
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        valueFormatter: this.currencyFormatter
+                    },
+                    {
+                        headerName: " % of LY M",
+                        // field: "blend",
+                        colId: "REPSE14",
+                        valueFormatter: this.percentageFormatter,
+                        valueGetter: function percLYMFunction(params) {
+                            return ((params.data.y1sale / params.data.y2sale) * 100).toFixed(2);
+                        },
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "VAR(R)",
+                        // field: "blend",
+                        colId: "REPSE15",
+                        valueFormatter: this.currencyFormatter,
+                        valueGetter: function varLYMFunction(params) {
+                            return (params.data.y1sale - params.data.y2sale).toFixed(2);
+                        },
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "Year1Budget",
+                        field: "y1budget",
+                        colId: "REPSE16",
+                        minWidth: 90,
+                        headerClass: 'resizable-header',
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        valueFormatter: this.currencyFormatter
+                    },
+                    {
+                        headerName: "% of M B",
+                        // field: "blend",
+                        colId: "REPSE17",
+                        valueFormatter: this.percentageFormatter,
+                        valueGetter: function percMBFunction(params) {
+                            return ((params.data.y1sale / params.data.y1budget) * 100).toFixed(2);
+                        },
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "VAR(R)",
+                        // field: "blend",
+                        colId: "REPSE18",
+                        valueFormatter: this.currencyFormatter,
+                        valueGetter: function varMBFunction(params) {
+                            return (params.data.y1sale - params.data.y1budget).toFixed(2);
+                        },
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "Year1Cases",
+                        field: "y1cases",
+                        colId: "REPSE19",
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "Year2Cases",
+                        field: "y2cases",
+                        colId: "REPSE20",
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "% of LY M",
+                        // field: "blend",
+                        colId: "REPSE21",
+                        valueFormatter: this.percentageFormatter,
+                        valueGetter: function percLYMCFunction(params) {
+                            return ((params.data.y1cases / params.data.y2cases) * 100).toFixed(2);
+                        },
+                        minWidth: 90,
+                        cellClass: 'number-cell',
+                        cellStyle: {
+                            textAlign: "right"
+                        },
+                        headerClass: 'resizable-header'
+                    },
+                    {
+                        headerName: "VAR(C)",
+                        // field: "blend",
+                        colId: "REPSE22",
                         valueGetter: function varMCFunction(params) {
                             return (params.data.y1cases - params.data.y2cases).toFixed(2);
                         },
@@ -1716,6 +2072,7 @@
                         headerName: "VAR(R)",
                         // field: "blend",
                         colId: "PRODUCT7",
+                        valueFormatter: this.currencyFormatter,
                         valueGetter: function varMBFunction(params) {
                             return (params.data.m1sale - params.data.m1budget).toFixed(2);
                         },
@@ -1778,7 +2135,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Sale",
+                        headerName: "Year1Sale",
                         field: "y1sale",
                         minWidth: 90,
                         colId: "PRODUCT12",
@@ -1790,7 +2147,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: "Month2Sale",
+                        headerName: "Year2Sale",
                         field: "y2sale",
                         colId: "PRODUCT13",
                         minWidth: 90,
@@ -1832,7 +2189,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Budget",
+                        headerName: "Year1Budget",
                         field: "y1budget",
                         colId: "PRODUCT16",
                         minWidth: 90,
@@ -1862,6 +2219,7 @@
                         headerName: "VAR(R)",
                         // field: "blend",
                         colId: "PRODUCT18",
+                        valueFormatter: this.currencyFormatter,
                         valueGetter: function varMBFunction(params) {
                             return (params.data.y1sale - params.data.y1budget).toFixed(2);
                         },
@@ -1873,7 +2231,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Cases",
+                        headerName: "Year1Cases",
                         field: "y1cases",
                         colId: "PRODUCT19",
                         minWidth: 90,
@@ -1884,7 +2242,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month2Cases",
+                        headerName: "Year2Cases",
                         field: "y2cases",
                         colId: "PRODUCT20",
                         minWidth: 90,
@@ -1930,15 +2288,15 @@
                 // =================================================================================================================
                 // =================================================================================================================
                 columnDefsSCBE: [{
-                        headerName: "Merchant Group",
-                        field: "merchant_group",
+                        headerName: "CHANNELS",
+                        field: "code",
                         colId: "SCBE0",
                         minWidth: 120,
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Province",
-                        field: "province",
+                        headerName: "Merchant Group",
+                        field: "merchant_group",
                         minWidth: 90,
                         colId: "SCBE01",
                         headerClass: 'resizable-header',
@@ -2029,6 +2387,7 @@
                         headerName: "VAR(R)",
                         // field: "blend",
                         colId: "SCBE7",
+                        valueFormatter: this.currencyFormatter,
                         valueGetter: function varMBFunction(params) {
                             return (params.data.m1sale - params.data.m1budget).toFixed(2);
                         },
@@ -2091,7 +2450,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Sale",
+                        headerName: "Year1Sale",
                         field: "y1sale",
                         minWidth: 90,
                         colId: "SCBE12",
@@ -2103,7 +2462,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: "Month2Sale",
+                        headerName: "Year2Sale",
                         field: "y2sale",
                         colId: "SCBE13",
                         minWidth: 90,
@@ -2145,7 +2504,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Budget",
+                        headerName: "Year1Budget",
                         field: "y1budget",
                         colId: "SCBE16",
                         minWidth: 90,
@@ -2175,6 +2534,7 @@
                         headerName: "VAR(R)",
                         // field: "blend",
                         colId: "SCBE18",
+                        valueFormatter: this.currencyFormatter,
                         valueGetter: function varMBFunction(params) {
                             return (params.data.y1sale - params.data.y1budget).toFixed(2);
                         },
@@ -2186,7 +2546,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month1Cases",
+                        headerName: "Year1Cases",
                         field: "y1cases",
                         colId: "SCBE19",
                         minWidth: 90,
@@ -2197,7 +2557,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "Month2Cases",
+                        headerName: "Year2Cases",
                         field: "y2cases",
                         colId: "SCBE20",
                         minWidth: 90,
@@ -2264,6 +2624,7 @@
                 this.loadReportSCBD();
                 this.loadReportSCBD2();
                 this.loadReportREPS();
+                this.loadReportREPSE();
                 this.loadReportPRODUCT();
                 this.loadReportSCBE();
             },
@@ -2394,90 +2755,35 @@
                 axios.post(this.$store.state.api_url + '/report_scbd', request)
                 .then(response => {
                     console.log(response);
-                    var o = {
-                        code: "Total",
-                        province: "",
-                        m1sale: 0,
-                        m2sale: 0,
-                        m1budget: 0,
-                        m1cases: 0,
-                        m2cases: 0,
-                        y1sale: 0,
-                        y2sale: 0,
-                        y1budget: 0,
-                        y1cases: 0,
-                        y2cases: 0
-                    }
-                    for(var i = 0; i < response.data.data.rowDataSCBD.length; i++){
-                        let prov = response.data.data.rowDataSCBD[i].province;
-                        if(i === 0){ //first
-                            o.province = response.data.data.rowDataSCBD[i].province;
-                            o.m1sale = response.data.data.rowDataSCBD[i].m1sale;
-                            o.m2sale = response.data.data.rowDataSCBD[i].m2sale;
-                            o.m1budget = response.data.data.rowDataSCBD[i].m1budget;
-                            o.m1cases = response.data.data.rowDataSCBD[i].m1cases;
-                            o.m2cases = response.data.data.rowDataSCBD[i].m2cases;
-                            o.y1sale = response.data.data.rowDataSCBD[i].y1sale;
-                            o.y2sale = response.data.data.rowDataSCBD[i].y2sale;
-                            o.y1budget = response.data.data.rowDataSCBD[i].y1budget;
-                            o.y1cases = response.data.data.rowDataSCBD[i].y1cases;
-                            o.y2cases = response.data.data.rowDataSCBD[i].y2cases;
-                        }else if(o.province === response.data.data.rowDataSCBD[i].province){ //second
-                            o.m1sale = o.m1sale + response.data.data.rowDataSCBD[i].m1sale;
-                            o.m2sale = o.m2sale + response.data.data.rowDataSCBD[i].m2sale;
-                            o.m1budget = o.m1budget + response.data.data.rowDataSCBD[i].m1budget;
-                            o.m1cases = o.m1cases + response.data.data.rowDataSCBD[i].m1cases;
-                            o.m2cases = o.m2cases + response.data.data.rowDataSCBD[i].m2cases;
-                            o.y1sale = o.y1sale + response.data.data.rowDataSCBD[i].y1sale;
-                            o.y2sale = o.y2sale + response.data.data.rowDataSCBD[i].y2sale;
-                            o.y1budget = o.y1budget + response.data.data.rowDataSCBD[i].y1budget;
-                            o.y1cases = o.y1cases + response.data.data.rowDataSCBD[i].y1cases;
-                            o.y2cases = o.y2cases + response.data.data.rowDataSCBD[i].y2cases;
-                        } else { // insert and start over with totals
-                            response.data.data.rowDataSCBD.slice( i, 0, o);
-                            i++;
-                            o.province = response.data.data.rowDataSCBD[i].province;
-                            o.m1sale = response.data.data.rowDataSCBD[i].m1sale;
-                            o.m2sale = response.data.data.rowDataSCBD[i].m2sale;
-                            o.m1budget = response.data.data.rowDataSCBD[i].m1budget;
-                            o.m1cases = response.data.data.rowDataSCBD[i].m1cases;
-                            o.m2cases = response.data.data.rowDataSCBD[i].m2cases;
-                            o.y1sale = response.data.data.rowDataSCBD[i].y1sale;
-                            o.y2sale = response.data.data.rowDataSCBD[i].y2sale;
-                            o.y1budget = response.data.data.rowDataSCBD[i].y1budget;
-                            o.y1cases = response.data.data.rowDataSCBD[i].y1cases;
-                            o.y2cases = response.data.data.rowDataSCBD[i].y2cases;
-                        }
-                    }
-                    response.data.data.rowDataSCBD.push(o);
                     this.gridOptionsSCBD.api.setColumnDefs(this.columnDefsSCBD);
                     this.gridOptionsSCBD.api.setRowData(response.data.data.rowDataSCBD);
                     this.rowDataSCBD = response.data.data.rowDataSCBD;
                     this.headerNamesSCBD = response.data.data.headerNamesSCBD;
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD0").headerName = this.headerNamesSCBD[0];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD01").headerName = this.headerNamesSCBD[1];
+                    // ["CHANNELS", "PROVINCE", "Sep18", "Sep17", "VAR(%)", "VAR(R)", "BSep18", "VAR(%)", "VAR(R)", "ACTUAL", "CSep18", "CSep17", "VAR(%)", "VAR(C)", "2018/2019", "2017/2018", "VAR(%)", "VAR(R)", "BUDGET", "VAR(%)", "VAR(R)", "C2018/2019", "C2017/2018", "VAR(%)", "VAR(C)"],
+                    // this.gridOptionsSCBD.api.getColumnDef("SCBD0").headerName = this.headerNamesSCBD[0];
+                    // this.gridOptionsSCBD.api.getColumnDef("SCBD01").headerName = this.headerNamesSCBD[1];
                     this.gridOptionsSCBD.api.getColumnDef("SCBD1").headerName = this.headerNamesSCBD[2];
                     this.gridOptionsSCBD.api.getColumnDef("SCBD2").headerName = this.headerNamesSCBD[3];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD3").headerName = this.headerNamesSCBD[4];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD4").headerName = this.headerNamesSCBD[5];
+                    // this.gridOptionsSCBD.api.getColumnDef("SCBD3").headerName = this.headerNamesSCBD[4];
+                    // this.gridOptionsSCBD.api.getColumnDef("SCBD4").headerName = this.headerNamesSCBD[5];
                     this.gridOptionsSCBD.api.getColumnDef("SCBD5").headerName = this.headerNamesSCBD[6];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD6").headerName = this.headerNamesSCBD[7];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD7").headerName = this.headerNamesSCBD[8];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD8").headerName = this.headerNamesSCBD[9];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD9").headerName = this.headerNamesSCBD[10];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD10").headerName = this.headerNamesSCBD[11];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD11").headerName = this.headerNamesSCBD[12];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD12").headerName = this.headerNamesSCBD[13];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD13").headerName = this.headerNamesSCBD[14];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD14").headerName = this.headerNamesSCBD[15];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD15").headerName = this.headerNamesSCBD[16];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD16").headerName = this.headerNamesSCBD[17];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD17").headerName = this.headerNamesSCBD[18];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD18").headerName = this.headerNamesSCBD[19];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD19").headerName = this.headerNamesSCBD[20];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD20").headerName = this.headerNamesSCBD[21];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD21").headerName = this.headerNamesSCBD[22];
-                    this.gridOptionsSCBD.api.getColumnDef("SCBD22").headerName = this.headerNamesSCBD[23];
+                    // this.gridOptionsSCBD.api.getColumnDef("SCBD6").headerName = this.headerNamesSCBD[7];
+                    // this.gridOptionsSCBD.api.getColumnDef("SCBD7").headerName = this.headerNamesSCBD[8];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD8").headerName = this.headerNamesSCBD[11];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD9").headerName = this.headerNamesSCBD[12];
+                    // this.gridOptionsSCBD.api.getColumnDef("SCBD10").headerName = this.headerNamesSCBD[11];
+                    // this.gridOptionsSCBD.api.getColumnDef("SCBD11").headerName = this.headerNamesSCBD[12];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD12").headerName = this.headerNamesSCBD[15];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD13").headerName = this.headerNamesSCBD[16];
+                    // this.gridOptionsSCBD.api.getColumnDef("SCBD14").headerName = this.headerNamesSCBD[15];
+                    // this.gridOptionsSCBD.api.getColumnDef("SCBD15").headerName = this.headerNamesSCBD[16];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD16").headerName = this.headerNamesSCBD[19];
+                    // this.gridOptionsSCBD.api.getColumnDef("SCBD17").headerName = this.headerNamesSCBD[18];
+                    // this.gridOptionsSCBD.api.getColumnDef("SCBD18").headerName = this.headerNamesSCBD[19];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD19").headerName = this.headerNamesSCBD[22];
+                    this.gridOptionsSCBD.api.getColumnDef("SCBD20").headerName = this.headerNamesSCBD[23];
+                    // this.gridOptionsSCBD.api.getColumnDef("SCBD21").headerName = this.headerNamesSCBD[22];
+                    // this.gridOptionsSCBD.api.getColumnDef("SCBD22").headerName = this.headerNamesSCBD[23];
                     this.gridOptionsSCBD.api.refreshHeader();
                 })
                 .catch(error => {
@@ -2504,90 +2810,34 @@
                 axios.post(this.$store.state.api_url + '/report_scbd2', request)
                 .then(response => {
                     console.log(response);
-                    var o = {
-                        code: "Total",
-                        merchant_group: "",
-                        m1sale: 0,
-                        m2sale: 0,
-                        m1budget: 0,
-                        m1cases: 0,
-                        m2cases: 0,
-                        y1sale: 0,
-                        y2sale: 0,
-                        y1budget: 0,
-                        y1cases: 0,
-                        y2cases: 0
-                    }
-                    for(var i = 0; i < response.data.data.rowDataSCBD2.length; i++){
-                        let prov = response.data.data.rowDataSCBD2[i].merchant_group;
-                        if(i === 0){ //first
-                            o.merchant_group = response.data.data.rowDataSCBD2[i].merchant_group;
-                            o.m1sale = response.data.data.rowDataSCBD2[i].m1sale;
-                            o.m2sale = response.data.data.rowDataSCBD2[i].m2sale;
-                            o.m1budget = response.data.data.rowDataSCBD2[i].m1budget;
-                            o.m1cases = response.data.data.rowDataSCBD2[i].m1cases;
-                            o.m2cases = response.data.data.rowDataSCBD2[i].m2cases;
-                            o.y1sale = response.data.data.rowDataSCBD2[i].y1sale;
-                            o.y2sale = response.data.data.rowDataSCBD2[i].y2sale;
-                            o.y1budget = response.data.data.rowDataSCBD2[i].y1budget;
-                            o.y1cases = response.data.data.rowDataSCBD2[i].y1cases;
-                            o.y2cases = response.data.data.rowDataSCBD2[i].y2cases;
-                        }else if(o.merchant_group === response.data.data.rowDataSCBD2[i].merchant_group){ //second
-                            o.m1sale = o.m1sale + response.data.data.rowDataSCBD2[i].m1sale;
-                            o.m2sale = o.m2sale + response.data.data.rowDataSCBD2[i].m2sale;
-                            o.m1budget = o.m1budget + response.data.data.rowDataSCBD2[i].m1budget;
-                            o.m1cases = o.m1cases + response.data.data.rowDataSCBD2[i].m1cases;
-                            o.m2cases = o.m2cases + response.data.data.rowDataSCBD2[i].m2cases;
-                            o.y1sale = o.y1sale + response.data.data.rowDataSCBD2[i].y1sale;
-                            o.y2sale = o.y2sale + response.data.data.rowDataSCBD2[i].y2sale;
-                            o.y1budget = o.y1budget + response.data.data.rowDataSCBD2[i].y1budget;
-                            o.y1cases = o.y1cases + response.data.data.rowDataSCBD2[i].y1cases;
-                            o.y2cases = o.y2cases + response.data.data.rowDataSCBD2[i].y2cases;
-                        } else { // insert and start over with totals
-                            response.data.data.rowDataSCBD2.slice( i, 0, o);
-                            i++;
-                            o.merchant_group = response.data.data.rowDataSCBD2[i].merchant_group;
-                            o.m1sale = response.data.data.rowDataSCBD2[i].m1sale;
-                            o.m2sale = response.data.data.rowDataSCBD2[i].m2sale;
-                            o.m1budget = response.data.data.rowDataSCBD2[i].m1budget;
-                            o.m1cases = response.data.data.rowDataSCBD2[i].m1cases;
-                            o.m2cases = response.data.data.rowDataSCBD2[i].m2cases;
-                            o.y1sale = response.data.data.rowDataSCBD2[i].y1sale;
-                            o.y2sale = response.data.data.rowDataSCBD2[i].y2sale;
-                            o.y1budget = response.data.data.rowDataSCBD2[i].y1budget;
-                            o.y1cases = response.data.data.rowDataSCBD2[i].y1cases;
-                            o.y2cases = response.data.data.rowDataSCBD2[i].y2cases;
-                        }
-                    }
-                    response.data.data.rowDataSCBD2.push(o);
                     this.gridOptionsSCBD2.api.setColumnDefs(this.columnDefsSCBD2);
                     this.gridOptionsSCBD2.api.setRowData(response.data.data.rowDataSCBD2);
                     this.rowDataSCBD2 = response.data.data.rowDataSCBD2;
                     this.headerNamesSCBD2 = response.data.data.headerNamesSCBD2;
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD20").headerName = this.headerNamesSCBD2[0];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD201").headerName = this.headerNamesSCBD2[1];
+                    // this.gridOptionsSCBD2.api.getColumnDef("SCBD20").headerName = this.headerNamesSCBD2[0];
+                    // this.gridOptionsSCBD2.api.getColumnDef("SCBD201").headerName = this.headerNamesSCBD2[1];
                     this.gridOptionsSCBD2.api.getColumnDef("SCBD21").headerName = this.headerNamesSCBD2[2];
                     this.gridOptionsSCBD2.api.getColumnDef("SCBD2222").headerName = this.headerNamesSCBD2[3];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD23").headerName = this.headerNamesSCBD2[4];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD24").headerName = this.headerNamesSCBD2[5];
+                    // this.gridOptionsSCBD2.api.getColumnDef("SCBD23").headerName = this.headerNamesSCBD2[4];
+                    // this.gridOptionsSCBD2.api.getColumnDef("SCBD24").headerName = this.headerNamesSCBD2[5];
                     this.gridOptionsSCBD2.api.getColumnDef("SCBD25").headerName = this.headerNamesSCBD2[6];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD26").headerName = this.headerNamesSCBD2[7];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD27").headerName = this.headerNamesSCBD2[8];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD28").headerName = this.headerNamesSCBD2[9];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD29").headerName = this.headerNamesSCBD2[10];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD210").headerName = this.headerNamesSCBD2[11];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD211").headerName = this.headerNamesSCBD2[12];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD212").headerName = this.headerNamesSCBD2[13];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD213").headerName = this.headerNamesSCBD2[14];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD214").headerName = this.headerNamesSCBD2[15];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD215").headerName = this.headerNamesSCBD2[16];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD216").headerName = this.headerNamesSCBD2[17];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD217").headerName = this.headerNamesSCBD2[18];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD218").headerName = this.headerNamesSCBD2[19];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD219").headerName = this.headerNamesSCBD2[20];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD220").headerName = this.headerNamesSCBD2[21];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD221").headerName = this.headerNamesSCBD2[22];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD222").headerName = this.headerNamesSCBD2[23];
+                    // this.gridOptionsSCBD2.api.getColumnDef("SCBD26").headerName = this.headerNamesSCBD2[7];
+                    // this.gridOptionsSCBD2.api.getColumnDef("SCBD27").headerName = this.headerNamesSCBD2[8];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD28").headerName = this.headerNamesSCBD2[11];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD29").headerName = this.headerNamesSCBD2[12];
+                    // this.gridOptionsSCBD2.api.getColumnDef("SCBD210").headerName = this.headerNamesSCBD2[11];
+                    // this.gridOptionsSCBD2.api.getColumnDef("SCBD211").headerName = this.headerNamesSCBD2[12];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD212").headerName = this.headerNamesSCBD2[15];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD213").headerName = this.headerNamesSCBD2[16];
+                    // this.gridOptionsSCBD2.api.getColumnDef("SCBD214").headerName = this.headerNamesSCBD2[15];
+                    // this.gridOptionsSCBD2.api.getColumnDef("SCBD215").headerName = this.headerNamesSCBD2[16];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD216").headerName = this.headerNamesSCBD2[19];
+                    // this.gridOptionsSCBD2.api.getColumnDef("SCBD217").headerName = this.headerNamesSCBD2[18];
+                    // this.gridOptionsSCBD2.api.getColumnDef("SCBD218").headerName = this.headerNamesSCBD2[19];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD219").headerName = this.headerNamesSCBD2[21];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD220").headerName = this.headerNamesSCBD2[22];
+                    // this.gridOptionsSCBD2.api.getColumnDef("SCBD221").headerName = this.headerNamesSCBD2[22];
+                    // this.gridOptionsSCBD2.api.getColumnDef("SCBD222").headerName = this.headerNamesSCBD2[23];
                     this.gridOptionsSCBD2.api.refreshHeader();
                 })
                 .catch(error => {
@@ -2614,59 +2864,33 @@
                 axios.post(this.$store.state.api_url + '/report_reps', request)
                 .then(response => {
                     console.log(response);
-                    var o = {
-                        code: "Total",
-                        m1sale: 0,
-                        m2sale: 0,
-                        m1budget: 0,
-                        m1cases: 0,
-                        m2cases: 0,
-                        y1sale: 0,
-                        y2sale: 0,
-                        y1budget: 0,
-                        y1cases: 0,
-                        y2cases: 0
-                    }
-                    for(var i = 0; i < response.data.data.rowDataREPS.length; i++){
-                        o.m1sale = o.m1sale + response.data.data.rowDataREPS[i].m1sale;
-                        o.m2sale = o.m2sale + response.data.data.rowDataREPS[i].m2sale;
-                        o.m1budget = o.m1budget + response.data.data.rowDataREPS[i].m1budget;
-                        o.m1cases = o.m1cases + response.data.data.rowDataREPS[i].m1cases;
-                        o.m2cases = o.m2cases + response.data.data.rowDataREPS[i].m2cases;
-                        o.y1sale = o.y1sale + response.data.data.rowDataREPS[i].y1sale;
-                        o.y2sale = o.y2sale + response.data.data.rowDataREPS[i].y2sale;
-                        o.y1budget = o.y1budget + response.data.data.rowDataREPS[i].y1budget;
-                        o.y1cases = o.y1cases + response.data.data.rowDataREPS[i].y1cases;
-                        o.y2cases = o.y2cases + response.data.data.rowDataREPS[i].y2cases;
-                    }
-                    response.data.data.rowDataREPS.push(o);
                     this.gridOptionsREPS.api.setColumnDefs(this.columnDefsREPS);
                     this.gridOptionsREPS.api.setRowData(response.data.data.rowDataREPS);
                     this.rowDataREPS = response.data.data.rowDataREPS;
                     this.headerNamesREPS = response.data.data.headerNamesREPS;
-                    this.gridOptionsREPS.api.getColumnDef("REPS0").headerName = this.headerNamesREPS[0];
+                    // this.gridOptionsREPS.api.getColumnDef("REPS0").headerName = this.headerNamesREPS[0];
                     this.gridOptionsREPS.api.getColumnDef("REPS1").headerName = this.headerNamesREPS[1];
                     this.gridOptionsREPS.api.getColumnDef("REPS2").headerName = this.headerNamesREPS[2];
-                    this.gridOptionsREPS.api.getColumnDef("REPS3").headerName = this.headerNamesREPS[3];
-                    this.gridOptionsREPS.api.getColumnDef("REPS4").headerName = this.headerNamesREPS[4];
+                    // this.gridOptionsREPS.api.getColumnDef("REPS3").headerName = this.headerNamesREPS[3];
+                    // this.gridOptionsREPS.api.getColumnDef("REPS4").headerName = this.headerNamesREPS[4];
                     this.gridOptionsREPS.api.getColumnDef("REPS5").headerName = this.headerNamesREPS[5];
-                    this.gridOptionsREPS.api.getColumnDef("REPS6").headerName = this.headerNamesREPS[6];
-                    this.gridOptionsREPS.api.getColumnDef("REPS7").headerName = this.headerNamesREPS[7];
-                    this.gridOptionsREPS.api.getColumnDef("REPS8").headerName = this.headerNamesREPS[8];
-                    this.gridOptionsREPS.api.getColumnDef("REPS9").headerName = this.headerNamesREPS[9];
-                    this.gridOptionsREPS.api.getColumnDef("REPS10").headerName = this.headerNamesREPS[10];
-                    this.gridOptionsREPS.api.getColumnDef("REPS11").headerName = this.headerNamesREPS[11];
-                    this.gridOptionsREPS.api.getColumnDef("REPS12").headerName = this.headerNamesREPS[12];
-                    this.gridOptionsREPS.api.getColumnDef("REPS13").headerName = this.headerNamesREPS[13];
-                    this.gridOptionsREPS.api.getColumnDef("REPS14").headerName = this.headerNamesREPS[14];
-                    this.gridOptionsREPS.api.getColumnDef("REPS15").headerName = this.headerNamesREPS[15];
-                    this.gridOptionsREPS.api.getColumnDef("REPS16").headerName = this.headerNamesREPS[16];
-                    this.gridOptionsREPS.api.getColumnDef("REPS17").headerName = this.headerNamesREPS[17];
-                    this.gridOptionsREPS.api.getColumnDef("REPS18").headerName = this.headerNamesREPS[18];
-                    this.gridOptionsREPS.api.getColumnDef("REPS19").headerName = this.headerNamesREPS[19];
-                    this.gridOptionsREPS.api.getColumnDef("REPS20").headerName = this.headerNamesREPS[20];
-                    this.gridOptionsREPS.api.getColumnDef("REPS21").headerName = this.headerNamesREPS[21];
-                    this.gridOptionsREPS.api.getColumnDef("REPS22").headerName = this.headerNamesREPS[22];
+                    // this.gridOptionsREPS.api.getColumnDef("REPS6").headerName = this.headerNamesREPS[6];
+                    // this.gridOptionsREPS.api.getColumnDef("REPS7").headerName = this.headerNamesREPS[7];
+                    this.gridOptionsREPS.api.getColumnDef("REPS8").headerName = this.headerNamesREPS[10];
+                    this.gridOptionsREPS.api.getColumnDef("REPS9").headerName = this.headerNamesREPS[11];
+                    // this.gridOptionsREPS.api.getColumnDef("REPS10").headerName = this.headerNamesREPS[12];
+                    // this.gridOptionsREPS.api.getColumnDef("REPS11").headerName = this.headerNamesREPS[11];
+                    this.gridOptionsREPS.api.getColumnDef("REPS12").headerName = this.headerNamesREPS[14];
+                    this.gridOptionsREPS.api.getColumnDef("REPS13").headerName = this.headerNamesREPS[15];
+                    // this.gridOptionsREPS.api.getColumnDef("REPS14").headerName = this.headerNamesREPS[16];
+                    // this.gridOptionsREPS.api.getColumnDef("REPS15").headerName = this.headerNamesREPS[15];
+                    this.gridOptionsREPS.api.getColumnDef("REPS16").headerName = this.headerNamesREPS[18];
+                    // this.gridOptionsREPS.api.getColumnDef("REPS17").headerName = this.headerNamesREPS[19];
+                    // this.gridOptionsREPS.api.getColumnDef("REPS18").headerName = this.headerNamesREPS[18];
+                    this.gridOptionsREPS.api.getColumnDef("REPS19").headerName = this.headerNamesREPS[20];
+                    this.gridOptionsREPS.api.getColumnDef("REPS20").headerName = this.headerNamesREPS[21];
+                    // this.gridOptionsREPS.api.getColumnDef("REPS21").headerName = this.headerNamesREPS[22];
+                    // this.gridOptionsREPS.api.getColumnDef("REPS22").headerName = this.headerNamesREPS[22];
                     this.gridOptionsREPS.api.refreshHeader();
                 })
                 .catch(error => {
@@ -2685,6 +2909,59 @@
             // =================================================================================================================
             // =================================================================================================================
             // =================================================================================================================
+            loadReportREPSE() {
+                let request = {
+                    month: this.month,
+                    year: this.year
+                };
+                axios.post(this.$store.state.api_url + '/report_repse', request)
+                .then(response => {
+                    console.log(response);
+                    this.gridOptionsREPSE.api.setColumnDefs(this.columnDefsREPSE);
+                    this.gridOptionsREPSE.api.setRowData(response.data.data.rowDataREPSE);
+                    this.rowDataREPSE = response.data.data.rowDataREPSE;
+                    this.headerNamesREPSE = response.data.data.headerNamesREPSE;
+                    // this.gridOptionsREPSE.api.getColumnDef("REPSE0").headerName = this.headerNamesREPSE[0];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE1").headerName = this.headerNamesREPSE[1];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE2").headerName = this.headerNamesREPSE[2];
+                    // this.gridOptionsREPSE.api.getColumnDef("REPSE3").headerName = this.headerNamesREPSE[3];
+                    // this.gridOptionsREPSE.api.getColumnDef("REPSE4").headerName = this.headerNamesREPSE[4];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE5").headerName = this.headerNamesREPSE[5];
+                    // this.gridOptionsREPSE.api.getColumnDef("REPSE6").headerName = this.headerNamesREPSE[6];
+                    // this.gridOptionsREPSE.api.getColumnDef("REPSE7").headerName = this.headerNamesREPSE[7];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE8").headerName = this.headerNamesREPSE[10];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE9").headerName = this.headerNamesREPSE[11];
+                    // this.gridOptionsREPSE.api.getColumnDef("REPSE10").headerName = this.headerNamesREPSE[10];
+                    // this.gridOptionsREPSE.api.getColumnDef("REPSE11").headerName = this.headerNamesREPSE[11];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE12").headerName = this.headerNamesREPSE[14];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE13").headerName = this.headerNamesREPSE[15];
+                    // this.gridOptionsREPSE.api.getColumnDef("REPSE14").headerName = this.headerNamesREPSE[14];
+                    // this.gridOptionsREPSE.api.getColumnDef("REPSE15").headerName = this.headerNamesREPSE[15];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE16").headerName = this.headerNamesREPSE[18];
+                    // this.gridOptionsREPSE.api.getColumnDef("REPSE17").headerName = this.headerNamesREPSE[17];
+                    // this.gridOptionsREPSE.api.getColumnDef("REPSE18").headerName = this.headerNamesREPSE[18];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE19").headerName = this.headerNamesREPSE[21];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE20").headerName = this.headerNamesREPSE[22];
+                    // this.gridOptionsREPSE.api.getColumnDef("REPSE21").headerName = this.headerNamesREPSE[21];
+                    // this.gridOptionsREPSE.api.getColumnDef("REPSE22").headerName = this.headerNamesREPSE[22];
+                    this.gridOptionsREPSE.api.refreshHeader();
+                })
+                .catch(error => {
+                    console.log(error.response);
+                });
+            },
+            onBtExportREPSE() {
+                var params = {
+                    fileName: "filename",
+                    sheetName: 'sheetName'
+                };
+                this.gridOptionsREPSE.api.exportDataAsExcel(params);
+            },
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
+            // =================================================================================================================
             loadReportPRODUCT() {
                 let request = {
                     month: this.month,
@@ -2693,59 +2970,33 @@
                 axios.post(this.$store.state.api_url + '/report_product', request)
                 .then(response => {
                     console.log(response);
-                    var o = {
-                        code: "Total",
-                        m1sale: 0,
-                        m2sale: 0,
-                        m1budget: 0,
-                        m1cases: 0,
-                        m2cases: 0,
-                        y1sale: 0,
-                        y2sale: 0,
-                        y1budget: 0,
-                        y1cases: 0,
-                        y2cases: 0
-                    }
-                    for(var i = 0; i < response.data.data.rowDataPRODUCT.length; i++){
-                        o.m1sale = o.m1sale + response.data.data.rowDataPRODUCT[i].m1sale;
-                        o.m2sale = o.m2sale + response.data.data.rowDataPRODUCT[i].m2sale;
-                        o.m1budget = o.m1budget + response.data.data.rowDataPRODUCT[i].m1budget;
-                        o.m1cases = o.m1cases + response.data.data.rowDataPRODUCT[i].m1cases;
-                        o.m2cases = o.m2cases + response.data.data.rowDataPRODUCT[i].m2cases;
-                        o.y1sale = o.y1sale + response.data.data.rowDataPRODUCT[i].y1sale;
-                        o.y2sale = o.y2sale + response.data.data.rowDataPRODUCT[i].y2sale;
-                        o.y1budget = o.y1budget + response.data.data.rowDataPRODUCT[i].y1budget;
-                        o.y1cases = o.y1cases + response.data.data.rowDataPRODUCT[i].y1cases;
-                        o.y2cases = o.y2cases + response.data.data.rowDataPRODUCT[i].y2cases;
-                    }
-                    response.data.data.rowDataPRODUCT.push(o);
                     this.gridOptionsPRODUCT.api.setColumnDefs(this.columnDefsPRODUCT);
                     this.gridOptionsPRODUCT.api.setRowData(response.data.data.rowDataPRODUCT);
                     this.rowDataPRODUCT = response.data.data.rowDataPRODUCT;
                     this.headerNamesPRODUCT = response.data.data.headerNamesPRODUCT;
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT0").headerName = this.headerNamesPRODUCT[0];
+                    // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT0").headerName = this.headerNamesPRODUCT[0];
                     this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT1").headerName = this.headerNamesPRODUCT[1];
                     this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT2").headerName = this.headerNamesPRODUCT[2];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT3").headerName = this.headerNamesPRODUCT[3];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT4").headerName = this.headerNamesPRODUCT[4];
+                    // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT3").headerName = this.headerNamesPRODUCT[3];
+                    // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT4").headerName = this.headerNamesPRODUCT[4];
                     this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT5").headerName = this.headerNamesPRODUCT[5];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT6").headerName = this.headerNamesPRODUCT[6];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT7").headerName = this.headerNamesPRODUCT[7];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT8").headerName = this.headerNamesPRODUCT[8];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT9").headerName = this.headerNamesPRODUCT[9];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT10").headerName = this.headerNamesPRODUCT[10];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT11").headerName = this.headerNamesPRODUCT[11];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT12").headerName = this.headerNamesPRODUCT[12];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT13").headerName = this.headerNamesPRODUCT[13];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT14").headerName = this.headerNamesPRODUCT[14];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT15").headerName = this.headerNamesPRODUCT[15];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT16").headerName = this.headerNamesPRODUCT[16];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT17").headerName = this.headerNamesPRODUCT[17];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT18").headerName = this.headerNamesPRODUCT[18];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT19").headerName = this.headerNamesPRODUCT[19];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT20").headerName = this.headerNamesPRODUCT[20];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT21").headerName = this.headerNamesPRODUCT[21];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT22").headerName = this.headerNamesPRODUCT[22];
+                    // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT6").headerName = this.headerNamesPRODUCT[6];
+                    // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT7").headerName = this.headerNamesPRODUCT[7];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT8").headerName = this.headerNamesPRODUCT[10];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT9").headerName = this.headerNamesPRODUCT[11];
+                    // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT10").headerName = this.headerNamesPRODUCT[10];
+                    // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT11").headerName = this.headerNamesPRODUCT[11];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT12").headerName = this.headerNamesPRODUCT[14];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT13").headerName = this.headerNamesPRODUCT[15];
+                    // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT14").headerName = this.headerNamesPRODUCT[14];
+                    // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT15").headerName = this.headerNamesPRODUCT[15];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT16").headerName = this.headerNamesPRODUCT[18];
+                    // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT17").headerName = this.headerNamesPRODUCT[17];
+                    // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT18").headerName = this.headerNamesPRODUCT[18];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT19").headerName = this.headerNamesPRODUCT[21];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT20").headerName = this.headerNamesPRODUCT[22];
+                    // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT21").headerName = this.headerNamesPRODUCT[21];
+                    // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT22").headerName = this.headerNamesPRODUCT[22];
                     this.gridOptionsPRODUCT.api.refreshHeader();
                 })
                 .catch(error => {
@@ -2772,90 +3023,34 @@
                 axios.post(this.$store.state.api_url + '/report_scbe', request)
                 .then(response => {
                     console.log(response);
-                    var o = {
-                        code: "Total",
-                        m1sale: 0,
-                        m2sale: 0,
-                        m1budget: 0,
-                        m1cases: 0,
-                        m2cases: 0,
-                        y1sale: 0,
-                        y2sale: 0,
-                        y1budget: 0,
-                        y1cases: 0,
-                        y2cases: 0
-                    }
-                    for(var i = 0; i < response.data.data.rowDataSCBE.length; i++){
-                        let prov = response.data.data.rowDataSCBE[i].code;
-                        if(i === 0){ //first
-                            o.code = response.data.data.rowDataSCBE[i].code;
-                            o.m1sale = response.data.data.rowDataSCBE[i].m1sale;
-                            o.m2sale = response.data.data.rowDataSCBE[i].m2sale;
-                            o.m1budget = response.data.data.rowDataSCBE[i].m1budget;
-                            o.m1cases = response.data.data.rowDataSCBE[i].m1cases;
-                            o.m2cases = response.data.data.rowDataSCBE[i].m2cases;
-                            o.y1sale = response.data.data.rowDataSCBE[i].y1sale;
-                            o.y2sale = response.data.data.rowDataSCBE[i].y2sale;
-                            o.y1budget = response.data.data.rowDataSCBE[i].y1budget;
-                            o.y1cases = response.data.data.rowDataSCBE[i].y1cases;
-                            o.y2cases = response.data.data.rowDataSCBE[i].y2cases;
-                        }else if(o.code === response.data.data.rowDataSCBE[i].code){ //second
-                            o.m1sale = o.m1sale + response.data.data.rowDataSCBE[i].m1sale;
-                            o.m2sale = o.m2sale + response.data.data.rowDataSCBE[i].m2sale;
-                            o.m1budget = o.m1budget + response.data.data.rowDataSCBE[i].m1budget;
-                            o.m1cases = o.m1cases + response.data.data.rowDataSCBE[i].m1cases;
-                            o.m2cases = o.m2cases + response.data.data.rowDataSCBE[i].m2cases;
-                            o.y1sale = o.y1sale + response.data.data.rowDataSCBE[i].y1sale;
-                            o.y2sale = o.y2sale + response.data.data.rowDataSCBE[i].y2sale;
-                            o.y1budget = o.y1budget + response.data.data.rowDataSCBE[i].y1budget;
-                            o.y1cases = o.y1cases + response.data.data.rowDataSCBE[i].y1cases;
-                            o.y2cases = o.y2cases + response.data.data.rowDataSCBE[i].y2cases;
-                        } else { // insert and start over with totals
-                            o.code = "Total";
-                            response.data.data.rowDataSCBE.slice( i, 0, o);
-                            i++;
-                            o.code = response.data.data.rowDataSCBE[i].code;
-                            o.m1sale = response.data.data.rowDataSCBE[i].m1sale;
-                            o.m2sale = response.data.data.rowDataSCBE[i].m2sale;
-                            o.m1budget = response.data.data.rowDataSCBE[i].m1budget;
-                            o.m1cases = response.data.data.rowDataSCBE[i].m1cases;
-                            o.m2cases = response.data.data.rowDataSCBE[i].m2cases;
-                            o.y1sale = response.data.data.rowDataSCBE[i].y1sale;
-                            o.y2sale = response.data.data.rowDataSCBE[i].y2sale;
-                            o.y1budget = response.data.data.rowDataSCBE[i].y1budget;
-                            o.y1cases = response.data.data.rowDataSCBE[i].y1cases;
-                            o.y2cases = response.data.data.rowDataSCBE[i].y2cases;
-                        }
-                    }
-                    response.data.data.rowDataSCBE.push(o);
                     this.gridOptionsSCBE.api.setColumnDefs(this.columnDefsSCBE);
                     this.gridOptionsSCBE.api.setRowData(response.data.data.rowDataSCBE);
                     this.rowDataSCBE = response.data.data.rowDataSCBE;
                     this.headerNamesSCBE = response.data.data.headerNamesSCBE;
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE0").headerName = this.headerNamesSCBE[0];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE01").headerName = this.headerNamesSCBE[1];
+                    // this.gridOptionsSCBE.api.getColumnDef("SCBE0").headerName = this.headerNamesSCBE[0];
+                    // this.gridOptionsSCBE.api.getColumnDef("SCBE01").headerName = this.headerNamesSCBE[1];
                     this.gridOptionsSCBE.api.getColumnDef("SCBE1").headerName = this.headerNamesSCBE[2];
                     this.gridOptionsSCBE.api.getColumnDef("SCBE222").headerName = this.headerNamesSCBE[3];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE3").headerName = this.headerNamesSCBE[4];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE4").headerName = this.headerNamesSCBE[5];
+                    // this.gridOptionsSCBE.api.getColumnDef("SCBE3").headerName = this.headerNamesSCBE[4];
+                    // this.gridOptionsSCBE.api.getColumnDef("SCBE4").headerName = this.headerNamesSCBE[5];
                     this.gridOptionsSCBE.api.getColumnDef("SCBE5").headerName = this.headerNamesSCBE[6];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE6").headerName = this.headerNamesSCBE[7];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE7").headerName = this.headerNamesSCBE[8];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE8").headerName = this.headerNamesSCBE[9];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE9").headerName = this.headerNamesSCBE[10];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE10").headerName = this.headerNamesSCBE[11];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE11").headerName = this.headerNamesSCBE[12];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE12").headerName = this.headerNamesSCBE[13];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE13").headerName = this.headerNamesSCBE[14];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE14").headerName = this.headerNamesSCBE[15];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE15").headerName = this.headerNamesSCBE[16];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE16").headerName = this.headerNamesSCBE[17];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE17").headerName = this.headerNamesSCBE[18];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE18").headerName = this.headerNamesSCBE[19];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE19").headerName = this.headerNamesSCBE[20];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE20").headerName = this.headerNamesSCBE[21];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE21").headerName = this.headerNamesSCBE[22];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE22").headerName = this.headerNamesSCBE[23];
+                    // this.gridOptionsSCBE.api.getColumnDef("SCBE6").headerName = this.headerNamesSCBE[7];
+                    // this.gridOptionsSCBE.api.getColumnDef("SCBE7").headerName = this.headerNamesSCBE[8];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE8").headerName = this.headerNamesSCBE[11];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE9").headerName = this.headerNamesSCBE[12];
+                    // this.gridOptionsSCBE.api.getColumnDef("SCBE10").headerName = this.headerNamesSCBE[11];
+                    // this.gridOptionsSCBE.api.getColumnDef("SCBE11").headerName = this.headerNamesSCBE[12];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE12").headerName = this.headerNamesSCBE[15];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE13").headerName = this.headerNamesSCBE[16];
+                    // this.gridOptionsSCBE.api.getColumnDef("SCBE14").headerName = this.headerNamesSCBE[15];
+                    // this.gridOptionsSCBE.api.getColumnDef("SCBE15").headerName = this.headerNamesSCBE[16];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE16").headerName = this.headerNamesSCBE[19];
+                    // this.gridOptionsSCBE.api.getColumnDef("SCBE17").headerName = this.headerNamesSCBE[18];
+                    // this.gridOptionsSCBE.api.getColumnDef("SCBE18").headerName = this.headerNamesSCBE[19];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE19").headerName = this.headerNamesSCBE[22];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE20").headerName = this.headerNamesSCBE[23];
+                    // this.gridOptionsSCBE.api.getColumnDef("SCBE21").headerName = this.headerNamesSCBE[22];
+                    // this.gridOptionsSCBE.api.getColumnDef("SCBE22").headerName = this.headerNamesSCBE[23];
                     this.gridOptionsSCBE.api.refreshHeader();
                 })
                 .catch(error => {
@@ -2874,7 +3069,13 @@
             this.checkAuthState();
         },
         mounted() {
-            
+            var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            var currentyear = new Date().getFullYear();
+            var cm = new Date();
+            this.month = monthNames[cm.getMonth()];
+            this.year = currentyear.toString();
+            console.log(this.month);
+            console.log(this.year);
         }
     };
 </script>
