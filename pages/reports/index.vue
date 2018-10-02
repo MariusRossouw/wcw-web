@@ -19,7 +19,7 @@
                         <div class="uk-form-controls">
                             <select class="uk-select" v-model="year">
                                 <option v-for="year in year_list" :value="year.year" :key="year.year">
-                                {{year.year}}
+                                {{year.label}}
                                 </option>
                             </select>
                         </div>
@@ -158,30 +158,37 @@
                 month: "",
                 year_list: [{
                         year: "2020",
+                        label: "2020/2021",
                         selected: false
                     },
                     {
                         year: "2019",
+                        label: "2019/2020",
                         selected: false
                     },
                     {
                         year: "2018",
+                        label: "2018/2019",
                         selected: false
                     },
                     {
                         year: "2017",
+                        label: "2017/2018",
                         selected: false
                     },
                     {
                         year: "2016",
+                        label: "2016/2017",
                         selected: false
                     },
                     {
                         year: "2015",
+                        label: "2015/2016",
                         selected: false
                     },
                     {
                         year: "2014",
+                        label: "2014/2015",
                         selected: false
                     }
                 ],
@@ -2716,19 +2723,19 @@
                     this.gridOptionsOYTD.api.setColumnDefs(this.columnDefsOYTD);
                     this.gridOptionsOYTD.api.setRowData(response.data.data.rowDataOYTD);
                     this.rowDataOYTD = response.data.data.rowDataOYTD;
-                    this.headerNamesOYTD = response.data.data.headerNamesOYTD;
-                    this.gridOptionsOYTD.api.getColumnDef("OYTD0").headerName = this.headerNamesOYTD[0];
-                    this.gridOptionsOYTD.api.getColumnDef("OYTD1").headerName = this.headerNamesOYTD[1];
-                    this.gridOptionsOYTD.api.getColumnDef("OYTD2").headerName = this.headerNamesOYTD[2];
-                    this.gridOptionsOYTD.api.getColumnDef("OYTD3").headerName = this.headerNamesOYTD[3];
-                    this.gridOptionsOYTD.api.getColumnDef("OYTD4").headerName = this.headerNamesOYTD[4];
-                    this.gridOptionsOYTD.api.getColumnDef("OYTD5").headerName = this.headerNamesOYTD[5];
-                    this.gridOptionsOYTD.api.getColumnDef("OYTD6").headerName = this.headerNamesOYTD[6];
-                    this.gridOptionsOYTD.api.getColumnDef("OYTD7").headerName = this.headerNamesOYTD[7];
-                    this.gridOptionsOYTD.api.getColumnDef("OYTD8").headerName = this.headerNamesOYTD[8];
-                    this.gridOptionsOYTD.api.getColumnDef("OYTD9").headerName = this.headerNamesOYTD[9];
-                    this.gridOptionsOYTD.api.getColumnDef("OYTD10").headerName = this.headerNamesOYTD[10];
-                    this.gridOptionsOYTD.api.getColumnDef("OYTD11").headerName = this.headerNamesOYTD[11];
+                    this.headerNamesOYTD = response.data.data.headerNamesOYTD;                                         
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD0").headerName = this.headerNamesOYTD[0]; //CHANNELS
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD1").headerName = this.headerNamesOYTD[1]; //Month1Sale
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD2").headerName = this.headerNamesOYTD[2]; //Month2Sale
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD3").headerName = this.headerNamesOYTD[3]; //% of LY M
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD4").headerName = this.headerNamesOYTD[4]; //VAR(R)
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD5").headerName = this.headerNamesOYTD[5]; //Month1Budget
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD6").headerName = this.headerNamesOYTD[7]; //% of M B
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD7").headerName = this.headerNamesOYTD[8]; //VAR(R)
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD8").headerName = this.headerNamesOYTD[9]; //Month1Cases
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD9").headerName = this.headerNamesOYTD[10]; //Month2Cases
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD10").headerName = this.headerNamesOYTD[11]; //% of LY M
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD11").headerName = this.headerNamesOYTD[12]; //VAR(C)
                     this.gridOptionsOYTD.api.refreshHeader();
                 })
                 .catch(error => {
@@ -2864,6 +2871,32 @@
                 axios.post(this.$store.state.api_url + '/report_reps', request)
                 .then(response => {
                     console.log(response);
+                    // var o = {
+                    //     rep: "Total",
+                    //     m1sale: 0,
+                    //     m2sale: 0,
+                    //     m1budget: 0,
+                    //     m1cases: 0,
+                    //     m2cases: 0,
+                    //     y1sale: 0,
+                    //     y2sale: 0,
+                    //     y1budget: 0,
+                    //     y1cases: 0,
+                    //     y2cases: 0,
+                    // };
+                    // for(var i = 0; i < response.data.data.rowDataREPS.length; i++){
+                    //     o.m1sale = o.m1sale + response.data.data.rowDataREPS[i].m1sale ;
+                    //     o.m2sale = o.m2sale + response.data.data.rowDataREPS[i].m2sale ;
+                    //     o.m1budget = o.m1budget + response.data.data.rowDataREPS[i].m1budget ;
+                    //     o.m1cases = m1cases + response.data.data.rowDataREPS[i].m1cases ;
+                    //     o.m2cases = o.m2cases + response.data.data.rowDataREPS[i].m2cases ;
+                    //     o.y1sale = o.y1sale + response.data.data.rowDataREPS[i].y1sale ;
+                    //     o.y2sale = o.y2sale + response.data.data.rowDataREPS[i].y2sale ;
+                    //     o.y1budget = o.y1budget + response.data.data.rowDataREPS[i].y1budget ;
+                    //     o.y1cases = o.y1cases + response.data.data.rowDataREPS[i].y1cases ;
+                    //     o.y2cases = o.y2cases + response.data.data.rowDataREPS[i].y2cases ;
+                    // }
+                    // response.data.data.rowDataREPS.push(o);
                     this.gridOptionsREPS.api.setColumnDefs(this.columnDefsREPS);
                     this.gridOptionsREPS.api.setRowData(response.data.data.rowDataREPS);
                     this.rowDataREPS = response.data.data.rowDataREPS;
@@ -2917,6 +2950,33 @@
                 axios.post(this.$store.state.api_url + '/report_repse', request)
                 .then(response => {
                     console.log(response);
+                    // var o = {
+                    //     rep: "Total",
+                    //     m1sale: 0,
+                    //     m2sale: 0,
+                    //     m1budget: 0,
+                    //     m1cases: 0,
+                    //     m2cases: 0,
+                    //     y1sale: 0,
+                    //     y2sale: 0,
+                    //     y1budget: 0,
+                    //     y1cases: 0,
+                    //     y2cases: 0,
+                    // };
+                    // for(var i = 0; i < response.data.data.rowDataREPSE.length; i++){
+                    //     o.m1sale = o.m1sale + response.data.data.rowDataREPSE[i].m1sale ;
+                    //     o.m2sale = o.m2sale + response.data.data.rowDataREPSE[i].m2sale ;
+                    //     o.m1budget = o.m1budget + response.data.data.rowDataREPSE[i].m1budget ;
+                    //     o.m1cases = m1cases + response.data.data.rowDataREPSE[i].m1cases ;
+                    //     o.m2cases = o.m2cases + response.data.data.rowDataREPSE[i].m2cases ;
+                    //     o.y1sale = o.y1sale + response.data.data.rowDataREPSE[i].y1sale ;
+                    //     o.y2sale = o.y2sale + response.data.data.rowDataREPSE[i].y2sale ;
+                    //     o.y1budget = o.y1budget + response.data.data.rowDataREPSE[i].y1budget ;
+                    //     o.y1cases = o.y1cases + response.data.data.rowDataREPSE[i].y1cases ;
+                    //     o.y2cases = o.y2cases + response.data.data.rowDataREPSE[i].y2cases ;
+                    // }
+                    // console.log(o);
+                    // response.data.data.rowDataREPSE.push(o);
                     this.gridOptionsREPSE.api.setColumnDefs(this.columnDefsREPSE);
                     this.gridOptionsREPSE.api.setRowData(response.data.data.rowDataREPSE);
                     this.rowDataREPSE = response.data.data.rowDataREPSE;
@@ -2970,6 +3030,32 @@
                 axios.post(this.$store.state.api_url + '/report_product', request)
                 .then(response => {
                     console.log(response);
+                    // var o = {
+                    //     product: "Total",
+                    //     m1sale: 0,
+                    //     m2sale: 0,
+                    //     m1budget: 0,
+                    //     m1cases: 0,
+                    //     m2cases: 0,
+                    //     y1sale: 0,
+                    //     y2sale: 0,
+                    //     y1budget: 0,
+                    //     y1cases: 0,
+                    //     y2cases: 0,
+                    // };
+                    // for(var i = 0; i < response.data.data.rowDataPRODUCT.length; i++){
+                    //     o.m1sale = o.m1sale + response.data.data.rowDataPRODUCT[i].m1sale ;
+                    //     o.m2sale = o.m2sale + response.data.data.rowDataPRODUCT[i].m2sale ;
+                    //     o.m1budget = o.m1budget + response.data.data.rowDataPRODUCT[i].m1budget ;
+                    //     o.m1cases = m1cases + response.data.data.rowDataPRODUCT[i].m1cases ;
+                    //     o.m2cases = o.m2cases + response.data.data.rowDataPRODUCT[i].m2cases ;
+                    //     o.y1sale = o.y1sale + response.data.data.rowDataPRODUCT[i].y1sale ;
+                    //     o.y2sale = o.y2sale + response.data.data.rowDataPRODUCT[i].y2sale ;
+                    //     o.y1budget = o.y1budget + response.data.data.rowDataPRODUCT[i].y1budget ;
+                    //     o.y1cases = o.y1cases + response.data.data.rowDataPRODUCT[i].y1cases ;
+                    //     o.y2cases = o.y2cases + response.data.data.rowDataPRODUCT[i].y2cases ;
+                    // }
+                    // response.data.data.rowDataPRODUCT.push(o);
                     this.gridOptionsPRODUCT.api.setColumnDefs(this.columnDefsPRODUCT);
                     this.gridOptionsPRODUCT.api.setRowData(response.data.data.rowDataPRODUCT);
                     this.rowDataPRODUCT = response.data.data.rowDataPRODUCT;

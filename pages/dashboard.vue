@@ -155,6 +155,11 @@
                                     <chart :option="option" :loading="loading1" @ready="onReady" @click="onClick" id="chart1" />
                                 </div>
                             </div>
+                            <!-- <div class="uk-width-1-1@m">
+                                <div class="uk-card uk-card-default uk-card-small echarts">
+                                    <v-chart :option="option" :loading="loading1" @ready="onReady" @click="onClick" id="chart1" />
+                                </div>
+                            </div> -->
                             <div class="uk-width-1-4@m">
                                 <div class="uk-card uk-card-default uk-card-small superLink">
                                     <h3 class="uk-card-title">Bottom 5 Merchants</h3>
