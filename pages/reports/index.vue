@@ -455,7 +455,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: " % of LY M",
+                        headerName: " VAR(%)",
                         // field: "blend",
                         colId: "OMTD3",
                         valueFormatter: this.percentageFormatter,
@@ -549,7 +549,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "% of LY M",
+                        headerName: "VAR(%)",
                         // field: "blend",
                         colId: "OMTD10",
                         valueFormatter: this.percentageFormatter,
@@ -615,7 +615,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: " % of LY M",
+                        headerName: " VAR(%)",
                         // field: "blend",
                         colId: "OYTD3",
                         valueFormatter: this.percentageFormatter,
@@ -709,7 +709,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "% of LY M",
+                        headerName: "VAR(%)",
                         // field: "blend",
                         colId: "OYTD10",
                         valueFormatter: this.percentageFormatter,
@@ -783,7 +783,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: " % of LY M",
+                        headerName: " VAR(%)",
                         // field: "blend",
                         colId: "SCBD3",
                         valueFormatter: this.percentageFormatter,
@@ -825,7 +825,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: "% of M B",
+                        headerName: "VAR(%)",
                         // field: "blend",
                         colId: "SCBD6",
                         valueFormatter: this.percentageFormatter,
@@ -877,7 +877,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "% of LY M",
+                        headerName: "VAR(%)",
                         // field: "blend",
                         colId: "SCBD10",
                         valueFormatter: this.percentageFormatter,
@@ -930,7 +930,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: " % of LY M",
+                        headerName: " VAR(%)",
                         // field: "blend",
                         colId: "SCBD14",
                         valueFormatter: this.percentageFormatter,
@@ -1024,7 +1024,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "% of LY M",
+                        headerName: "Var(%)",
                         // field: "blend",
                         colId: "SCBD21",
                         valueFormatter: this.percentageFormatter,
@@ -1098,7 +1098,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: " % of LY M",
+                        headerName: " VAR(%)",
                         // field: "blend",
                         colId: "SCBD23",
                         valueFormatter: this.percentageFormatter,
@@ -1192,7 +1192,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "% of LY M",
+                        headerName: "VAR(%)",
                         // field: "blend",
                         colId: "SCBD210",
                         valueFormatter: this.percentageFormatter,
@@ -1245,7 +1245,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: " % of LY M",
+                        headerName: " VAR(%)",
                         // field: "blend",
                         colId: "SCBD214",
                         valueFormatter: this.percentageFormatter,
@@ -1339,7 +1339,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "% of LY M",
+                        headerName: "VAR(%)",
                         // field: "blend",
                         colId: "SCBD221",
                         valueFormatter: this.percentageFormatter,
@@ -1405,7 +1405,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: " % of LY M",
+                        headerName: " VAR(%)",
                         // field: "blend",
                         colId: "REPS3",
                         valueFormatter: this.percentageFormatter,
@@ -1499,7 +1499,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "% of LY M",
+                        headerName: "VAR(%)",
                         // field: "blend",
                         colId: "REPS10",
                         valueFormatter: this.percentageFormatter,
@@ -1552,7 +1552,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: " % of LY M",
+                        headerName: " VAR(%)",
                         // field: "blend",
                         colId: "REPS14",
                         valueFormatter: this.percentageFormatter,
@@ -1646,7 +1646,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "% of LY M",
+                        headerName: "VAR(%)",
                         // field: "blend",
                         colId: "REPS21",
                         valueFormatter: this.percentageFormatter,
@@ -1712,7 +1712,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: " % of LY M",
+                        headerName: " VAR(%)",
                         // field: "blend",
                         colId: "REPSE3",
                         valueFormatter: this.percentageFormatter,
@@ -1806,7 +1806,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "% of LY M",
+                        headerName: "VAR(%)",
                         // field: "blend",
                         colId: "REPSE10",
                         valueFormatter: this.percentageFormatter,
@@ -1859,7 +1859,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: " % of LY M",
+                        headerName: " VAR(%)",
                         // field: "blend",
                         colId: "REPSE14",
                         valueFormatter: this.percentageFormatter,
@@ -1953,7 +1953,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "% of LY M",
+                        headerName: "VAR(%)",
                         // field: "blend",
                         colId: "REPSE21",
                         valueFormatter: this.percentageFormatter,
@@ -2019,7 +2019,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: " % of LY M",
+                        headerName: " VAR(%)",
                         // field: "blend",
                         colId: "PRODUCT3",
                         valueFormatter: this.percentageFormatter,
@@ -2113,7 +2113,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "% of LY M",
+                        headerName: "VAR(%)",
                         // field: "blend",
                         colId: "PRODUCT10",
                         valueFormatter: this.percentageFormatter,
@@ -2166,7 +2166,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: " % of LY M",
+                        headerName: " VAR(%)",
                         // field: "blend",
                         colId: "PRODUCT14",
                         valueFormatter: this.percentageFormatter,
@@ -2260,7 +2260,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "% of LY M",
+                        headerName: "VAR(%)",
                         // field: "blend",
                         colId: "PRODUCT21",
                         valueFormatter: this.percentageFormatter,
@@ -2334,7 +2334,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: " % of LY M",
+                        headerName: " VAR(%)",
                         // field: "blend",
                         colId: "SCBE3",
                         valueFormatter: this.percentageFormatter,
@@ -2428,7 +2428,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "% of LY M",
+                        headerName: "VAR(%)",
                         // field: "blend",
                         colId: "SCBE10",
                         valueFormatter: this.percentageFormatter,
@@ -2481,7 +2481,7 @@
                         valueFormatter: this.currencyFormatter
                     },
                     {
-                        headerName: " % of LY M",
+                        headerName: " VAR(%)",
                         // field: "blend",
                         colId: "SCBE14",
                         valueFormatter: this.percentageFormatter,
@@ -2575,7 +2575,7 @@
                         headerClass: 'resizable-header'
                     },
                     {
-                        headerName: "% of LY M",
+                        headerName: "VAR(%)",
                         // field: "blend",
                         colId: "SCBE21",
                         valueFormatter: this.percentageFormatter,
@@ -2727,14 +2727,14 @@
                     this.gridOptionsOYTD.api.getColumnDef("OYTD0").headerName = this.headerNamesOYTD[0]; //CHANNELS
                     this.gridOptionsOYTD.api.getColumnDef("OYTD1").headerName = this.headerNamesOYTD[1]; //Month1Sale
                     this.gridOptionsOYTD.api.getColumnDef("OYTD2").headerName = this.headerNamesOYTD[2]; //Month2Sale
-                    this.gridOptionsOYTD.api.getColumnDef("OYTD3").headerName = this.headerNamesOYTD[3]; //% of LY M
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD3").headerName = this.headerNamesOYTD[3]; //VAR(%)
                     this.gridOptionsOYTD.api.getColumnDef("OYTD4").headerName = this.headerNamesOYTD[4]; //VAR(R)
                     this.gridOptionsOYTD.api.getColumnDef("OYTD5").headerName = this.headerNamesOYTD[5]; //Month1Budget
                     this.gridOptionsOYTD.api.getColumnDef("OYTD6").headerName = this.headerNamesOYTD[7]; //% of M B
                     this.gridOptionsOYTD.api.getColumnDef("OYTD7").headerName = this.headerNamesOYTD[8]; //VAR(R)
                     this.gridOptionsOYTD.api.getColumnDef("OYTD8").headerName = this.headerNamesOYTD[9]; //Month1Cases
                     this.gridOptionsOYTD.api.getColumnDef("OYTD9").headerName = this.headerNamesOYTD[10]; //Month2Cases
-                    this.gridOptionsOYTD.api.getColumnDef("OYTD10").headerName = this.headerNamesOYTD[11]; //% of LY M
+                    this.gridOptionsOYTD.api.getColumnDef("OYTD10").headerName = this.headerNamesOYTD[11]; //VAR(%)
                     this.gridOptionsOYTD.api.getColumnDef("OYTD11").headerName = this.headerNamesOYTD[12]; //VAR(C)
                     this.gridOptionsOYTD.api.refreshHeader();
                 })
@@ -2830,19 +2830,19 @@
                     this.gridOptionsSCBD2.api.getColumnDef("SCBD25").headerName = this.headerNamesSCBD2[6];
                     // this.gridOptionsSCBD2.api.getColumnDef("SCBD26").headerName = this.headerNamesSCBD2[7];
                     // this.gridOptionsSCBD2.api.getColumnDef("SCBD27").headerName = this.headerNamesSCBD2[8];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD28").headerName = this.headerNamesSCBD2[11];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD29").headerName = this.headerNamesSCBD2[12];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD28").headerName = this.headerNamesSCBD2[10];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD29").headerName = this.headerNamesSCBD2[11];
                     // this.gridOptionsSCBD2.api.getColumnDef("SCBD210").headerName = this.headerNamesSCBD2[11];
                     // this.gridOptionsSCBD2.api.getColumnDef("SCBD211").headerName = this.headerNamesSCBD2[12];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD212").headerName = this.headerNamesSCBD2[15];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD213").headerName = this.headerNamesSCBD2[16];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD212").headerName = this.headerNamesSCBD2[14];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD213").headerName = this.headerNamesSCBD2[15];
                     // this.gridOptionsSCBD2.api.getColumnDef("SCBD214").headerName = this.headerNamesSCBD2[15];
                     // this.gridOptionsSCBD2.api.getColumnDef("SCBD215").headerName = this.headerNamesSCBD2[16];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD216").headerName = this.headerNamesSCBD2[19];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD216").headerName = this.headerNamesSCBD2[18];
                     // this.gridOptionsSCBD2.api.getColumnDef("SCBD217").headerName = this.headerNamesSCBD2[18];
                     // this.gridOptionsSCBD2.api.getColumnDef("SCBD218").headerName = this.headerNamesSCBD2[19];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD219").headerName = this.headerNamesSCBD2[21];
-                    this.gridOptionsSCBD2.api.getColumnDef("SCBD220").headerName = this.headerNamesSCBD2[22];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD219").headerName = this.headerNamesSCBD2[20];
+                    this.gridOptionsSCBD2.api.getColumnDef("SCBD220").headerName = this.headerNamesSCBD2[21];
                     // this.gridOptionsSCBD2.api.getColumnDef("SCBD221").headerName = this.headerNamesSCBD2[22];
                     // this.gridOptionsSCBD2.api.getColumnDef("SCBD222").headerName = this.headerNamesSCBD2[23];
                     this.gridOptionsSCBD2.api.refreshHeader();
@@ -2909,19 +2909,19 @@
                     this.gridOptionsREPS.api.getColumnDef("REPS5").headerName = this.headerNamesREPS[5];
                     // this.gridOptionsREPS.api.getColumnDef("REPS6").headerName = this.headerNamesREPS[6];
                     // this.gridOptionsREPS.api.getColumnDef("REPS7").headerName = this.headerNamesREPS[7];
-                    this.gridOptionsREPS.api.getColumnDef("REPS8").headerName = this.headerNamesREPS[10];
-                    this.gridOptionsREPS.api.getColumnDef("REPS9").headerName = this.headerNamesREPS[11];
+                    this.gridOptionsREPS.api.getColumnDef("REPS8").headerName = this.headerNamesREPS[9];
+                    this.gridOptionsREPS.api.getColumnDef("REPS9").headerName = this.headerNamesREPS[10];
                     // this.gridOptionsREPS.api.getColumnDef("REPS10").headerName = this.headerNamesREPS[12];
                     // this.gridOptionsREPS.api.getColumnDef("REPS11").headerName = this.headerNamesREPS[11];
-                    this.gridOptionsREPS.api.getColumnDef("REPS12").headerName = this.headerNamesREPS[14];
-                    this.gridOptionsREPS.api.getColumnDef("REPS13").headerName = this.headerNamesREPS[15];
+                    this.gridOptionsREPS.api.getColumnDef("REPS12").headerName = this.headerNamesREPS[13];
+                    this.gridOptionsREPS.api.getColumnDef("REPS13").headerName = this.headerNamesREPS[14];
                     // this.gridOptionsREPS.api.getColumnDef("REPS14").headerName = this.headerNamesREPS[16];
                     // this.gridOptionsREPS.api.getColumnDef("REPS15").headerName = this.headerNamesREPS[15];
-                    this.gridOptionsREPS.api.getColumnDef("REPS16").headerName = this.headerNamesREPS[18];
+                    this.gridOptionsREPS.api.getColumnDef("REPS16").headerName = this.headerNamesREPS[17];
                     // this.gridOptionsREPS.api.getColumnDef("REPS17").headerName = this.headerNamesREPS[19];
                     // this.gridOptionsREPS.api.getColumnDef("REPS18").headerName = this.headerNamesREPS[18];
-                    this.gridOptionsREPS.api.getColumnDef("REPS19").headerName = this.headerNamesREPS[20];
-                    this.gridOptionsREPS.api.getColumnDef("REPS20").headerName = this.headerNamesREPS[21];
+                    this.gridOptionsREPS.api.getColumnDef("REPS19").headerName = this.headerNamesREPS[19];
+                    this.gridOptionsREPS.api.getColumnDef("REPS20").headerName = this.headerNamesREPS[20];
                     // this.gridOptionsREPS.api.getColumnDef("REPS21").headerName = this.headerNamesREPS[22];
                     // this.gridOptionsREPS.api.getColumnDef("REPS22").headerName = this.headerNamesREPS[22];
                     this.gridOptionsREPS.api.refreshHeader();
@@ -2989,19 +2989,19 @@
                     this.gridOptionsREPSE.api.getColumnDef("REPSE5").headerName = this.headerNamesREPSE[5];
                     // this.gridOptionsREPSE.api.getColumnDef("REPSE6").headerName = this.headerNamesREPSE[6];
                     // this.gridOptionsREPSE.api.getColumnDef("REPSE7").headerName = this.headerNamesREPSE[7];
-                    this.gridOptionsREPSE.api.getColumnDef("REPSE8").headerName = this.headerNamesREPSE[10];
-                    this.gridOptionsREPSE.api.getColumnDef("REPSE9").headerName = this.headerNamesREPSE[11];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE8").headerName = this.headerNamesREPSE[9];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE9").headerName = this.headerNamesREPSE[10];
                     // this.gridOptionsREPSE.api.getColumnDef("REPSE10").headerName = this.headerNamesREPSE[10];
                     // this.gridOptionsREPSE.api.getColumnDef("REPSE11").headerName = this.headerNamesREPSE[11];
-                    this.gridOptionsREPSE.api.getColumnDef("REPSE12").headerName = this.headerNamesREPSE[14];
-                    this.gridOptionsREPSE.api.getColumnDef("REPSE13").headerName = this.headerNamesREPSE[15];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE12").headerName = this.headerNamesREPSE[13];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE13").headerName = this.headerNamesREPSE[14];
                     // this.gridOptionsREPSE.api.getColumnDef("REPSE14").headerName = this.headerNamesREPSE[14];
                     // this.gridOptionsREPSE.api.getColumnDef("REPSE15").headerName = this.headerNamesREPSE[15];
-                    this.gridOptionsREPSE.api.getColumnDef("REPSE16").headerName = this.headerNamesREPSE[18];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE16").headerName = this.headerNamesREPSE[17];
                     // this.gridOptionsREPSE.api.getColumnDef("REPSE17").headerName = this.headerNamesREPSE[17];
                     // this.gridOptionsREPSE.api.getColumnDef("REPSE18").headerName = this.headerNamesREPSE[18];
-                    this.gridOptionsREPSE.api.getColumnDef("REPSE19").headerName = this.headerNamesREPSE[21];
-                    this.gridOptionsREPSE.api.getColumnDef("REPSE20").headerName = this.headerNamesREPSE[22];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE19").headerName = this.headerNamesREPSE[20];
+                    this.gridOptionsREPSE.api.getColumnDef("REPSE20").headerName = this.headerNamesREPSE[21];
                     // this.gridOptionsREPSE.api.getColumnDef("REPSE21").headerName = this.headerNamesREPSE[21];
                     // this.gridOptionsREPSE.api.getColumnDef("REPSE22").headerName = this.headerNamesREPSE[22];
                     this.gridOptionsREPSE.api.refreshHeader();
@@ -3068,19 +3068,19 @@
                     this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT5").headerName = this.headerNamesPRODUCT[5];
                     // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT6").headerName = this.headerNamesPRODUCT[6];
                     // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT7").headerName = this.headerNamesPRODUCT[7];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT8").headerName = this.headerNamesPRODUCT[10];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT9").headerName = this.headerNamesPRODUCT[11];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT8").headerName = this.headerNamesPRODUCT[9];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT9").headerName = this.headerNamesPRODUCT[10];
                     // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT10").headerName = this.headerNamesPRODUCT[10];
                     // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT11").headerName = this.headerNamesPRODUCT[11];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT12").headerName = this.headerNamesPRODUCT[14];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT13").headerName = this.headerNamesPRODUCT[15];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT12").headerName = this.headerNamesPRODUCT[13];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT13").headerName = this.headerNamesPRODUCT[14];
                     // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT14").headerName = this.headerNamesPRODUCT[14];
                     // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT15").headerName = this.headerNamesPRODUCT[15];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT16").headerName = this.headerNamesPRODUCT[18];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT16").headerName = this.headerNamesPRODUCT[17];
                     // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT17").headerName = this.headerNamesPRODUCT[17];
                     // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT18").headerName = this.headerNamesPRODUCT[18];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT19").headerName = this.headerNamesPRODUCT[21];
-                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT20").headerName = this.headerNamesPRODUCT[22];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT19").headerName = this.headerNamesPRODUCT[20];
+                    this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT20").headerName = this.headerNamesPRODUCT[21];
                     // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT21").headerName = this.headerNamesPRODUCT[21];
                     // this.gridOptionsPRODUCT.api.getColumnDef("PRODUCT22").headerName = this.headerNamesPRODUCT[22];
                     this.gridOptionsPRODUCT.api.refreshHeader();
@@ -3122,19 +3122,19 @@
                     this.gridOptionsSCBE.api.getColumnDef("SCBE5").headerName = this.headerNamesSCBE[6];
                     // this.gridOptionsSCBE.api.getColumnDef("SCBE6").headerName = this.headerNamesSCBE[7];
                     // this.gridOptionsSCBE.api.getColumnDef("SCBE7").headerName = this.headerNamesSCBE[8];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE8").headerName = this.headerNamesSCBE[11];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE9").headerName = this.headerNamesSCBE[12];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE8").headerName = this.headerNamesSCBE[10];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE9").headerName = this.headerNamesSCBE[11];
                     // this.gridOptionsSCBE.api.getColumnDef("SCBE10").headerName = this.headerNamesSCBE[11];
                     // this.gridOptionsSCBE.api.getColumnDef("SCBE11").headerName = this.headerNamesSCBE[12];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE12").headerName = this.headerNamesSCBE[15];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE13").headerName = this.headerNamesSCBE[16];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE12").headerName = this.headerNamesSCBE[14];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE13").headerName = this.headerNamesSCBE[15];
                     // this.gridOptionsSCBE.api.getColumnDef("SCBE14").headerName = this.headerNamesSCBE[15];
                     // this.gridOptionsSCBE.api.getColumnDef("SCBE15").headerName = this.headerNamesSCBE[16];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE16").headerName = this.headerNamesSCBE[19];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE16").headerName = this.headerNamesSCBE[18];
                     // this.gridOptionsSCBE.api.getColumnDef("SCBE17").headerName = this.headerNamesSCBE[18];
                     // this.gridOptionsSCBE.api.getColumnDef("SCBE18").headerName = this.headerNamesSCBE[19];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE19").headerName = this.headerNamesSCBE[22];
-                    this.gridOptionsSCBE.api.getColumnDef("SCBE20").headerName = this.headerNamesSCBE[23];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE19").headerName = this.headerNamesSCBE[21];
+                    this.gridOptionsSCBE.api.getColumnDef("SCBE20").headerName = this.headerNamesSCBE[22];
                     // this.gridOptionsSCBE.api.getColumnDef("SCBE21").headerName = this.headerNamesSCBE[22];
                     // this.gridOptionsSCBE.api.getColumnDef("SCBE22").headerName = this.headerNamesSCBE[23];
                     this.gridOptionsSCBE.api.refreshHeader();
