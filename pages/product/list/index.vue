@@ -39,7 +39,7 @@
                 columnDefs: [
                     {headerName: "Product Name", field: "product_name", minWidth: 90, headerClass: 'resizable-header',onCellDoubleClicked: this.openProduct},
                     {headerName: "Product Type", field: "product_type", minWidth: 110, headerClass: 'resizable-header'},
-                    {headerName: "Wine Farm", field: "wine_farm", minWidth: 110, headerClass: 'resizable-header',onCellDoubleClicked: this.openWineFarm},
+                    {headerName: "Wine Farm", field: "wine_farm", minWidth: 110, headerClass: 'resizable-header'},
                     {headerName: "Description", field: "description", minWidth: 110, headerClass: 'resizable-header'},
                     {headerName: "Vintage", field: "vintage", minWidth: 110, headerClass: 'resizable-header'},
                     {headerName: "Blend", field: "blend", minWidth: 110, headerClass: 'resizable-header'},
@@ -101,6 +101,9 @@
                 axios.post(this.$store.state.api_url + '/product_list', request)
                 .then(response => {
                     console.log(response);
+                    for(var i = 0; i < response.data.data.records.length; i++){
+                        response.data.data.records[i].wine_farm = response.data.data.records[i].description.substring(0, 2);
+                    }
                     _this.gridOptions.api.setColumnDefs(_this.columnDefs);
                     _this.gridOptions.api.setRowData(response.data.data.records);
                 })
