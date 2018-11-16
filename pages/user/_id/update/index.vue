@@ -54,12 +54,18 @@
                         </ag-grid-vue>
                     </div>
                 </div>
+                <div class="uk-card-body" style="width: 100%; height: 75vh;" v-if="type == 'Farm'">
+                    <div style="width: 100%; height: 70vh;">
+                        <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptions2" :columnDefs="columnDefs2" :rowData="rowData2">
+                        </ag-grid-vue>
+                    </div>
+                </div>
                 <div class="uk-margin" uk-margin style="margin-left:40px; padding-bottom:40px">
                     <button class="uk-button uk-button-default" @click="createProfile()">Submit</button>
                 </div>
             </div>
         </div>
-    
+
     </div>
 </template>
 
@@ -71,12 +77,12 @@
             "ag-grid-vue": AgGridVue,
             "axios": axios
         },
-    
+
         data() {
             return {
                 columnDefs: [
-                    {headerName: 'Select', 
-                        field: 'selected', 
+                    {headerName: 'Select',
+                        field: 'selected',
                         editable:true,
                         cellRenderer: this.checkboxCellRenderer,
                         width:90
@@ -90,11 +96,27 @@
                     {headerName: "Gender", field: "gender", minWidth: 100, headerClass: 'resizable-header'}
                 ],
                 rowData:[],
-                show_results_filter_selected: 0,
-                search_text: '',
                 gridOptions: {
                     onRowClicked: this.RowClickEventHandler,
-                    onRowDoubleClicked: this.openProfile,
+                    rowSelection: 'single',
+                    suppressPropertyNamesCheck: true,
+                    enableColResize: true,
+                    onGridReady: function(params) {
+                        params.api.sizeColumnsToFit();
+                    }
+                },
+                columnDefs2: [
+                    {headerName: 'Select',
+                        field: 'selected',
+                        editable:true,
+                        cellRenderer: this.checkboxCellRenderer,
+                        width:90
+                    },
+                    {headerName: "Farm Name", field: "farm_name", minWidth: 90, headerClass: 'resizable-header'}
+                ],
+                rowData2:[],
+                gridOptions2: {
+                    onRowClicked: this.RowClickEventHandler,
                     rowSelection: 'single',
                     suppressPropertyNamesCheck: true,
                     enableColResize: true,
@@ -113,7 +135,8 @@
                 type_list: [
                     {id:"Admin"},
                     {id:"Manager"},
-                    {id:"Rep"}
+                    {id:"Rep"},
+                    {id:"Farm"}
                 ],
                 session_profile: this.$store.state.session.entity.type,
                 type:""
@@ -178,6 +201,22 @@
                     console.log(error.response);
                 });
             },
+            getFarms() {
+                let request = {
+                    manager_id: this.$route.params.id
+                };
+                console.log(request);
+                axios.post(this.$store.state.api_url + '/user_profile_wine_farm_list', request)
+                .then(response => {
+                    console.log(response);
+                    this.gridOptions2.api.setColumnDefs(this.columnDefs2);
+                    this.gridOptions2.api.setRowData(response.data.data.records);
+                    this.rowData2 = response.data.data.records;
+                })
+                .catch(error => {
+                    console.log(error.response);
+                });
+            },
             createProfile() {
                 let request = {
                     profile_id: this.$route.params.id,
@@ -188,9 +227,14 @@
                         first_name: this.profile.first_name,
                         last_name: this.profile.last_name,
                         type: this.type,
-                    },
-                    reps: this.rowData,
+                    }
                 };
+                if(this.type == "Manager"){
+                    request.reps = this.rowData
+                }
+                if(this.type == "Farm"){
+                    request.farms = this.rowData
+                }
                 console.log("Request: ", request);
                 axios.post(this.$store.state.api_url + '/user_profile_update', request)
                     .then(response => {
@@ -209,6 +253,10 @@
                     this.profile.type = this.type;
                     this.getReps();
                 }
+                if(this.type != "" && this.type == "Farm"){
+                    this.profile.type = this.type;
+                    this.getFarms();
+                }
             }
         },
         beforeMount() {
@@ -221,6 +269,5 @@
 </script>
 
 <style>
-    
 </style>
 

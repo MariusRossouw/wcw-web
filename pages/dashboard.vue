@@ -6,8 +6,8 @@
                     <div class="uk-width-1-1@m">
                         <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>
                             <div class="uk-width-5-6@m">
-                                <div class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #offcanvas-usage" style="width:100%; 
-                                        background-color:#a5cb4f; 
+                                <div class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #offcanvas-usage" style="width:100%;
+                                        background-color:#a5cb4f;
                                         color:white; font-size:20px;">Filter
                                     <p v-if="filters.years.length == 0 && filters.quarters.length == 0 && filters.months.length == 0 && filters.codes.length == 0 && filters.reps.length == 0 && filters.province_filter.length == 0 && filters.merchant_groups.length == 0 && filters.merchant_filter.length == 0 && filters.wine_farms.length == 0 && filters.products.length == 0 && filters.product_types.length == 0">Showing (All)</p>
                                     <p v-if="filters.years.length > 0 || filters.quarters.length > 0 || filters.months.length > 0 || filters.codes.length > 0 || filters.reps.length > 0 || filters.province_filter.length > 0 || filters.merchant_groups.length > 0 || filters.merchant_filter.length > 0 || filters.wine_farms.length > 0 || filters.products.length > 0 || filters.product_types.length > 0">
@@ -28,11 +28,11 @@
                             </div>
                             <div class="uk-width-1-6@m">
                                 <div>
-                                    <button class="uk-button uk-button-default uk-margin-small-right" type="button" style="width:100%; 
-                                        background-color:#6296d0; 
+                                    <button class="uk-button uk-button-default uk-margin-small-right" type="button" style="width:100%;
+                                        background-color:#6296d0;
                                         color:white; font-size:20px; height:50px;" @click="getStuff()">Apply</button><br/>
-                                    <button class="uk-button uk-button-default uk-margin-small-right" type="button" style="width:100%; 
-                                        background-color:#6296d0; 
+                                    <button class="uk-button uk-button-default uk-margin-small-right" type="button" style="width:100%;
+                                        background-color:#6296d0;
                                         color:white; font-size:20px; height:50px;" @click="clearFilters()">Clear</button>
                                 </div>
                             </div>
@@ -155,11 +155,10 @@
                                     <chart :option="option" :loading="loading1" @ready="onReady" @click="onClick" id="chart1" />
                                 </div>
                             </div>
-                            <!-- <div class="uk-width-1-1@m">
-                                <div class="uk-card uk-card-default uk-card-small echarts">
-                                    <v-chart :option="option" :loading="loading1" @ready="onReady" @click="onClick" id="chart1" />
-                                </div>
-                            </div> -->
+                            <div class="uk-width-1-1@m">
+                                <button class="uk-button uk-button-default" @click="switchChart()" v-if="show == 'volume'">Volume</button>
+                                <button class="uk-button uk-button-default" @click="switchChart()" v-if="show == 'sales'">Sales</button>
+                            </div>
                             <div class="uk-width-1-4@m">
                                 <div class="uk-card uk-card-default uk-card-small superLink">
                                     <h3 class="uk-card-title">Bottom 5 Merchants</h3>
@@ -176,7 +175,7 @@
                             </div>
                             <div class="uk-width-1-4@m">
                                 <div class="uk-card uk-card-default uk-card-small superLink">
-                                    <h3 class="uk-card-title">Bottom 5 Products</h3>
+                                    <h3 class="uk-card-title">Worst Performing Merchants</h3>
                                     <img v-if="bottom5_products.length == 0" src="@/assets/svg/spinner.svg" class="logo-image" />
                                     <li v-for="(bP, index) in bottom5_products" :key="index" @click="productAddFilter(bP)" style="cursor: pointer" :title="bP.name"><span style="float:left; margin-left:5px;">{{bP.name | truncate(10, '...')}}</span> <span style="float:right; margin-right:5px;"> {{bP.value | toCurrency}}</span><br/></li>
                                 </div>
@@ -191,8 +190,8 @@
                         </div>
                     </div>
                 </div>
-    
-    
+
+
                 <div class="uk-grid-small" uk-grid>
                     <div class="uk-width-1-3@m">
                         <chart style="height: 400px; width: 100%; background-color: white" :option="option2" :loading="loading2" @ready="onReady" @click="onClick" id="chart2" />
@@ -204,7 +203,7 @@
                         <chart style="height: 400px; width: 100%; background-color: white" :option="option4" :loading="loading4" @ready="onReady" @click="onClick" id="chart4" />
                     </div>
                 </div>
-    
+
                 <div class="uk-card-small uk-width-1-1">
                     <h3>Transaction Data</h3>
                     <button @click="onBtNormal()">1 - Grouping Active</button>
@@ -219,7 +218,7 @@
             </div>
         </div>
         <!-- <img src="@/assets/wine.gif" class="logo-image"/> -->
-    
+
     </div>
 </template>
 
@@ -242,6 +241,7 @@
         },
         data() {
             return {
+                show: 'sales',
                 chart: null,
                 chart5: null,
                 loading1: true,
@@ -373,12 +373,12 @@
                                     ec: 'eastern cape',
                                     kzn: 'kwazulu natal'
                                 };
-    
+
                                 function contains(target, lookingFor) {
                                     if (target === null) return false;
                                     return target.indexOf(lookingFor) >= 0
                                 }
-    
+
                                 var literalMatch = contains(valueLowerCase, filterTextLoweCase);
                                 return literalMatch || contains(valueLowerCase, aliases[filterTextLoweCase]);
                             },
@@ -622,12 +622,12 @@
                                 var filterTextLoweCase = filterText.toLowerCase();
                                 var valueLowerCase = value.toString().toLowerCase();
                                 var aliases = {};
-    
+
                                 function contains(target, lookingFor) {
                                     if (target === null) return false;
                                     return target.indexOf(lookingFor) >= 0
                                 }
-    
+
                                 var literalMatch = contains(valueLowerCase, filterTextLoweCase);
                                 return literalMatch || contains(valueLowerCase, aliases[filterTextLoweCase]);
                             },
@@ -709,7 +709,7 @@
                     }
                 },
                 loading: false,
-                // o: {},
+                o: {},
                 o2: {},
                 o3: {},
                 o4: {},
@@ -717,9 +717,25 @@
                 option2: {},
                 option3: {},
                 option4: {},
+                topVolumeAmount: null,
+                topVolumeAccume: null,
+                topVolumeSpace: null,
+                topVolumeSpaceAccume: null,
             };
         },
         methods: {
+            switchChart(){
+                this.chart.clear();
+                this.chart.setOption({}, true);
+                if(this.show == 'sales'){
+                    this.chart.setOption(this.o2, true);
+                    this.show = 'volume'
+                }else{
+                    this.chart.setOption(this.o, true);
+                    this.show = 'sales'
+                }
+
+            },
             merchantAddFilter(merchant) {
                 for (var k = 0; k < this.merchants.length; k++) {
                     if (this.merchants[k].merchant_id == merchant.merchant_id) {
@@ -1017,12 +1033,12 @@
                                 }
                             }
                         }
-    
+
                         this.bottom5_merchants = [];
                         this.bottom5_products = [];
                         this.top5_merchants = [];
                         this.top5_products = [];
-    
+
                         if (this.loading4 != true) {
                             this.loading4 = !this.loading4;
                         }
@@ -1035,7 +1051,7 @@
                         if (this.loading3 != true) {
                             this.loading3 = !this.loading3;
                         }
-    
+
                         this.gridOptions.api.setColumnDefs(this.columnDefs);
                         this.gridOptions.api.setRowData([]);
                         this.getBudgetAndSales();
@@ -1047,7 +1063,7 @@
                         this.getTop5Merchants();
                         this.getBottom5Products();
                         this.getGraphData();
-    
+
                     })
                     .catch(error => {
                         console.log("Error: ", error.response);
@@ -1091,7 +1107,23 @@
                         // this.legend.push('Volume(L) Accum 2018');
                         this.loading1 = false;
                         this.topSaleAmount = 0;
+                        this.topVolumeAmount = 0;
+                        this.topVolumeAccume = 0;
+                        this.topVolumeSpace = 0;
+                        this.topVolumeSpaceAccume = 0;
                         for (var i = 0; i < response.data.data.years.length; i++) {
+                            for (var j = 0; j < response.data.data.years[i].volume.length; j++) {
+                                if (response.data.data.years[i].volume[j] > this.topVolumeAmount) {
+                                    this.topVolumeAmount = Math.ceil(response.data.data.years[i].sale[j] / 10000) * 400;
+                                    this.topVolumeSpace = this.topVolumeAmount / 5;
+                                }
+                            }
+                            for (var j = 0; j < response.data.data.years[i].volume_accum.length; j++) {
+                                if (response.data.data.years[i].volume_accum[j] > this.topVolumeAccume) {
+                                    this.topVolumeAccume = Math.ceil(response.data.data.years[i].volume_accum[j] / 10000) * 10000;
+                                    this.topVolumeSpaceAccume = this.topVolumeAccume / 5;
+                                }
+                            }
                             for (var j = 0; j < response.data.data.years[i].sale.length; j++) {
                                 if (response.data.data.years[i].sale[j] > this.topSaleAmount) {
                                     this.topSaleAmount = Math.ceil(response.data.data.years[i].sale[j] / 10000) * 10000;
@@ -1117,7 +1149,7 @@
                                 }
                             }
                         }
-                        var o = {
+                        this.o = {
                             tooltip: {
                                 trigger: 'axis',
                                 axisPointer: {
@@ -1162,7 +1194,7 @@
                             }],
                             yAxis: [{
                                     type: 'value',
-                                    name: 'Sales/Budget/Volume',
+                                    name: 'Sales/Budget',
                                     min: 0,
                                     max: this.topSaleAmount,
                                     interval: this.topSaleSpace,
@@ -1193,10 +1225,86 @@
                             ],
                             series: []
                         }
+                        this.o2 = {
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'cross',
+                                    crossStyle: {
+                                        color: '#999'
+                                    }
+                                }
+                            },
+                            toolbox: {
+                                feature: {
+                                    dataView: {
+                                        show: true,
+                                        readOnly: false,
+                                        title: 'Data view',
+                                        lang: ['English', 'Close', 'Save']
+                                    },
+                                    magicType: {
+                                        show: true,
+                                        type: ['bar', 'line'],
+                                        title: ['Magic', '2']
+                                    },
+                                    restore: {
+                                        show: true,
+                                        title: 'Restore'
+                                    },
+                                    saveAsImage: {
+                                        show: true,
+                                        title: 'Download'
+                                    }
+                                }
+                            },
+                            legend: {
+                                data: this.legend //['Budget', 'Sales 2017', 'Sales 2018', '2017 Accum', '2018 Accum', 'Budget Accum'] //legend from backend
+                            },
+                            xAxis: [{
+                                type: 'category',
+                                data: this.graph_months, // months [] from backend else use own months array that include all the months
+                                axisPointer: {
+                                    type: 'shadow'
+                                }
+                            }],
+                            yAxis: [{
+                                    type: 'value',
+                                    name: 'Volume',
+                                    min: 0,
+                                    max: this.topVolumeAmount,
+                                    interval: this.topVolumeSpace,
+                                    axisLabel: {
+                                        formatter: '{value} L'
+                                    },
+                                    axisLine: {
+                                        lineStyle: {
+                                            color: '#b34038'
+                                        }
+                                    },
+                                },
+                                {
+                                    type: 'value',
+                                    name: 'Accum',
+                                    min: 0,
+                                    max: this.topVolumeAccume,
+                                    interval: this.topVolumeSpaceAccume,
+                                    axisLabel: {
+                                        formatter: '{value} L'
+                                    },
+                                    axisLine: {
+                                        lineStyle: {
+                                            color: '#5197d5'
+                                        }
+                                    },
+                                }
+                            ],
+                            series: []
+                        }
                         var j = 0;
                         for (var i = 0; i < response.data.data.years.length; i++) {
-                            // console.log(o.series.length);
-                            o.series.push({
+                            // console.log(this.o.series.length);
+                            this.o.series.push({
                                 name: this.legend[i],
                                 type: 'bar',
                                 yAxisIndex: 0,
@@ -1205,8 +1313,8 @@
                             j++;
                         }
                         for (var i = 0; i < response.data.data.years.length; i++) {
-                            // console.log(o.series.length);
-                            o.series.push({
+                            // console.log(this.o.series.length);
+                            this.o.series.push({
                                 name: this.legend[j],
                                 type: 'bar',
                                 yAxisIndex: 0,
@@ -1215,8 +1323,8 @@
                             j++;
                         }
                         for (var i = 0; i < response.data.data.years.length; i++) {
-                            // console.log(o.series.length);
-                            o.series.push({
+                            // console.log(this.o.series.length);
+                            this.o2.series.push({
                                 name: this.legend[j],
                                 type: 'bar',
                                 yAxisIndex: 0,
@@ -1226,8 +1334,8 @@
                             j++;
                         }
                         for (var i = 0; i < response.data.data.years.length; i++) {
-                            // console.log(o.series.length);
-                            o.series.push({
+                            // console.log(this.o.series.length);
+                            this.o.series.push({
                                 name: this.legend[j],
                                 type: 'line',
                                 yAxisIndex: 1,
@@ -1236,8 +1344,8 @@
                             j++;
                         }
                         for (var i = 0; i < response.data.data.years.length; i++) {
-                            // console.log(o.series.length);
-                            o.series.push({
+                            // console.log(this.o.series.length);
+                            this.o.series.push({
                                 name: this.legend[j],
                                 type: 'line',
                                 yAxisIndex: 1,
@@ -1246,18 +1354,18 @@
                             j++;
                         }
                         for (var i = 0; i < response.data.data.years.length; i++) {
-                            // console.log(o.series.length);
-                            o.series.push({
+                            // console.log(this.o.series.length);
+                            this.o2.series.push({
                                 name: this.legend[j],
                                 type: 'line',
-                                yAxisIndex: 0,
+                                yAxisIndex: 1,
                                 data: response.data.data.years[i].volume_accum // sale_accum [] -> for the year and months selected
                                 // data: [234525,234525+34532,234525+34532+234523,234525+34532+234523+3252345,234525+34532+234523+3252345+2352345,234525+34532+234523+3252345+2352345+3324234,234525+34532+234523+3252345+2352345+3324234+423434,234525+34532+234523+3252345+2352345+3324234+423434+4353453]
                             }, )
                             j++;
                         }
                         // console.log("O: ", o)
-                        this.chart.setOption(o, true);
+                        this.chart.setOption(this.o, true);
                     })
             },
             getTypes() {
@@ -1580,7 +1688,7 @@
                     });
             },
             clearFilters() {
-    
+
                 this.filters = {
                     years: [],
                     quarters: [],
@@ -1595,55 +1703,55 @@
                     reps: [],
                     types: []
                 };
-    
+
                 for (var j = 0; j < this.years.length; j++) {
                     this.years[j].selected = false;
                 }
                 for (var j = 0; j < this.quarters.length; j++) {
                     this.quarters[j].selected = false;
                 }
-    
+
                 for (var j = 0; j < this.months.length; j++) {
                     this.months[j].selected = false;
                 }
-    
+
                 for (var j = 0; j < this.codes.length; j++) {
                     this.codes[j].selected = false;
                 }
-    
+
                 for (var j = 0; j < this.merchant_groups.length; j++) {
                     this.merchant_groups[j].selected = false;
                 }
-    
-    
+
+
                 for (var j = 0; j < this.merchants.length; j++) {
                     this.merchants[j].selected = false;
                 }
-    
+
                 for (var j = 0; j < this.wine_farms.length; j++) {
                     this.wine_farms[j].selected = false;
                 }
-    
+
                 for (var j = 0; j < this.provinces.length; j++) {
                     this.provinces[j].selected = false;
                 }
-    
+
                 for (var j = 0; j < this.products.length; j++) {
                     this.products[j].selected = false;
                 }
-    
+
                 for (var j = 0; j < this.types.length; j++) {
                     this.types[j].selected = false;
                 }
-    
+
                 for (var j = 0; j < this.reps.length; j++) {
                     this.reps[j].selected = false;
                 }
-    
+
                 for (var j = 0; j < this.reps.length; j++) {
                     this.reps[j].selected = false;
                 }
-    
+
             },
             resize() {
                 this.chart.resize();
@@ -1717,37 +1825,37 @@
 </script>
 
 <style>
-    .echarts {
-        width: 100%;
-        height: 400px;
-    }
-    
-    .isSelected {
-        color: white;
-        background-color: yellowgreen;
-        width: 80%;
-        height: 30px;
-        margin-bottom: 3px;
-        margin-left: 28px;
-        border: none;
-    }
-    
-    .isNotSelected {
-        color: #3d83ec !important;
-        width: 80%;
-        height: 30px;
-        margin-bottom: 3px;
-        margin-left: 28px;
-        border: none;
-    }
+.echarts {
+  width: 100%;
+  height: 400px;
+}
 
-    .superLink {
-        overflow-y: scroll;
-        height: 200px;
-    }
-    
-    .superLink li:hover {
-        background: #adc962;
-        color: white;
-    }
+.isSelected {
+  color: white;
+  background-color: yellowgreen;
+  width: 80%;
+  height: 30px;
+  margin-bottom: 3px;
+  margin-left: 28px;
+  border: none;
+}
+
+.isNotSelected {
+  color: #3d83ec !important;
+  width: 80%;
+  height: 30px;
+  margin-bottom: 3px;
+  margin-left: 28px;
+  border: none;
+}
+
+.superLink {
+  overflow-y: scroll;
+  height: 200px;
+}
+
+.superLink li:hover {
+  background: #adc962;
+  color: white;
+}
 </style>

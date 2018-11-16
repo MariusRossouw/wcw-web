@@ -38,10 +38,11 @@
             return {
                 columnDefs: [
                     {headerName: "Product Name", field: "product_name", minWidth: 90, headerClass: 'resizable-header',onCellDoubleClicked: this.openProduct},
+                    {headerName: "Cultivar", field: "cultivar", minWidth: 110, headerClass: 'resizable-header'},
+                    {headerName: "Vintage", field: "vintage", minWidth: 110, headerClass: 'resizable-header'},
                     {headerName: "Product Type", field: "product_type", minWidth: 110, headerClass: 'resizable-header'},
                     {headerName: "Wine Farm", field: "wine_farm", minWidth: 110, headerClass: 'resizable-header'},
                     {headerName: "Description", field: "description", minWidth: 110, headerClass: 'resizable-header'},
-                    {headerName: "Vintage", field: "vintage", minWidth: 110, headerClass: 'resizable-header'},
                     {headerName: "Blend", field: "blend", minWidth: 110, headerClass: 'resizable-header'},
                     {headerName: "Color", field: "color", minWidth: 110, headerClass: 'resizable-header'},
                     {headerName: "Item Code", field: "item_code", minWidth: 110, headerClass: 'resizable-header'},
@@ -57,11 +58,13 @@
                     rowSelection: 'single',
                     suppressPropertyNamesCheck: true,
                     enableColResize: true,
+                    enableSorting: true,
+                    multiSortKey: 'ctrl',
                     onGridReady: function(params) {
                         params.api.sizeColumnsToFit();
                     }
                 }
-            };  
+            };
         },
         methods: {
             checkAuthState() {
@@ -103,9 +106,35 @@
                     console.log(response);
                     for(var i = 0; i < response.data.data.records.length; i++){
                         response.data.data.records[i].wine_farm = response.data.data.records[i].description.substring(0, 2);
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@@@@@@@@@@@@/g, '@-@-@-@-@-@-@-@');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@@@@@@@@@@@/g, '@-@-@-@-@-@-@');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@@@@@@@@@/g, '@-@-@-@-@-@');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@@@@@@@/g, '@-@-@-@-@');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@@@@@/g, '@-@-@-@');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@@@/g, '@-@-@');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@@/g, '@-@-@');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@/g, '@-@');
+                        var str_arr = response.data.data.records[i].description.split(/[@]+/);
+                        response.data.data.records[i].cultivar = str_arr[4]
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@@@@@@@@@@@@/g, ' ');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@@@@@@@@@@@/g, ' ');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@@@@@@@@@/g, ' ');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@@@@@@@/g, ' ');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@@@@@/g, ' ');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@@@/g, ' ');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@@/g, ' ');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@@/g, ' ');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@@/g, ' ');
+                        response.data.data.records[i].description = response.data.data.records[i].description.replace(/@/g, ' ');
                     }
                     _this.gridOptions.api.setColumnDefs(_this.columnDefs);
                     _this.gridOptions.api.setRowData(response.data.data.records);
+                    var defaultSortModel = [
+                        {colId: "product_name", sort: "asc"},
+                        {colId: "cultivar", sort: "asc"},
+                        {colId: "vintage", sort: "desc"}
+                    ];
+                    _this.gridOptions.api.setSortModel(defaultSortModel);
                 })
                 .catch(error => {
                     console.log(error.response);
@@ -131,6 +160,5 @@
     };
 </script>
 <style>
-
 </style>
 
