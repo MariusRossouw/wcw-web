@@ -31,7 +31,7 @@
                 <button class="uk-button uk-button-text" @click="$router.go(-1)">Home</button>
             </div>
         </center>
-    </div>        
+    </div>
 </template>
 
 <script>
@@ -50,7 +50,7 @@
                 cntrl: false,
                 delete: false,
                 shift: false,
-            };  
+            };
         },
         methods: {
             hack(event){
@@ -69,18 +69,13 @@
                     this.shift = true;
                 }
                 if(this.enter == true && this.cntrl == true){
-                    this.email = 'medwin@test.com';
-                    this.password = 'admin123';
+                    this.email = 'michiel@westercapewines.co.za';
+                    this.password = '123';
                     this.loginButton();
                 }
                 if(this.delete == true && this.cntrl == true){
                     this.email = 'marius@stratech.co.za';
-                    this.password = 'admin123';
-                    this.loginButton();
-                }
-                if(this.shift == true && this.cntrl == true){
-                    this.email = 'diane@roux.com';
-                    this.password = 'admin123';
+                    this.password = '123';
                     this.loginButton();
                 }
             },
@@ -167,6 +162,6 @@
 
 <style>
 .loginContainer {
-    margin-top: 10%;
+  margin-top: 10%;
 }
 </style>
