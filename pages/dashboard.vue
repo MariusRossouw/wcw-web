@@ -1023,6 +1023,26 @@
                         this.merchants = response.data.data.merchants;
                         this.wine_farms = response.data.data.wine_farms;
                         this.provinces = response.data.data.provinces;
+                        for(var i = 0; i < response.data.data.products.length; i++){
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@@@@@@@@@@@@/g, '@-@-@-@-@-@-@-@');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@@@@@@@@@@@/g, '@-@-@-@-@-@-@');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@@@@@@@@@/g, '@-@-@-@-@-@');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@@@@@@@/g, '@-@-@-@-@');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@@@@@/g, '@-@-@-@');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@@@/g, '@-@-@');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@@/g, '@-@-@');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@/g, '@-@');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@@@@@@@@@@@@/g, ' ');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@@@@@@@@@@@/g, ' ');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@@@@@@@@@/g, ' ');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@@@@@@@/g, ' ');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@@@@@/g, ' ');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@@@/g, ' ');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@@/g, ' ');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@@/g, ' ');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@@/g, ' ');
+                            response.data.data.products[i].product_name = response.data.data.products[i].product_name.replace(/@/g, ' ');
+                        }
                         this.products = response.data.data.products;
                         this.types = response.data.data.types;
                         this.reps = response.data.data.reps;
