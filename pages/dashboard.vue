@@ -178,7 +178,7 @@
                                 <div class="uk-card uk-card-default uk-card-small superLink">
                                     <h3 class="uk-card-title">Worst Performing Merchants</h3>
                                     <img v-if="bottom5_products.length == 0" src="@/assets/svg/spinner.svg" class="logo-image" />
-                                    <li v-for="(bP, index) in bottom5_products" :key="index" @click="productAddFilter(bP)" style="cursor: pointer" :title="bP.name"><span style="float:left; margin-left:5px;">{{bP.name | truncate(10, '...')}}</span> <span style="float:right; margin-right:5px;"> {{bP.value | toCurrency}}</span><br/></li>
+                                    <li v-for="(bP, index) in bottom5_products" :key="index" @click="merchantAddFilter(bP)" style="cursor: pointer" :title="bP.name"><span style="float:left; margin-left:5px;">{{bP.name | truncate(10, '...')}}</span> <span style="float:right; margin-right:5px;"> {{bP.value | toPerc}}</span><br/></li>
                                 </div>
                             </div>
                             <div class="uk-width-1-4@m">
@@ -1871,7 +1871,7 @@ export default {
           request
         ) //transactions_filtered
         .then(response => {
-          // console.log('Response: ', response);
+          //   console.log('Response: ', response);
           this.bottom5_products = response.data.data.bottom5_products;
         })
         .catch(error => {
