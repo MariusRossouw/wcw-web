@@ -16,7 +16,8 @@
                             <h5>Email: {{merchant.email}}</h5>
                             <h5>Mobile Number: {{merchant.mobile_number}}</h5>
                             <h5>Status: {{merchant.status}}</h5>
-                            <button class="uk-button uk-button-default" @click="updateMerchant()">Update Product</button>
+                            <button class="uk-button uk-button-default" @click="updateMerchant()">Update Merchant</button>
+                            <button class="uk-button uk-button-default" @click="order()">Order</button>
                         <!-- </div> -->
                     </div>
                 </div>
@@ -26,63 +27,65 @@
 </template>
 
 <script>
-    import { AgGridVue } from "ag-grid-vue";
-    import axios from 'axios';
-    export default {
-        components: {
-            "ag-grid-vue": AgGridVue,
-            "axios": axios
-        },
-        head() {
-            return {
-                title: this.merchant.merchant_name
-            };
-        },
-        data() {
-            return {
-                merchant: {
-                    name: ""
-                }
-            };  
-        },
-        methods: {
-            checkAuthState() {
-                let ls = JSON.parse(localStorage.getItem("State"));
-                console.log(ls);
-                if(!ls){
-                    this.$router.push("/login");
-                } else {
-                    this.$store.replaceState(ls);
-                }
-            },
-            loadMerchant() {
-                var _this = this;
-                let request = {
-                    merchant_id: _this.$route.params.id
-                };
-                console.log(request);
-                axios.post(this.$store.state.api_url + '/merchant', request)
-                .then(response => {
-                    console.log(response);
-                    _this.merchant = response.data.data;
-                })
-                .catch(error => {
-                    console.log(error.response);
-                });
-            },
-            updateMerchant(){
-                this.$router.push("/merchant/" + this.$route.params.id + "/update");
-            }
-        },
-        beforeMount() {
-            this.checkAuthState();
-        },
-        mounted() {
-            this.loadMerchant();
-        }
+import { AgGridVue } from 'ag-grid-vue';
+import axios from 'axios';
+export default {
+  components: {
+    'ag-grid-vue': AgGridVue,
+    axios: axios,
+  },
+  head() {
+    return {
+      title: this.merchant.merchant_name,
     };
+  },
+  data() {
+    return {
+      merchant: {
+        name: '',
+      },
+    };
+  },
+  methods: {
+    checkAuthState() {
+      let ls = JSON.parse(localStorage.getItem('State'));
+      console.log(ls);
+      if (!ls) {
+        this.$router.push('/login');
+      } else {
+        this.$store.replaceState(ls);
+      }
+    },
+    loadMerchant() {
+      var _this = this;
+      let request = {
+        merchant_id: _this.$route.params.id,
+      };
+      console.log(request);
+      axios
+        .post(this.$store.state.api_url + '/merchant', request)
+        .then(response => {
+          console.log(response);
+          _this.merchant = response.data.data;
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
+    },
+    updateMerchant() {
+      this.$router.push('/merchant/' + this.$route.params.id + '/update');
+    },
+    order() {
+      this.$router.push('/order/' + this.$route.params.id);
+    },
+  },
+  beforeMount() {
+    this.checkAuthState();
+  },
+  mounted() {
+    this.loadMerchant();
+  },
+};
 </script>
 <style>
-
 </style>
-

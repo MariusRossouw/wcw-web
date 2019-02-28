@@ -5,13 +5,67 @@
                 <div class="uk-card uk-card-default card_create" >
                     <div class="uk-card-body">
                         <div uk-grid>
-                            <h1>List of Products</h1>
+                            <h1>Place your Order</h1>
                             <div class="uk-card-body" style="width: 100%; height: 75vh;">
-                                <div style="width: 100%; height: 70vh;">
-                                    <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptions" :columnDefs="columnDefs" :rowData="rowData">
-                                    </ag-grid-vue>
+                            <input type="text" v-model="search" placeholder="Search" style="width: 500px; height: 50px;">
+                                <div style="width: 100%; height: 50vh; overflow-y: scroll;">
+                                    <table
+                                      class="uk-table uk-table-divider"
+                                      style="height: 48vh;">
+                                      <thead>
+                                        <tr>
+                                          <th>Group Description</th>
+                                          <th>Description</th>
+                                          <th>Product Name</th>
+                                          <th>Item Code</th>
+                                          <th>Quantity</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr
+                                          v-for="t in filteredCustomers"
+                                          :key="t.id">
+                                          <td>{{ t.product_classification }}</td>  <!-- width="20%"  -->
+                                          <td>{{ t.description }}</td>
+                                          <td>{{ t.product_name }}</td>
+                                          <td>{{ t.item_code }}</td>
+                                          <td><input type="number" v-model="t.quantity"></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
                                 </div>
-                                <button class="uk-button uk-button-default" @click="onBtExport()">Export</button>
+                              </div>
+                              <h1>Order</h1>
+                              <div class="uk-card-body" style="width: 100%; height: 75vh;">
+                                <div style="width: 100%; height: 50vh; overflow-y: scroll;">
+                                    <table
+                                      name="myText"
+                                      id="myText"
+                                      class="uk-table uk-table-divider"
+                                      style="height: 48vh;">
+                                      <thead>
+                                        <tr>
+                                          <th>Group Description</th>
+                                          <th>Description</th>
+                                          <th>Product Name</th>
+                                          <th>Item Code</th>
+                                          <th>Quantity</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr
+                                          v-for="t in toOrder"
+                                          :key="t.id">
+                                          <td>{{ t.product_classification }}</td>  <!-- width="20%"  -->
+                                          <td>{{ t.description }}</td>
+                                          <td>{{ t.product_name }}</td>
+                                          <td>{{ t.item_code }}</td>
+                                          <td>{{ t.quantity }}</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                </div>
+                                <button class="uk-button uk-button-default" @click="orderMe()">Order</button>
                             </div>
                         </div>
                     </div>
@@ -36,90 +90,26 @@ export default {
   },
   data() {
     return {
-      columnDefs: [
-        {
-          headerName: 'Group Description',
-          field: 'product_classification',
-          minWidth: 90,
-          headerClass: 'resizable-header',
-        },
-        {
-          headerName: 'Description',
-          field: 'description',
-          minWidth: 110,
-          headerClass: 'resizable-header',
-        },
-        {
-          headerName: 'Product Name',
-          field: 'product_name',
-          minWidth: 90,
-          headerClass: 'resizable-header',
-          onCellDoubleClicked: this.openProduct,
-        },
-        {
-          headerName: 'Cultivar',
-          field: 'cultivar',
-          minWidth: 110,
-          headerClass: 'resizable-header',
-        },
-        {
-          headerName: 'Vintage',
-          field: 'vintage',
-          minWidth: 110,
-          headerClass: 'resizable-header',
-        },
-        {
-          headerName: 'Product Type',
-          field: 'product_type',
-          minWidth: 110,
-          headerClass: 'resizable-header',
-        },
-        {
-          headerName: 'Wine Farm',
-          field: 'wine_farm',
-          minWidth: 110,
-          headerClass: 'resizable-header',
-        },
-        {
-          headerName: 'Color',
-          field: 'color',
-          minWidth: 110,
-          headerClass: 'resizable-header',
-        },
-        {
-          headerName: 'Item Code',
-          field: 'item_code',
-          minWidth: 110,
-          headerClass: 'resizable-header',
-        },
-        {
-          headerName: 'Size',
-          field: 'size',
-          minWidth: 110,
-          headerClass: 'resizable-header',
-        },
-        {
-          headerName: 'Volume',
-          field: 'volume',
-          minWidth: 110,
-          headerClass: 'resizable-header',
-        },
-      ],
+      search: '',
       rowData: [],
-      show_results_filter_selected: 0,
-      search_text: '',
-      gridOptions: {
-        onRowDoubleClicked: this.openFarm,
-        rowSelection: 'single',
-        suppressPropertyNamesCheck: true,
-        enableColResize: true,
-        enableSorting: true,
-        multiSortKey: 'ctrl',
-        onGridReady: function(params) {
-          params.api.sizeColumnsToFit();
-        },
-      },
     };
+  },
+  computed: {
+    filteredCustomers: function() {
+      var self = this;
+      return this.rowData.filter(function(cust) {
+        return (
+          cust.product_name.toLowerCase().indexOf(self.search.toLowerCase()) >=
+          0
+        );
+      });
+      //return this.customers;
+    },
+    toOrder: function() {
+      return this.rowData.filter(function(i) {
+        return i.quantity > 0;
+      });
+    },
   },
   methods: {
     checkAuthState() {
@@ -142,21 +132,6 @@ export default {
       } else {
         return 'No mobile number';
       }
-    },
-    openProduct(params) {
-      console.log(params);
-      this.$router.push('/product/' + params.data.product_id);
-    },
-    openWineFarm(params) {
-      console.log(params);
-      this.$router.push('/farm/' + params.data.wine_farm_id);
-    },
-    onBtExport() {
-      var params = {
-        fileName: 'Users list',
-        sheetName: 'List of users',
-      };
-      this.gridOptions.api.exportDataAsExcel(params);
     },
     loadProductList() {
       var _this = this;
@@ -285,14 +260,7 @@ export default {
               ' '
             );
           }
-          _this.gridOptions.api.setColumnDefs(_this.columnDefs);
-          _this.gridOptions.api.setRowData(response.data.data.records);
-          var defaultSortModel = [
-            { colId: 'product_name', sort: 'asc' },
-            { colId: 'cultivar', sort: 'asc' },
-            { colId: 'vintage', sort: 'desc' },
-          ];
-          _this.gridOptions.api.setSortModel(defaultSortModel);
+          _this.rowData = response.data.data.records;
         })
         .catch(error => {
           console.log(error.response);
@@ -307,6 +275,41 @@ export default {
         allColumnIds.push(column.colId);
       });
       gridOptions.columnApi.autoSizeColumns(allColumnIds);
+    },
+    orderMe() {
+      var link =
+        'mailto:me@example.com' +
+        '?cc=myCCaddress@example.com' +
+        '&subject=' +
+        escape('This is my subject') +
+        '&body=' +
+        escape(`
+          <h1>Order</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>Group Description</th>
+                <th>Description</th>
+                <th>Product Name</th>
+                <th>Item Code</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (var i = 0; i < toOrder.length; i++) { %>
+                <%=toOrder[i].amenities_name%>
+              <tr>
+                <td><%=toOrder[i].product_classification%></td>
+                <td><%=toOrder[i].description%></td>
+                <td><%=toOrder[i].product_name%></td>
+                <td><%=toOrder[i].item_code%></td>
+                <td><%=toOrder[i].quantity%></td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        `);
+      window.location.href = link;
     },
   },
   beforeMount() {
