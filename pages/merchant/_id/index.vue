@@ -76,6 +76,11 @@ export default {
       this.$router.push('/merchant/' + this.$route.params.id + '/update');
     },
     order() {
+      this.$store.state.session.merchant = this.merchant;
+      localStorage.setItem(
+        'Merchant',
+        JSON.stringify(this.$store.state.session.merchant)
+      );
       this.$router.push('/order/' + this.$route.params.id);
     },
   },

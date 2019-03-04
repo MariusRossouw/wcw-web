@@ -114,11 +114,13 @@ export default {
   methods: {
     checkAuthState() {
       let ls = JSON.parse(localStorage.getItem('State'));
+      let lsm = JSON.parse(localStorage.getItem('Merchant'));
       console.log(ls);
       if (!ls) {
         this.$router.push('/login');
       } else {
         this.$store.replaceState(ls);
+        this.$store.state.session.merchant = lsm;
       }
     },
     mobileValueGetter(params) {
@@ -277,14 +279,7 @@ export default {
       gridOptions.columnApi.autoSizeColumns(allColumnIds);
     },
     orderMe() {
-      var link =
-        'mailto:me@example.com' +
-        '?cc=myCCaddress@example.com' +
-        '&subject=' +
-        escape('This is my subject') +
-        '&body=' +
-        escape(`
-          <h1>Order</h1>
+      var message = `
           <table>
             <thead>
               <tr>
@@ -295,20 +290,42 @@ export default {
                 <th>Quantity</th>
               </tr>
             </thead>
-            <tbody>
-              <% for (var i = 0; i < toOrder.length; i++) { %>
-                <%=toOrder[i].amenities_name%>
-              <tr>
-                <td><%=toOrder[i].product_classification%></td>
-                <td><%=toOrder[i].description%></td>
-                <td><%=toOrder[i].product_name%></td>
-                <td><%=toOrder[i].item_code%></td>
-                <td><%=toOrder[i].quantity%></td>
-              </tr>
-              <% } %>
-            </tbody>
-          </table>
-        `);
+            <tbody>`;
+      for (var i = 0; i < this.toOrder.length; i++) {
+        message =
+          message +
+          `<td>` +
+          this.toOrder[i].product_classification +
+          `</td>
+                <td>` +
+          this.toOrder[i].description +
+          `</td>
+                <td>` +
+          this.toOrder[i].product_name +
+          `</td>
+                <td>` +
+          this.toOrder[i].item_code +
+          `</td>
+                <td>` +
+          this.toOrder[i].quantity +
+          `</td>
+              </tr>`;
+      }
+      message =
+        message +
+        `
+              </tbody>
+          </table>`;
+      var link =
+        'mailto:michiel@westercapewines.co.za' +
+        '?cc=' +
+        this.$store.state.session.entity.email +
+        '&subject=' +
+        escape(
+          'A new order for ' + this.$store.state.session.merchant.merchant_name
+        ) +
+        '&body=' +
+        escape(message);
       window.location.href = link;
     },
   },
