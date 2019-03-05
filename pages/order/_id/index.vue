@@ -325,7 +325,7 @@ export default {
           'A new order for ' + this.$store.state.session.merchant.merchant_name
         ) +
         '&body=' +
-        escape(message);
+        message;
       window.location.href = link;
     },
   },
