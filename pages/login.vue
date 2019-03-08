@@ -69,7 +69,7 @@ export default {
         this.shift = true;
       }
       if (this.enter == true && this.cntrl == true) {
-        this.email = 'michiel@westercapewines.co.za';
+        this.email = 'michiel@westerncapewines.co.za';
         this.password = '123';
         this.loginButton();
       }
