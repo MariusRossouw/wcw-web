@@ -279,54 +279,40 @@ export default {
       gridOptions.columnApi.autoSizeColumns(allColumnIds);
     },
     orderMe() {
-      var message = `
-          <table>
-            <thead>
-              <tr>
-                <th>Group Description</th>
-                <th>Description</th>
-                <th>Product Name</th>
-                <th>Item Code</th>
-                <th>Quantity</th>
-              </tr>
-            </thead>
-            <tbody>`;
-      for (var i = 0; i < this.toOrder.length; i++) {
-        message =
-          message +
-          `<td>` +
-          this.toOrder[i].product_classification +
-          `</td>
-                <td>` +
-          this.toOrder[i].description +
-          `</td>
-                <td>` +
-          this.toOrder[i].product_name +
-          `</td>
-                <td>` +
-          this.toOrder[i].item_code +
-          `</td>
-                <td>` +
-          this.toOrder[i].quantity +
-          `</td>
-              </tr>`;
-      }
-      message =
-        message +
-        `
-              </tbody>
-          </table>`;
-      var link =
-        'mailto:michiel@westercapewines.co.za' +
-        '?cc=' +
-        this.$store.state.session.entity.email +
-        '&subject=' +
-        escape(
-          'A new order for ' + this.$store.state.session.merchant.merchant_name
-        ) +
-        '&body=' +
-        message;
-      window.location.href = link;
+      let request = {
+        app_name: 'RedDot',
+        template_name: 'WCW-Order-Body',
+        brand_name: 'WCW',
+        send_now: true,
+        from: this.$store.state.session.entity.email,
+        // to: 'michiel@westerncapewines.co.za',
+        to: 'strenika@gmail.com',
+        actual_data: {
+          rep_name: this.$store.state.session.entity.name,
+          store_name: this.$store.state.session.merchant.merchant_name,
+          order: this.toOrder,
+        },
+        cc: [
+          {
+            name: this.$store.state.session.entity.name,
+            email: this.$store.state.session.entity.email,
+          },
+        ],
+        bcc: [{ name: 'Marius', email: 'marius@stratech.co.za' }],
+      };
+      console.log(request);
+      axios
+        .post(
+          'https://admin-api-stage.stratech.co.za' +
+            '/media_templater_template_queue',
+          request
+        )
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
     },
   },
   beforeMount() {
