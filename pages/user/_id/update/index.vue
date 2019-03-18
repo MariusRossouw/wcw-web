@@ -277,6 +277,7 @@ export default {
       let request = {
         profile_id: this.$route.params.id,
         update: {
+          profile_id: this.$route.params.id,
           email: this.profile.email,
           mobile_no_exl: this.profile.mobile_no,
           password: this.profile.password,

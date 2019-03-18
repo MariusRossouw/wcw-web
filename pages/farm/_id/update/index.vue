@@ -6,11 +6,11 @@
             <div uk-grid>
 
               <div class="uk-form-stacked">
-                  
+
                   <div class="uk-margin">
                       <label class="uk-form-label" for="form-stacked-text">Winefarm Name</label>
                       <div class="uk-form-controls">
-                          <input class="uk-input" type="text" placeholder="Winefarm Name" v-model="farm_name">
+                          {{ farm_name }}
                       </div>
                   </div>
                   <div class="uk-margin">
@@ -71,72 +71,73 @@
 <script>
 import axios from 'axios';
 export default {
-      components: {
-          "axios": axios
-      },
+  components: {
+    axios: axios,
+  },
 
-    data() {
-        return {
-            farm_name:"",
-            address_line_1:"",
-            address_line_2:"",
-            address_line_3:"",
-            address_line_4:"",
-            email:"",
-            mobile_number:"",
-            status:""
-        }
+  data() {
+    return {
+      farm_name: '',
+      address_line_1: '',
+      address_line_2: '',
+      address_line_3: '',
+      address_line_4: '',
+      email: '',
+      mobile_number: '',
+      status: '',
+    };
+  },
+  methods: {
+    updateProduct() {
+      let request = {
+        wine_farm_id: this.$route.params.id,
+        update: {
+          address_line_1: this.address_line_1,
+          address_line_2: this.address_line_2,
+          address_line_3: this.address_line_3,
+          address_line_4: this.address_line_4,
+          email: this.email,
+          mobile_number: this.mobile_number,
+          status: this.status,
+          wine_farm_id: this.$route.params.id,
+        },
+      };
+      console.log('Request: ', request);
+      axios
+        .post(this.$store.state.api_url + '/wine_farm_update', request)
+        .then(response => {
+          // Add entity to session in vuex
+          console.log('Response: ', response);
+          this.$router.push('/farm/' + this.$route.params.id);
+        })
+        .catch(error => {
+          console.log(error.response);
+          if (error.response.status == 400) {
+            console.log(error.response);
+          }
+          if (error.response.status == 401) {
+            console.log(error.response);
+            // login / session expired
+          }
+          if (error.response.status == 403) {
+            console.log(error.response);
+            // broke a rule
+            new Error();
+            // this.$router.push("/error");
+          }
+          if (error.response.status == 404) {
+            console.log(error.response);
+            // page not found / not there
+          }
+          if (error.response.status == 500) {
+            console.log(error.response);
+            // server error / db error
+          }
+        });
     },
-    methods: {
-        updateProduct(){
-            let request = {
-                    farm_name: this.farm_name,
-                    address_line_1: this.address_line_1,
-                    address_line_2: this.address_line_2,
-                    address_line_3: this.address_line_3,
-                    address_line_4: this.address_line_4,
-                    email: this.email,
-                    mobile_number: this.mobile_number,
-                    status: this.status,
-                    wine_farm_id: this.$route.params.id
-                };
-                console.log("Request: ", request);
-                axios.post(this.$store.state.api_url + '/wine-farm_update', request)
-                    .then(response => {
-                        // Add entity to session in vuex
-                        console.log('Response: ', response);
-                        this.$router.push("/farm/" + this.$route.params.id);
-                    })
-                    .catch(error => {
-                        console.log(error.response);
-                        if(error.response.status == 400){
-                            console.log(error.response);
-                        }
-                        if(error.response.status == 401){
-                            console.log(error.response);
-                            // login / session expired
-                        }
-                        if(error.response.status == 403){
-                            console.log(error.response);
-                            // broke a rule
-                            new Error();
-                            // this.$router.push("/error");
-                        }
-                        if(error.response.status == 404){
-                            console.log(error.response);
-                            // page not found / not there
-                        }
-                        if(error.response.status == 500){
-                            console.log(error.response);
-                            // server error / db error
-                        }
-                    });
-        }
-    }
-}
+  },
+};
 </script>
 
 <style>
-
 </style>
-

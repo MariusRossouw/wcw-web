@@ -745,6 +745,27 @@ export default {
       topVolumeSpaceAccume: null,
     };
   },
+  watch: {
+    'filters.quarters': {
+      handler() {
+        for (var i = 0; i < this.filters.quarters.length; i++) {
+          if (this.filters.quarters[i] === 'Q1') {
+            this.filters.months.concat(['June', 'July', 'August']);
+          }
+          if (this.filters.quarters[i] === 'Q2') {
+            this.filters.months.concat(['September', 'October', 'November']);
+          }
+          if (this.filters.quarters[i] === 'Q3') {
+            this.filters.months.concat(['December', 'January', 'February']);
+          }
+          if (this.filters.quarters[i] === 'Q4') {
+            this.filters.months.concat(['March', 'April', 'May']);
+          }
+        }
+      },
+      deep: true,
+    },
+  },
   computed: {
     filteredList() {
       return this.merchants.filter(post => {

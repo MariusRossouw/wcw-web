@@ -7,8 +7,9 @@
                         <div uk-grid>
                             <h1>List of Merchants</h1>
                             <div class="uk-card-body" style="width: 100%; height: 75vh;">
+                            <input type="text" v-model="search" placeholder="Search" style="width: 500px; height: 50px;">
                                 <div style="width: 100%; height: 70vh;">
-                                    <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptions" :columnDefs="columnDefs" :rowData="rowData">
+                                    <ag-grid-vue style="height: 100%; width: 100%" ref="table" class="ag-theme-balham" :gridOptions="gridOptions" :columnDefs="columnDefs" :rowData="filteredMerchants">
                                     </ag-grid-vue>
                                 </div>
                                 <button class="uk-button uk-button-default" @click="onBtExport()">Export</button>
@@ -36,6 +37,7 @@ export default {
   },
   data() {
     return {
+      search: '',
       columnDefs: [
         {
           headerName: 'Merchant Name',
@@ -114,6 +116,18 @@ export default {
         suppressPropertyNamesCheck: true,
       },
     };
+  },
+  computed: {
+    filteredMerchants: function() {
+      var self = this;
+      return this.rowData.filter(function(cust) {
+        return (
+          cust.merchant_name.toLowerCase().indexOf(self.search.toLowerCase()) >=
+          0
+        );
+      });
+      //return this.customers;
+    },
   },
   methods: {
     onBtNormal() {

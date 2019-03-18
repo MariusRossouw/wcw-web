@@ -4,7 +4,7 @@
             <div class="uk-card uk-card-default card_create">
                 <div class="uk-card-body">
                     <div uk-grid>
-    
+
                         <div class="uk-form-stacked">
                             <div class="uk-margin">
                                 <label class="uk-form-label" for="form-stacked-text">abrv</label>
@@ -63,7 +63,7 @@
                             <div class="uk-margin">
                                 <label class="uk-form-label" for="form-stacked-text">Item Code</label>
                                 <div class="uk-form-controls">
-                                    <input class="uk-input" type="text" placeholder="Item Code" v-model="item_code">
+                                    {{ item_code }}
                                 </div>
                             </div>
                             <div class="uk-margin">
@@ -100,98 +100,99 @@
                                 <button class="uk-button uk-button-default" @click="updateProduct()">Submit</button>
                             </div>
                         </div>
-    
+
                     </div>
                 </div>
             </div>
         </div>
-    
+
     </div>
 </template>
 
 <script>
-    import axios from 'axios';
-    export default {
-        components: {
-            "axios": axios
+import axios from 'axios';
+export default {
+  components: {
+    axios: axios,
+  },
+
+  data() {
+    return {
+      abrv: '',
+      product_name: '',
+      cultivar: '',
+      special: '',
+      description: '',
+      product_classification: '',
+      vintage: '',
+      blend: '',
+      color: '',
+      item_code: '',
+      size: '',
+      volume: '',
+      measurement: '',
+      case_size: '',
+      status: '',
+    };
+  },
+  methods: {
+    updateProduct() {
+      let request = {
+        product_id: this.$route.params.id,
+        update: {
+          abrv: this.abrv,
+          product_name: this.product_name,
+          cultivar: this.cultivar,
+          special: this.special,
+          description: this.description,
+          product_classification: this.product_classification,
+          vintage: this.vintage,
+          blend: this.blend,
+          color: this.color,
+          size: this.size,
+          volume: this.volume,
+          measurement: this.measurement,
+          case_size: this.case_size,
+          status: this.status,
+          product_id: this.$route.params.id,
         },
-    
-        data() {
-            return {
-                abrv: "",
-                product_name: "",
-                cultivar: "",
-                special: "",
-                description: "",
-                product_classification: "",
-                vintage: "",
-                blend: "",
-                color: "",
-                item_code: "",
-                size: "",
-                volume: "",
-                measurement: "",
-                case_size: "",
-                status: ""
-            }
-        },
-        methods: {
-            updateProduct() {
-                let request = {
-                    abrv: this.abrv,
-                    product_name: this.product_name,
-                    cultivar: this.cultivar,
-                    special: this.special,
-                    description: this.description,
-                    product_classification: this.product_classification,
-                    vintage: this.vintage,
-                    blend: this.blend,
-                    color: this.color,
-                    item_code: this.item_code,
-                    size: this.size,
-                    volume: this.volume,
-                    measurement: this.measurement,
-                    case_size: this.case_size,
-                    status: this.status,
-                    product_id: this.$route.params.id
-                };
-                console.log("Request: ", request);
-                axios.post(this.$store.state.api_url + '/product_update', request)
-                    .then(response => {
-                        // Add entity to session in vuex
-                        console.log('Response: ', response);
-                        this.$router.push("/product/" + this.$route.params.id);
-                    })
-                    .catch(error => {
-                        console.log(error.response);
-                        if (error.response.status == 400) {
-                            console.log(error.response);
-                        }
-                        if (error.response.status == 401) {
-                            console.log(error.response);
-                            // login / session expired
-                        }
-                        if (error.response.status == 403) {
-                            console.log(error.response);
-                            // broke a rule
-                            new Error();
-                            // this.$router.push("/error");
-                        }
-                        if (error.response.status == 404) {
-                            console.log(error.response);
-                            // page not found / not there
-                        }
-                        if (error.response.status == 500) {
-                            console.log(error.response);
-                            // server error / db error
-                        }
-                    });
-            }
-        }
-    }
+      };
+      console.log('Request: ', request);
+      axios
+        .post(this.$store.state.api_url + '/product_update', request)
+        .then(response => {
+          // Add entity to session in vuex
+          console.log('Response: ', response);
+          this.$router.push('/product/' + this.$route.params.id);
+        })
+        .catch(error => {
+          console.log(error.response);
+          if (error.response.status == 400) {
+            console.log(error.response);
+          }
+          if (error.response.status == 401) {
+            console.log(error.response);
+            // login / session expired
+          }
+          if (error.response.status == 403) {
+            console.log(error.response);
+            // broke a rule
+            new Error();
+            // this.$router.push("/error");
+          }
+          if (error.response.status == 404) {
+            console.log(error.response);
+            // page not found / not there
+          }
+          if (error.response.status == 500) {
+            console.log(error.response);
+            // server error / db error
+          }
+        });
+    },
+  },
+};
 </script>
 
 <style>
-    
 </style>
-
